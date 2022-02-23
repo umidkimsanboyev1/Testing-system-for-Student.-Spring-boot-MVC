@@ -1,4 +1,4 @@
-package uz.master.demotest.Configs;
+package uz.master.demotest.configs;
 
 public class BaseConfiguration {
 }

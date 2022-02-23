@@ -1,8 +1,8 @@
-package uz.master.demotest.Entity;
+package uz.master.demotest.entity.comment;
 
 import lombok.Getter;
 import lombok.Setter;
-import uz.master.demotest.Entity.auth.AuthUser;
+import uz.master.demotest.entity.Auditable;
 
 import javax.persistence.*;
 
@@ -22,11 +22,9 @@ public class Comment extends Auditable {
     @Column(nullable = false)
     private String text;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "author_id")
-    private AuthUser author;
+    @Column(nullable = false)
+    private Long authorId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "task_id")
-    private Task task;
+    @Column(nullable = false)
+    private Long taskId;
 }

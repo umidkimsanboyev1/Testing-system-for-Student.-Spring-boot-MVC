@@ -1,7 +1,8 @@
-package uz.master.demotest.Entity;
+package uz.master.demotest.entity.organization;
 
 import lombok.Getter;
 import lombok.Setter;
+import uz.master.demotest.entity.Auditable;
 
 import javax.persistence.*;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Organization extends Auditable{
+public class Organization extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

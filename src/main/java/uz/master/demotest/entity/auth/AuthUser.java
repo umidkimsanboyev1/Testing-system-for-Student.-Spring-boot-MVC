@@ -1,10 +1,10 @@
-package uz.master.demotest.Entity.auth;
+package uz.master.demotest.entity.auth;
 
 
 import lombok.Getter;
 import lombok.Setter;
-import uz.master.demotest.Entity.Auditable;
-import uz.master.demotest.Entity.Organization;
+import uz.master.demotest.entity.Auditable;
+import uz.master.demotest.entity.organization.Organization;
 
 import javax.persistence.*;
 

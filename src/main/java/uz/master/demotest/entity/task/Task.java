@@ -1,11 +1,10 @@
-package uz.master.demotest.Entity;
+package uz.master.demotest.entity.task;
 
 import lombok.Getter;
 import lombok.Setter;
-import uz.master.demotest.Entity.auth.AuthUser;
+import uz.master.demotest.entity.Auditable;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * @author Bekpulatov Shoxruh, Wed 2:40 PM. 2/23/2022
@@ -31,10 +30,7 @@ public class Task extends Auditable {
     @Column(nullable = false)
     private String priority;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "column_id_id", nullable = false)
-    private ProjectColumn column;
+    @Column(nullable = false)
+    private Long columnId;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<AuthUser> members;
 }

@@ -1,4 +1,4 @@
-package uz.master.demotest.Controller;
+package uz.master.demotest.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

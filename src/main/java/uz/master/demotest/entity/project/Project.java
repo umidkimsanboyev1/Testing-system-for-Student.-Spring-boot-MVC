@@ -1,19 +1,19 @@
-package uz.master.demotest.Entity;
-
+package uz.master.demotest.entity.project;
 
 import lombok.Getter;
 import lombok.Setter;
+import uz.master.demotest.entity.Auditable;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
- * @author Bekpulatov Shoxruh, Wed 3:09 PM. 2/23/2022
+ * @author Bekpulatov Shoxruh, Wed 2:40 PM. 2/23/2022
  */
 @Getter
 @Setter
 @Entity
-public class ProjectColumn extends Auditable{
+public class Project extends Auditable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,11 +21,13 @@ public class ProjectColumn extends Auditable{
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private int order;
+    private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "project_id")
-    private Project project;
+    @Column(nullable = false)
+    private String tz;
+
+    @Column(nullable = false)
+    private Long orgId;
+
 
 }

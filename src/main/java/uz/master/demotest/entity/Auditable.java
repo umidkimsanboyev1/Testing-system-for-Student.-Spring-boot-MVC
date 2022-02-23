@@ -1,4 +1,4 @@
-package uz.master.demotest.Entity;
+package uz.master.demotest.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package uz.master.demotest.Entity.auth;
+package uz.master.demotest.entity.auth;
 
 import lombok.Getter;
 import lombok.Setter;
