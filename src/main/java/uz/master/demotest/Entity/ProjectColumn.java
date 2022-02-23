@@ -28,6 +28,4 @@ public class ProjectColumn extends Auditable{
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Task> tasks;
 }

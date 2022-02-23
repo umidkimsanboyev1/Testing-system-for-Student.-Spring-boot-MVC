@@ -25,4 +25,8 @@ public class Comment extends Auditable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
     private AuthUser author;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "task_id")
+    private Task task;
 }
