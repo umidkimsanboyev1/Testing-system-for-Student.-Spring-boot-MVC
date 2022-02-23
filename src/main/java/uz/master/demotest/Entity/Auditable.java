@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,7 +17,11 @@ import java.util.Date;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Auditable {
+public abstract class Auditable implements Serializable,BaseEntity
+
+
+
+{
 
     private String created_at = new Date().toString();
     private String updated_at;
