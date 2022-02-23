@@ -7,7 +7,6 @@ import uz.master.demotest.Entity.Auditable;
 import uz.master.demotest.Entity.Organization;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Getter
 @Setter

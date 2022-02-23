@@ -1,30 +1,52 @@
 package uz.master.demotest.Entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
-/**
- * @author Bekpulatov Shoxruh, Wed 2:56 PM. 2/23/2022
- */
+
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class Auditable implements Serializable,BaseEntity
+public abstract class Auditable implements BaseEntity, Serializable {
 
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    protected Long id;
 
-{
+    @CreatedDate
+    @CreationTimestamp
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP default NOW()")
+    private LocalDateTime createdAt;
 
-    private String created_at = new Date().toString();
-    private String updated_at;
-    private boolean isDeleted = false;
+    @LastModifiedDate
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    @Column(name = "is_deleted", columnDefinition = "NUMERIC default 0")
+    private boolean deleted;
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
 }
