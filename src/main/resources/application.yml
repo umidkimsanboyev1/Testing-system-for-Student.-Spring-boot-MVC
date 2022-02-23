@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/atomsProject?currentSchema=todo
+    username: postgres
+    password: umidmaster98
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  messages:
+    always-use-message-format: true
+server:
+  port: 8081

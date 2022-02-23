@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index html one</title>
+    <link rel="stylesheet" href="./assets/css/index2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+        <header>
+            <main>
+                <div class="menu-bar">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="logo">
+                    <img src="./assets/imges/logo.png" alt="">
+                </div>
+
+                <div class="link">
+                    <a href="#"> -- Clients
+                    </a>
+                    <a href="#">Task manager</a>
+                    <a href="#">Inbox</a>
+                    <a href="#">Contacts</a>
+                </div>
+            </main>
+
+            <aside>
+                <nav>
+                    <div class="input">
+                        <div>
+                            <i class="fas fa-search"></i>
+                        </div>
+                       
+                        <input type="text" placeholder="Search">
+                    </div>
+
+                    <div class="user-information">
+                        <div class="icon">
+                            <img src="./assets/imges/bell.png" alt="">
+                            <i class="far fa-envelope"></i>
+                        </div>    
+                        
+                        <div class="user">
+                            <img src="./assets/imges/useer.png" alt="">
+                            <p>Azhar I.
+                                <i class="fas fa-angle-down"></i>
+                            </p>
+                        </div>
+
+                    </div>
+                    
+                </nav>
+
+                <div class="container">
+                    <h3>Project name</h3>
+
+                    <div class="contents">
+                        <div class="content">
+                            <div class="box">
+                                <p><b>Date added:</b> <span> 12/04/2021</span></p>
+                                <p><b>Deadline:</b><span>12/04/2021 </span></p>
+                                <p><b>Participants:</b><span>12/04/2021 </span></p>
+                            </div>
+                            <div class="content-box">
+                                <p>Менеджер для внутреннего пользования, предназначенный для учета статистики и трекинга задач.
+                                </p>
+                            </div>
+                            <div class="boxs">
+                                <p><b>All tasks:</b> 1</p>
+                                <p><b>Done:</b> 1</p>
+                                <p><b>Frozen:</b> 1</p>
+                            </div>
+                        </div>
+
+                        <div class="todoContainer">
+                            <div class="todoContent-box">
+                                <div class="todo-img">
+                                    <p>To do</p>
+                                    <img src="./assets/imges/plus-circle.png" alt="">
+                                </div>
+                                <div class="todo-box">
+                                    <h4>CRM system design
+                                        <button class="medium">Medium</button>   
+                                    </h4>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                </div>
+
+                                <div class="todo-box">
+                                    <h4>CRM system design
+                                        <button class="low">Low</button>   
+                                    </h4>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                </div>
+
+                                <div class="todo-box">
+                                    <h4>CRM system design
+                                        <button class="high">High</button>   
+                                    </h4>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                </div>
+                            </div>
+                            <div class="todoContent-box">
+                                <div class="todo-img">
+                                    <p>To do</p>
+                                </div>
+                                <div class="todo-box">
+                                    <h4>CRM system design
+                                        <button class="low">Low</button>   
+                                    </h4>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                </div>
+
+                                <div class="todo-box">
+                                    <h4>CRM system design
+                                        <button class="low">Low</button>   
+                                    </h4>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                </div>
+                            </div>
+                            <div class="todoContent-box">
+                                <div class="todo-img">
+                                    <p>To do</p>
+                                </div>
+                            </div>
+                            <div class="todoContent-box">
+                                <div class="todo-img">
+                                    <p>To do</p>
+                                </div>
+                                <div class="todo-box">
+                                    <h4>CRM system design
+                                        <button class="low">Low</button>   
+                                    </h4>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                    <p><span>Participant:  </span>Azhar</p>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </aside>
+
+        </header>
+
+        <script>
+            const menu = document.querySelector(".menu-bar")
+            const main = document.querySelector("main")
+            menu.addEventListener("click", () => {
+                main.classList.toggle("open")
+            })
+        </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./assets/css/login.css">
+
+    <!-- google font link  -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&display=swap"
+        rel="stylesheet">
+
+        <!-- font awesome link -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="goBack" id="link">
+            <a href="#">Back</a>
+            <a href="#">Register</a>
+        </div>
+        <div class="login-text">
+            <h3>Login</h3>
+            <p>Please login using account detail bellow.</p>
+        </div>
+
+        <div class="login-input">
+            <input type="text" placeholder="Email Address">
+            <div class="password">
+                <i class="fas"></i>
+                <input type="password" placeholder="Password" class="InputPassword">
+            </div>
+           
+            <div class="forgot">
+                <p>Forgot your password?</p>
+
+                <div>
+                    <label>Remember Me</label>
+                    <input type="checkbox"> 
+                </div>
+               
+            </div>
+           
+        </div>
+
+        <div class="login-button">
+            <button type="submit">Sign In</button>
+            <p>Don’t have an Account?Create account</p>
+        </div>
+    </div>
+
+    <script>
+        const passwordEye = document.querySelector(".fas")
+        const InputPassword = document.querySelector(".InputPassword")
+        
+        passwordEye.addEventListener('click', function() {
+            passwordEye.classList.toggle("fa-eye-slash")
+            passwordEye.classList.add("fa-eye")
+        
+            if (passwordEye.classList.value != "fas fa-eye fa-eye-slash") {
+                console.log("fa-eye")
+                InputPassword.type = "text"
+                 
+            } else {
+                InputPassword.type = "password"
+            }
+                      
+        })
+        passwordEye.classList.add("fa-eye-slash")
+      
+    </script>
+</body>
+
+</html>
