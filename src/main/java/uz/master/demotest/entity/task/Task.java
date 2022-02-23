@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Getter
 @Setter
-@Entity
+@Entity(name = "Tasks")
 public class Task extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,8 @@ public class Task extends Auditable {
 
     private String description;
 
-    private int order;
+    @Column(nullable = false)
+    private int taskOrder;
 
     @Column(nullable = false)
     private String level;

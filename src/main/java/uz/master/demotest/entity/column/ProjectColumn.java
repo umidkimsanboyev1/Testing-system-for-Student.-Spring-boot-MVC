@@ -22,7 +22,7 @@ public class ProjectColumn extends Auditable {
     private String name;
 
     @Column(nullable = false)
-    private int order;
+    private int columnOrder;
 
     @Column(nullable = false)
     private Long projectId;
