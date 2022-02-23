@@ -2,10 +2,11 @@ package uz.master.demotest.Entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.EntityListeners;
+import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
 /**
@@ -13,7 +14,9 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class Auditable {
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
+public abstract class Auditable {
 
     private String created_at = new Date().toString();
     private String updated_at;
