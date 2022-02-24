@@ -47,7 +47,7 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
 
     @Override
     public Void update(TaskUpdateDto dto) {
-        repository.update(dto);
+        repository.update(dto.getId(), dto.getName(), dto.getDescription(), dto.getTaskOrder(), dto.getLevel(), dto.getPriority(), dto.getColumnId());
         return null;
     }
 

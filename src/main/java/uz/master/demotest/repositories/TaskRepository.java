@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import uz.master.demotest.dto.task.TaskUpdateDto;
 import uz.master.demotest.entity.task.Task;
 
 import java.util.List;
@@ -25,9 +24,12 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "Update Tasks t SET t.name =#{#dto.name},t.description =#{#dto.description}," +
-            "t.taskOrder =#{#dto.taskOrder},t.priority =#{#dto.priority},t.level =#{#dto.level},t.columnId =#{#dto.columnId} WHERE t.id=#{#dto.id}")
-    void update(@Param("dto") TaskUpdateDto dto);
+    @Query(value = "Update Tasks t SET t.name =:name,t.description =:description," +
+            "t.taskOrder =:taskOrder,t.priority =:priority,t.level =:level,t.columnId =:columnId WHERE t.id=:id")
+    void update(@Param("id") Long id, @Param("name") String name,
+                @Param("description") String description, @Param("taskOrder") int taskOrder,
+                @Param("level") String level, @Param("priority") String priority,
+                @Param("columnId") Long columnId);
 
     @Modifying
     @Query(value = "insert into task_member (user_id,task_id) VALUES (:memberId,:taskId)", nativeQuery = true)
@@ -35,7 +37,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     void addMember(@Param("taskId") Long taskId, @Param("memberId") Long memberId);
 
     @Modifying
-    @Query("delete from Task_Member b where b.taskId=:taskId and b.userId=:membetId")
+    @Query("delete from Task_Member b where b.userId=:memberId and b.taskId=:taskId")
     @Transactional
     void deleteMember(@Param("taskId") Long taskId, @Param("memberId") Long memberId);
 }
