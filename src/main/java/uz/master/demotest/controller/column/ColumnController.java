@@ -35,7 +35,7 @@ private  final TaskService taskService;
         List<ColumnDto> all = service.getAll(id);
 
         all.forEach(idColoumn->{
-          idColoumn.setTaskDtos( taskService.getAll());
+          idColoumn.setTaskDtos( taskService.getAll(id));
         });
         model.addAttribute("columns",all);
         return "index2";

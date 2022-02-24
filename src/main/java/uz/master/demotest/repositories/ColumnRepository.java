@@ -10,7 +10,7 @@ import uz.master.demotest.entity.column.ProjectColumn;
 import java.util.List;
 
 public interface ColumnRepository extends JpaRepository<ProjectColumn,Long> {
-    List<ProjectColumn>findByDeletedNotAndProjectId(Boolean isDeleted,Long id);
+    List<ProjectColumn>findByDeletedFalseAndProjectId(Boolean isDeleted,Long id);
 
 
     @Transactional

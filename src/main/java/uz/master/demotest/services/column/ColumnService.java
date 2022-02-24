@@ -67,7 +67,7 @@ public class ColumnService extends AbstractService<
     }
 
     public List<ColumnDto> getAll(Long id) {
-        List<ProjectColumn> all = repository.findAllByDeletedNotAndProjectId(true,id);
+        List<ProjectColumn> all = repository.findByDeletedFalseAndProjectId(true,id);
         return mapper.toDto(all);
     }
 }
