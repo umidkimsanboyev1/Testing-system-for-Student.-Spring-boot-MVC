@@ -15,6 +15,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findAllByDeletedFalse();
 
+    List<Task> findAllByColumnIdAndDeletedFalse(Long columnId);
+
     @Transactional
     @Modifying
     @Query(value = "Update Tasks t SET t.deleted = true WHERE t.id=:id")
