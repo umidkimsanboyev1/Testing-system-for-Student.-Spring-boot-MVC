@@ -58,7 +58,7 @@ public class OrganizationController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String delete(Model model){
-        model.addAttribute("organizations", service.getOrganizations());
+        model.addAttribute("organizations", service.getAll());
         return "organization/delete";
     }
 
