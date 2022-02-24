@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/atomsProject
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=task_manager
     username: postgres
-    password: Shoxruh0912
+    password: akhrullo
   jpa:
     show-sql: true
     hibernate:
@@ -12,4 +12,4 @@ spring:
   messages:
     always-use-message-format: true
 server:
-  port: 8080
+  port: 8090

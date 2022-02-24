@@ -2,6 +2,7 @@ package uz.master.demotest.services;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 import uz.master.demotest.mappers.Mapper;
 import uz.master.demotest.utils.Validator;
 
@@ -10,6 +11,7 @@ import uz.master.demotest.utils.Validator;
  * @param <M>
  * @param <V>
  */
+
 public abstract class AbstractService<
         R extends JpaRepository,
         M extends Mapper,

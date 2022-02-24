@@ -1,5 +1,6 @@
 package uz.master.demotest.services.project;
 
+import org.springframework.stereotype.Service;
 import uz.master.demotest.dto.project.ProjectCreateDto;
 import uz.master.demotest.dto.project.ProjectDto;
 import uz.master.demotest.dto.project.ProjectUpdateDto;
@@ -13,6 +14,7 @@ import uz.master.demotest.utils.Validator;
 
 import java.util.List;
 
+@Service
 public class ProjectService extends AbstractService<ProjectRepository, ProjectMapper, Validator>
         implements GenericCrudService<Project, ProjectDto, ProjectCreateDto, ProjectUpdateDto, Long> {
 
@@ -45,5 +47,9 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
     @Override
     public ProjectDto get(Long id) {
         return mapper.toDto(repository.findByIdAndDeletedFalse(id));
+    }
+
+    public ProjectUpdateDto getUpdateDto(Long id) {
+        return mapper.toUpdateDto(get(id));
     }
 }

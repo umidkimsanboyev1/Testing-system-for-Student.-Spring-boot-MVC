@@ -1,6 +1,7 @@
 package uz.master.demotest.services;
 
 
+import org.springframework.stereotype.Service;
 import uz.master.demotest.dto.BaseDto;
 import uz.master.demotest.dto.GenericDto;
 import uz.master.demotest.entity.BaseEntity;
