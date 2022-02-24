@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import uz.master.demotest.dto.project.ProjectDto;
+import uz.master.demotest.dto.project.ProjectUpdateDto;
 import uz.master.demotest.entity.project.Project;
 
 import javax.transaction.Transactional;
@@ -23,5 +24,5 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
     @Transactional
     @Modifying
     @Query(value = "update Project p set p.name = #{#dto.name}, p.description = #{#dto.description}, p.tz = #{#dto.tz}, p.orgId = #{#dto.orgId}  where p.id = #{#dto.id}",nativeQuery = true)
-    void update(@Param("dto") ProjectDto dto);
+    void update(@Param("dto") ProjectUpdateDto dto);
 }

@@ -8,7 +8,7 @@ import uz.master.demotest.mappers.ProjectMapper;
 import uz.master.demotest.repositories.ProjectRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
-import uz.master.demotest.utils.BaseUtils;
+
 import uz.master.demotest.utils.Validator;
 
 import java.util.List;
@@ -17,31 +17,33 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
         implements GenericCrudService<Project, ProjectDto, ProjectCreateDto, ProjectUpdateDto, Long> {
 
     protected ProjectService(ProjectRepository repository, ProjectMapper mapper, Validator validator, BaseUtils baseUtils) {
-        super(repository, mapper, validator, baseUtils);
+        super(repository, mapper, validator);
     }
 
     @Override
     public Long create(ProjectCreateDto createDto) {
-        return null;
+        return repository.save(mapper.fromCreateDto(createDto)).getId();
     }
 
     @Override
     public Void delete(Long id) {
+        repository.delete(id);
         return null;
     }
 
     @Override
     public Void update(ProjectUpdateDto updateDto) {
+        repository.update(updateDto);
         return null;
     }
 
     @Override
     public List<ProjectDto> getAll() {
-        return null;
+        return mapper.toDto(repository.findAllByDeletedFalse());
     }
 
     @Override
     public ProjectDto get(Long id) {
-        return null;
+        return mapper.toDto(repository.findByIdAndDeletedFalse(id));
     }
 }
