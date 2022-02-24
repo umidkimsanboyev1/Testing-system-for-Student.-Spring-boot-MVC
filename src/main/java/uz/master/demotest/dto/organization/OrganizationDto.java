@@ -3,6 +3,7 @@ package uz.master.demotest.dto.Organization;
 
 import lombok.Getter;
 import lombok.Setter;
+import uz.master.demotest.dto.GenericDto;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -11,7 +12,7 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
-public class OrganizationDto {
+public class OrganizationDto extends GenericDto {
 
     private Long id;
 

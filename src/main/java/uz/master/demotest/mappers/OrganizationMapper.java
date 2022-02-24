@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 @Mapper(componentModel = "spring")
-public interface OrganizationMapper {
+public interface OrganizationMapper extends BaseMapper<Organization, uz.master.demotest.dto.Organization.OrganizationDto, OrganizationCreateDto, OrganizationUpdateDto> {
 
     Organization fromCreateDto(OrganizationCreateDto dto);
 
