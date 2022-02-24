@@ -15,4 +15,6 @@ public class CommentDto extends GenericDto {
     private Long authorId;
 
     private Long taskId;
+
+
 }

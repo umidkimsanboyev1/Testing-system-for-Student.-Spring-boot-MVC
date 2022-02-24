@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -32,11 +32,11 @@
             <p>Please login using account detail bellow.</p>
         </div>
 
-        <div class="login-input">
-            <input type="text" placeholder="Email Address">
+        <div class="login-input" th:action="@{/auth/login}" th:method="POST" >
+            <input type="text" placeholder="username" name="username">
             <div class="password">
                 <i class="fas"></i>
-                <input type="password" placeholder="Password" class="InputPassword">
+                <input type="password" placeholder="Password" class="InputPassword" name="password">
             </div>
            
             <div class="forgot">
@@ -44,7 +44,7 @@
 
                 <div>
                     <label>Remember Me</label>
-                    <input type="checkbox"> 
+                    <input type="checkbox" name="remember-me">
                 </div>
                
             </div>

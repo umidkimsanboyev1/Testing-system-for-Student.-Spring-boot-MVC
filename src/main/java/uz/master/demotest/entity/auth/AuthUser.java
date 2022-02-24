@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table
 public class AuthUser extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +26,7 @@ public class AuthUser extends Auditable {
     @JoinColumn(name = "role_id", nullable = false)
     private AuthRole role;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "org_id", nullable = false)
-    private Organization organization;
+    private Long organizationId;
 
     private boolean active = true;
 

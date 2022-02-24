@@ -9,7 +9,6 @@ import uz.master.demotest.mappers.TaskMapper;
 import uz.master.demotest.repositories.TaskRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
-import uz.master.demotest.utils.BaseUtils;
 import uz.master.demotest.utils.Validator;
 
 import java.util.List;
@@ -20,8 +19,8 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
         , TaskCreateDto, TaskUpdateDto, Long> {
 
 
-    protected TaskService(TaskRepository repository, TaskMapper mapper, Validator validator, BaseUtils baseUtils) {
-        super(repository, mapper, validator, baseUtils);
+    protected TaskService(TaskRepository repository, TaskMapper mapper, Validator validator) {
+        super(repository, mapper, validator);
     }
 
     @Override

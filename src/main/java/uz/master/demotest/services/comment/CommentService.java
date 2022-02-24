@@ -10,7 +10,7 @@ import uz.master.demotest.mappers.CommentMapper;
 import uz.master.demotest.repositories.CommentRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
-import uz.master.demotest.utils.BaseUtils;
+
 import uz.master.demotest.utils.Validator;
 
 import java.util.List;
@@ -20,8 +20,10 @@ public class CommentService extends AbstractService<CommentRepository, CommentMa
         implements GenericCrudService<Comment, CommentDto, CommentCreateDto, CommentUpdateDto, Long> {
 
 
-    protected CommentService(CommentRepository repository, CommentMapper mapper, Validator validator, BaseUtils baseUtils) {
-        super(repository, mapper, validator, baseUtils);
+    protected CommentService(CommentRepository repository,
+                             CommentMapper mapper,
+                             Validator validator) {
+        super(repository, mapper, validator);
     }
 
     @Override
