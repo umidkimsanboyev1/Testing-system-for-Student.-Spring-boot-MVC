@@ -13,7 +13,8 @@ import java.util.List;
  * @param <UD> -> Update Dto
  */
 
-public interface BaseMapper<E extends BaseEntity,
+public interface BaseMapper<
+        E extends BaseEntity,
         D extends GenericDto,
         CD extends BaseDto,
         UD extends GenericDto> extends Mapper {
