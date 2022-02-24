@@ -8,7 +8,6 @@ import uz.master.demotest.mappers.ProjectMapper;
 import uz.master.demotest.repositories.ProjectRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
-import uz.master.demotest.utils.BaseUtils;
 import uz.master.demotest.utils.Validator;
 
 import java.util.List;
@@ -16,8 +15,8 @@ import java.util.List;
 public class ProjectService extends AbstractService<ProjectRepository, ProjectMapper, Validator>
         implements GenericCrudService<Project, ProjectDto, ProjectCreateDto, ProjectUpdateDto, Long> {
 
-    protected ProjectService(ProjectRepository repository, ProjectMapper mapper, Validator validator, BaseUtils baseUtils) {
-        super(repository, mapper, validator, baseUtils);
+    protected ProjectService(ProjectRepository repository, ProjectMapper mapper, Validator validator) {
+        super(repository, mapper, validator);
     }
 
     @Override
