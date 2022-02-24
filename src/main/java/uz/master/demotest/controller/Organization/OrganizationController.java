@@ -11,7 +11,7 @@ import uz.master.demotest.dto.organization.OrganizationUpdateDto;
 import uz.master.demotest.services.organization.OrganizationService;
 
 @Controller
-@RequestMapping(value = "/organization/**")
+@RequestMapping(value = "/organization/")
 public class OrganizationController {
 
     private final OrganizationService service;

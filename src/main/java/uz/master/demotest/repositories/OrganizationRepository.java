@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
 
-    Organization findOrganizationByIdAndDeletedNot(Long id);
+//    Organization findOrganizationByIdAndDeletedNot(Long id);
 
     List<Organization> findAllByDeletedNot(Boolean deleted);
 
-    Organization findOrganizationByNameAndDeletedNot(String name);
+//    Organization findOrganizationByNameAndDeletedNot(String name);
 
 
     @Transactional

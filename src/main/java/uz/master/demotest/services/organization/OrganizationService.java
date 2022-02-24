@@ -26,7 +26,7 @@ public class OrganizationService {
 
 
     public OrganizationUpdateDto getOrganization(Long id) {
-        return mapper.toUpdateDto(repository.findOrganizationByIdAndDeletedNot(id));
+        return null;/*mapper.toUpdateDto(repository.findOrganizationByIdAndDeletedNot(id));*/
     }
 
     public void update(OrganizationUpdateDto dto) {
