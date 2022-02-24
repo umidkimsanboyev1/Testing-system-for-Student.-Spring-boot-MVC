@@ -5,10 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.master.demotest.dto.GenericDto;
 
+/**
+ * @author Bekpulatov Shoxruh, Thu 10:43 AM. 2/24/2022
+ */
 @AllArgsConstructor
 @Getter
 @Setter
-public class TaskDto extends GenericDto {
+public class TaskUpdateDto extends GenericDto {
     private String name;
     private String description;
     private int taskOrder;

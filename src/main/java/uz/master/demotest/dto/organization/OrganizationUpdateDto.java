@@ -12,7 +12,4 @@ import uz.master.demotest.dto.GenericDto;
 @Setter
 public class OrganizationUpdateDto extends GenericDto {
 
-    public OrganizationUpdateDto(long id) {
-        super(id);
-    }
 }

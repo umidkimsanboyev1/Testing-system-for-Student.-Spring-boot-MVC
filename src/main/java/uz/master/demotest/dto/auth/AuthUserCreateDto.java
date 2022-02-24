@@ -1,4 +1,6 @@
 package uz.master.demotest.dto.auth;
 
-public class AuthUserCreateDto {
+import uz.master.demotest.dto.BaseDto;
+
+public class AuthUserCreateDto implements BaseDto {
 }

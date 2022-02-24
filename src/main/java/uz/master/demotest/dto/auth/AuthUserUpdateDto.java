@@ -1,4 +1,6 @@
 package uz.master.demotest.dto.auth;
 
-public class AuthUserUpdateDto {
+import uz.master.demotest.dto.GenericDto;
+
+public class AuthUserUpdateDto extends GenericDto {
 }
