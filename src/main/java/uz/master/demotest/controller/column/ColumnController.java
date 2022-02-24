@@ -9,15 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import uz.master.demotest.dto.column.ColumnCreateDto;
 import uz.master.demotest.dto.column.ColumnDto;
 import uz.master.demotest.dto.column.ColumnUpdateDto;
-import uz.master.demotest.dto.task.TaskDto;
 import uz.master.demotest.services.column.ColumnService;
 import uz.master.demotest.services.task.TaskService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("project/column")
+@RequestMapping("project/column/")
 public class ColumnController {
     private final ColumnService service;
 private  final TaskService taskService;

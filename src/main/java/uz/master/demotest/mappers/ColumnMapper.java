@@ -7,7 +7,7 @@ import uz.master.demotest.dto.column.ColumnDto;
 import uz.master.demotest.dto.column.ColumnUpdateDto;
 import uz.master.demotest.entity.column.ProjectColumn;
 
-@Component
+
 @Mapper(componentModel = "spring")
 public interface ColumnMapper extends BaseMapper<ProjectColumn, ColumnDto, ColumnCreateDto, ColumnUpdateDto> {
 }

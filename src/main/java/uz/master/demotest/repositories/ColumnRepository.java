@@ -10,14 +10,13 @@ import uz.master.demotest.entity.column.ProjectColumn;
 import java.util.List;
 
 public interface ColumnRepository extends JpaRepository<ProjectColumn,Long> {
-    List<ProjectColumn>findByDeletedFalseAndProjectId(Boolean isDeleted,Long id);
+    List<ProjectColumn>findByProjectIdAndDeletedFalse(Long id);
 
 
     @Transactional
     @Modifying
-    @Query(value = "Update ProjectColumn t SET t.deleted = true WHERE t.id=:id and t.projectId=:projectId")
-    void delete(@Param("id") Long id,@Param("projectId")long projectId);
+    @Query(value = "Update ProjectColumn t SET t.deleted = true WHERE t.id=:id")
+    void delete(@Param("id") Long id);
 
 
-    List<ProjectColumn>findAllByDeletedNotAndProjectId(Boolean isDeleted,Long id);
 }

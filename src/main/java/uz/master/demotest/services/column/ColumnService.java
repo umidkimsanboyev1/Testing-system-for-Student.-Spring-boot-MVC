@@ -37,16 +37,11 @@ public class ColumnService extends AbstractService<
 
     @Override
     public Void delete(Long id) {
-        ProjectColumn byId = repository.findById(id).orElseThrow();
-        byId.setDeleted(true);
-        repository.save(byId);
+        repository.delete(id);
        return null;
     }
 
-    public Void delete(Long id,Long projectId) {
-        repository.delete(id,projectId);
-        return null;
-    }
+
     @Override
     public Void update(ColumnUpdateDto updateDto) {
         ProjectColumn column = mapper.fromUpdateDto(updateDto);
@@ -67,7 +62,7 @@ public class ColumnService extends AbstractService<
     }
 
     public List<ColumnDto> getAll(Long id) {
-        List<ProjectColumn> all = repository.findByDeletedFalseAndProjectId(true,id);
+        List<ProjectColumn> all = repository.findByProjectIdAndDeletedFalse(id);
         return mapper.toDto(all);
     }
 }
