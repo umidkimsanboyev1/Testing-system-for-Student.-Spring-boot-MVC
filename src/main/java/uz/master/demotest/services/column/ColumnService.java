@@ -1,6 +1,7 @@
 package uz.master.demotest.services.column;
 
 
+import org.springframework.stereotype.Service;
 import uz.master.demotest.dto.column.ColumnCreateDto;
 import uz.master.demotest.dto.column.ColumnDto;
 import uz.master.demotest.dto.column.ColumnUpdateDto;
@@ -12,10 +13,9 @@ import uz.master.demotest.services.GenericCrudService;
 import uz.master.demotest.services.GenericService;
 import uz.master.demotest.utils.ColumnValidator;
 
-
 import java.util.List;
-import java.util.Optional;
 
+@Service
 public class ColumnService extends AbstractService<
         ColumnRepository,
         ColumnMapper,
@@ -37,23 +37,37 @@ public class ColumnService extends AbstractService<
 
     @Override
     public Void delete(Long id) {
-        Optional<ProjectColumn> byId = repository.findById(id);
-
-        return ;
+        ProjectColumn byId = repository.findById(id).orElseThrow();
+        byId.setDeleted(true);
+        repository.save(byId);
+       return null;
     }
 
+    public Void delete(Long id,Long projectId) {
+        repository.delete(id,projectId);
+        return null;
+    }
     @Override
     public Void update(ColumnUpdateDto updateDto) {
-        return null;
+        ProjectColumn column = mapper.fromUpdateDto(updateDto);
+       repository.save(column);
+       return null;
     }
 
     @Override
     public List<ColumnDto> getAll() {
-        return null;
+        List<ProjectColumn> all = repository.findAll();
+        return mapper.toDto(all);
     }
 
     @Override
     public ColumnDto get(Long id) {
-        return null;
+        ProjectColumn byId = repository.findById(id).orElseThrow();
+        return mapper.toDto(byId);
+    }
+
+    public List<ColumnDto> getAll(Long id) {
+        List<ProjectColumn> all = repository.findAllByDeletedNotAndProjectId(true,id);
+        return mapper.toDto(all);
     }
 }
