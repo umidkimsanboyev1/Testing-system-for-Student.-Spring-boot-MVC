@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("project/column/")
 public class ColumnController {
     private final ColumnService service;
-private  final TaskService taskService;
+    private final TaskService taskService;
 
 
     public ColumnController(
@@ -29,28 +29,30 @@ private  final TaskService taskService;
     }
 
     @RequestMapping("list/{id}")
-    public String list(Model model, @RequestParam Long id){
+    public String list(Model model, @RequestParam Long id) {
         List<ColumnDto> all = service.getAll(id);
 
-        all.forEach(idColoumn->{
-          idColoumn.setTaskDtos( taskService.getAll(id));
+        all.forEach(idColoumn -> {
+            idColoumn.setTaskDtos(taskService.getAll(id));
         });
-        model.addAttribute("columns",all);
+        model.addAttribute("columns", all);
         return "index2";
     }
 
-    @RequestMapping(value = "create/",method = RequestMethod.POST)
-    public String create(@ModelAttribute ColumnCreateDto dto){
+    @RequestMapping(value = "create/", method = RequestMethod.POST)
+    public String create(@ModelAttribute ColumnCreateDto dto) {
         service.create(dto);
         return "redirect:index2";
     }
-    @RequestMapping(value = "update/",method = RequestMethod.POST)
-    public String create(@ModelAttribute ColumnUpdateDto dto){
+
+    @RequestMapping(value = "update/", method = RequestMethod.POST)
+    public String create(@ModelAttribute ColumnUpdateDto dto) {
         service.update(dto);
         return "redirect:index2";
     }
-    @RequestMapping(value = "delete/",method = RequestMethod.DELETE)
-    public String delete(@RequestParam Long id){
+
+    @RequestMapping(value = "delete/", method = RequestMethod.DELETE)
+    public String delete(@RequestParam Long id) {
         service.delete(id);
         return "redirect:index2";
     }
