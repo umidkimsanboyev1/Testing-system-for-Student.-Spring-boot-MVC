@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import uz.master.demotest.dto.comment.CommentCreateDto;
 import uz.master.demotest.dto.comment.CommentDto;
 import uz.master.demotest.dto.comment.CommentUpdateDto;
+import uz.master.demotest.dto.task.TaskDto;
 import uz.master.demotest.entity.comment.Comment;
 import uz.master.demotest.mappers.CommentMapper;
 import uz.master.demotest.repositories.CommentRepository;
@@ -28,6 +29,10 @@ public class CommentService extends AbstractService<CommentRepository, CommentMa
     @Override
     public List<CommentDto> getAll() {
         return mapper.toDto(repository.findAllByDeletedFalse());
+    }
+
+    public List<CommentDto> getAll(Long taskId) {
+        return mapper.toDto(repository.findAllByTaskIdAndDeletedFalse(taskId));
     }
 
     @Override

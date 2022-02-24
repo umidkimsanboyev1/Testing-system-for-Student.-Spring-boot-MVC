@@ -28,6 +28,10 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
         return mapper.toDto(repository.findAllByDeletedFalse());
     }
 
+    public List<TaskDto> getAll(Long columnId) {
+        return mapper.toDto(repository.findAllByColumnIdAndDeletedFalse(columnId));
+    }
+
 
     @Override
     public Long create(TaskCreateDto createDto) {
