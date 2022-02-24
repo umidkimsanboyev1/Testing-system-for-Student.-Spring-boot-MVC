@@ -18,6 +18,7 @@ import javax.validation.Valid;
  */
 
 @Controller
+@RequestMapping("/task/")
 public class TaskController {
 
     private final TaskService taskService;

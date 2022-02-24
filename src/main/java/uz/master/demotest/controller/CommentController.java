@@ -17,6 +17,7 @@ import javax.validation.Valid;
  * @author Bekpulatov Shoxruh, Thu 12:04 PM. 2/24/2022
  */
 @Controller
+@RequestMapping("/comment/")
 public class CommentController {
 
     private final CommentService commentService;
