@@ -10,7 +10,7 @@ import uz.master.demotest.mappers.OrganizationMapper;
 import uz.master.demotest.repositories.OrganizationRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
-import uz.master.demotest.utils.BaseUtils;
+
 import uz.master.demotest.utils.OrganizationValidator;
 
 import java.util.List;
@@ -19,8 +19,8 @@ import java.util.List;
 public class OrganizationService extends AbstractService<OrganizationRepository, OrganizationMapper, OrganizationValidator>
         implements GenericCrudService<Organization, OrganizationDto, uz.master.demotest.dto.Organization.OrganizationCreateDto, OrganizationUpdateDto, Long> {
 
-    protected OrganizationService(OrganizationRepository repository, OrganizationMapper mapper, OrganizationValidator validator, BaseUtils baseUtils) {
-        super(repository, mapper, validator, baseUtils);
+    protected OrganizationService(OrganizationRepository repository, OrganizationMapper mapper, OrganizationValidator validator) {
+        super(repository, mapper, validator);
     }
 
 

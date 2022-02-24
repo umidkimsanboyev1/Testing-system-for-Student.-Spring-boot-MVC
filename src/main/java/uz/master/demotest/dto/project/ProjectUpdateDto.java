@@ -1,4 +1,4 @@
-package uz.master.demotest.dto.task;
+package uz.master.demotest.dto.project;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,11 +10,9 @@ import uz.master.demotest.dto.GenericDto;
 @AllArgsConstructor
 @Getter
 @Setter
-public class TaskDto extends GenericDto {
+public class ProjectUpdateDto extends GenericDto {
     private String name;
     private String description;
-    private int taskOrder;
-    private String level;
-    private String priority;
-    private Long columnId;
+    private String tz;
+    private Long orgId;
 }

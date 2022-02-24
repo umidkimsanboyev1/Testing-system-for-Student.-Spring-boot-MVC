@@ -12,11 +12,6 @@ import uz.master.demotest.exceptions.NotFoundException;
 public class OrganizationValidator extends AbstractValidator<uz.master.demotest.dto.Organization.OrganizationCreateDto, uz.master.demotest.dto.organization.OrganizationUpdateDto, Long> {
 
 
-    @Autowired
-    protected OrganizationValidator(BaseUtils baseUtils) {
-        super(baseUtils);
-    }
-
     @Override
     public void validateKey(Long id) throws NotFoundException {
 

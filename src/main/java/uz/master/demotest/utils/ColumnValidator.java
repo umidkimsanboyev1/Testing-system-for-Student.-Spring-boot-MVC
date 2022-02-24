@@ -3,5 +3,5 @@ package uz.master.demotest.utils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BaseUtils {
+public class ColumnValidator   implements Validator {
 }

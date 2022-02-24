@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index html one</title>
-    <link rel="stylesheet" href="../../static/css/index2.css">
+    <link rel="stylesheet" href="/css/index2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -152,12 +152,6 @@
 
         </header>
 
-        <script>
-            const menu = document.querySelector(".menu-bar")
-            const main = document.querySelector("main")
-            menu.addEventListener("click", () => {
-                main.classList.toggle("open")
-            })
-        </script>
+        <section th:include="fragment.html :: js-files"></section>
 </body>
 </html>
