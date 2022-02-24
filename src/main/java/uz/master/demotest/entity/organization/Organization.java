@@ -7,7 +7,7 @@ import uz.master.demotest.entity.Auditable;
 import javax.persistence.*;
 
 /**
- * @author Bekpulatov Shoxruh, Wed 2:40 PM. 2/23/2022
+ * @author Kimsanboyev Umidjon, Wed 2:40 PM. 2/23/2022
  */
 @Getter
 @Setter
@@ -37,4 +37,6 @@ public class Organization extends Auditable {
 
     @Column(nullable = false)
     private String status;
+
+    private Boolean deleted;
 }
