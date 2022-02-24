@@ -1,14 +1,31 @@
-package uz.master.demotest.dto.organization;
+package uz.master.demotest.dto.Organization;
 
-import lombok.Builder;
+
 import lombok.Getter;
 import lombok.Setter;
-import uz.master.demotest.dto.GenericDto;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Getter
 @Setter
-public class OrganizationDto extends GenericDto {
+public class OrganizationDto {
 
+    private Long id;
+
+    private String name;
+
+    private String logo;
+
+    private String email;
+
+    private String phone;
+
+    private String address;
+
+    private Long registrationNumber;
+
+    private String webSite;
 }
-
