@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import uz.master.demotest.dto.GenericDto;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,9 +14,11 @@ public class CommentDto extends GenericDto {
 
     private String text;
 
-    private Long authorId;
+    private String authorUsername;
 
     private Long taskId;
+
+    private LocalDateTime createdAt;
 
 
 }

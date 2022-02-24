@@ -11,6 +11,7 @@ import uz.master.demotest.dto.comment.CommentCreateDto;
 import uz.master.demotest.dto.comment.CommentUpdateDto;
 import uz.master.demotest.services.comment.CommentService;
 
+import javax.validation.Path;
 import javax.validation.Valid;
 
 /**
@@ -26,52 +27,12 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @RequestMapping("")
-    public String comment(Model model) {
-        model.addAttribute("comments", commentService.getAll());
-        return "comment/all";
-    }
-
-    @RequestMapping(value = "create", method = RequestMethod.GET)
-    public String createPage(Model model) {
-        model.addAttribute("dto", new CommentCreateDto());
-        return "comment/create";
-    }
-
-    @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("dto") CommentCreateDto dto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "comment/create";
-        }
+    @RequestMapping(value = "create/{id}", method = RequestMethod.POST)
+    public String comment(@ModelAttribute CommentCreateDto dto, @PathVariable(name = "id") Long id) {
+        dto.setTaskId(id);
         commentService.create(dto);
-        return "redirect:/comment/all";
+        return "redirect:/task/" + id;
     }
 
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String deletePage(@PathVariable Long id, Model model) {
-        model.addAttribute("dto", commentService.get(id));
-        return "comment/delete";
-
-    }
-
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable Long id) {
-        commentService.delete(id);
-        return "redirect:/comment/all";
-    }
-
-    @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
-    public String updatePage(@PathVariable(name = "id") Long id, Model model) {
-        CommentUpdateDto dto = commentService.getUpdateDto(id);
-        model.addAttribute("dto", dto);
-        return "comment/update";
-    }
-
-    @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
-    public String update(@PathVariable(name = "id") Long id, @ModelAttribute CommentUpdateDto dto) {
-        dto.setId(id);
-        commentService.update(dto);
-        return "redirect:/comment/all";
-    }
 
 }

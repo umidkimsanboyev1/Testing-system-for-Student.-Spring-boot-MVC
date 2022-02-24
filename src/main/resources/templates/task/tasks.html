@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/index3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&family=Rubik:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <a th:href="@{/home}"><img src="/imges/logo.png" alt=""></a>
+        </div>
+
+        <div class="link">
+            <a href="#"> -- Clients
+            </a>
+            <a th:href="@{/home}">Task manager</a>
+            <a sec:authorize="hasAnyRole('MANAGER','ADMIN')" th:href="@{/monitoring}"></a>
+            <a th:href="@{/contacts}">Contacts</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <a th:href="@{search}">
+                <div class="input">
+                    <div>
+                        <i class="fas fa-search"></i>
+                    </div>
+
+                    <input type="text" placeholder="Search">
+                </div>
+            </a>
+
+
+            <div class="user-information">
+                <div class="icon">
+                    <img src="/imges/bell.png" alt="">
+                    <i class="far fa-envelope"></i>
+                </div>
+
+                <div class="user">
+                    <img src="/imges/useer.png" alt="">
+                    <p>Azhar I.
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+
+            </div>
+        </nav>
+
+        <div class="container">
+            <h4>Task name</h4>
+
+            <div class="contents">
+                <div class="content-actions">
+                    <h5>Actions</h5>
+                    <div th:each="action,iter : ${actions}">
+                        <div class="actions-box">
+                            <p><b th:text="${iter.count}"></b><b>. Activity: </b>
+                                <b th:text="${action.createdAt}"></b>
+                            </p>
+                            <p th:text="${action.text}"></p>
+                            <b>User : </b><span th:text="${action.authorUsername}">
+                                                            <img src="/imges/Ellipse.png" alt="">Azhar
+                                                        </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container-box">
+                    <div class="content-box">
+                        <b th:text="${dto.name}"></b>
+                        <p th:text="${dto.description}"></p>
+                    </div>
+                    <form th:action="@{/comment/create/{id}(id = ${dto.id})}" method="post">
+                        <div class="content-box">
+                            <textarea name="text" placeholder="Comment" id="" cols="10" rows="3"></textarea>
+                            <button type="submit">Comment</button>
+                        </div>
+                    </form>
+
+
+                    <div class="content-actions">
+                        <div th:each="comment,iter : ${comments}">
+                            <div class="content-box">
+                                <div class="flex">
+                                    <p class="box-text" th:text="${comment.authorUsername}"><img src="/imges/avatar.png"
+                                                                                                 alt=""></p>
+                                    <p th:text="${comment.createdAt}"></p>
+                                </div>
+                                <span th:text="${iter.count} +'. '+ ${comment.text}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-status">
+                    <div class="status">
+                        <div class="status-text">
+                            <p>Level:</p>
+                            <span th:text="${dto.level}"></span>
+                        </div>
+
+                        <div class="status-text">
+                            <p>Priority:</p>
+                            <span th:text="${dto.priority}"></span>
+                        </div>
+
+                        <div class="status-text">
+                            <p>CreatedAt:</p>
+                            <span th:text="${dto.updatedAt}"></span>
+                        </div>
+
+                        <div class="status-text">
+                            <p>UpdatedAt:</p>
+                            <span th:text="${dto.createdAt}"></span>
+                        </div>
+
+                        <div class="status-text">
+                            <p>Members:</p>
+                            <div th:each="member : ${members}">
+                                <p th:text="${member.username}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn">
+                        <button type="submit">Change the priority
+                            <img src="/imges/down.png" alt="">
+                        </button>
+
+                        <button type="submit">Change the priority
+                            <img src="/imges/down.png" alt="">
+                        </button>
+
+                        <button type="submit">
+                            <img src="/imges/usercheck.png" alt="">Become a participant
+                        </button>
+
+                        <button type="submit">
+                            <img src="/imges/ion_snow.png" alt="">Freeze the task
+                        </button>
+
+                        <button type="submit">
+                            <img src="/imges/check.png" alt="">Close task
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+</header>
+
+<section th:include="fragment.html :: js-files"></section>
+</body>
+</html>

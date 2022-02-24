@@ -25,5 +25,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query(value = "Update Comment t SET t.text =:text WHERE t.id=:id")
     void update(@Param("id") Long id, @Param("text") String text);
 
-    List<Comment> findAllByTaskIdAndDeletedFalse(Long taskId);
+
+    @Query("SELECT c FROM Comment c WHERE  c.deleted =false ORDER BY c.id desc ")
+    List<Comment> findAllByTaskIdd(Long taskId);
 }

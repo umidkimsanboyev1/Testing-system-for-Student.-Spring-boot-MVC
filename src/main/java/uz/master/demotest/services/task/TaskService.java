@@ -1,17 +1,23 @@
 package uz.master.demotest.services.task;
 
 import org.springframework.stereotype.Service;
+import uz.master.demotest.dto.auth.AuthDto;
 import uz.master.demotest.dto.task.TaskCreateDto;
 import uz.master.demotest.dto.task.TaskDto;
 import uz.master.demotest.dto.task.TaskUpdateDto;
+import uz.master.demotest.entity.action.Action;
+import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.task.Task;
+import uz.master.demotest.entity.task.Task_Member;
 import uz.master.demotest.mappers.TaskMapper;
+import uz.master.demotest.repositories.AuthUserRepository;
 import uz.master.demotest.repositories.TaskRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
 import uz.master.demotest.utils.TaskValidator;
 import uz.master.demotest.utils.Validator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,8 +26,11 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
         , TaskCreateDto, TaskUpdateDto, Long> {
 
 
-    protected TaskService(TaskRepository repository, TaskMapper mapper, TaskValidator validator) {
+    private final AuthUserRepository authUserRepository;
+
+    protected TaskService(TaskRepository repository, TaskMapper mapper, TaskValidator validator, AuthUserRepository authUserRepository) {
         super(repository, mapper, validator);
+        this.authUserRepository = authUserRepository;
     }
 
     @Override
@@ -53,7 +62,11 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
 
     @Override
     public TaskDto get(Long id) {
-        return mapper.toDto(repository.findByIdAndDeletedFalse(id));
+        Task task = repository.findByIdAndDeletedFalse(id);
+        TaskDto dto = mapper.toDto(task);
+        dto.setCreatedAt(task.getCreatedAt().toString());
+        dto.setUpdatedAt(task.getUpdatedAt().toString());
+        return dto;
     }
 
 
@@ -69,5 +82,18 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
     public Void deleteMember(Long taskId, Long memberId) {
         repository.deleteMember(taskId, memberId);
         return null;
+    }
+
+    public List<Action> getActions(Long id) {
+        return repository.getActions(id);
+    }
+
+    public List<AuthUser> getMembers(Long id) {
+        List<Task_Member> memberIds = repository.getMembers(id);
+        List<AuthUser> list = new ArrayList<>();
+        for (Task_Member memberId : memberIds) {
+            list.add(authUserRepository.findById(memberId.getUserId()).get());
+        }
+        return list;
     }
 }

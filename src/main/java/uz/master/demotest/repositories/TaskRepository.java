@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import uz.master.demotest.entity.action.Action;
 import uz.master.demotest.entity.task.Task;
+import uz.master.demotest.entity.task.Task_Member;
 
 import java.util.List;
 
@@ -40,4 +42,10 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("delete from Task_Member b where b.userId=:memberId and b.taskId=:taskId")
     @Transactional
     void deleteMember(@Param("taskId") Long taskId, @Param("memberId") Long memberId);
+
+    @Query("SELECT u FROM Action u WHERE u.taskId =:id")
+    List<Action> getActions(@Param("id") Long id);
+
+    @Query("SELECT u FROM Task_Member u WHERE u.taskId =:id")
+    List<Task_Member> getMembers(Long id);
 }

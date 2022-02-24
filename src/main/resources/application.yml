@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/realproject
+    url: jdbc:postgresql://localhost:5432/atomsProject
     username: postgres
-    password: jafar
+    password: Shoxruh0912
   jpa:
     show-sql: true
     hibernate:

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import uz.master.demotest.dto.GenericDto;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -17,4 +19,6 @@ public class TaskDto extends GenericDto {
     private String level;
     private String priority;
     private Long columnId;
+    private String createdAt;
+    private String updatedAt;
 }

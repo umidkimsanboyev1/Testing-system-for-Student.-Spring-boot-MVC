@@ -1,6 +1,8 @@
 package uz.master.demotest.services.comment;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.comment.CommentCreateDto;
 import uz.master.demotest.dto.comment.CommentDto;
 import uz.master.demotest.dto.comment.CommentUpdateDto;
@@ -31,12 +33,14 @@ public class CommentService extends AbstractService<CommentRepository, CommentMa
     }
 
     public List<CommentDto> getAll(Long taskId) {
-        return mapper.toDto(repository.findAllByTaskIdAndDeletedFalse(taskId));
+        return mapper.toDto(repository.findAllByTaskIdd(taskId));
     }
 
     @Override
     public Long create(CommentCreateDto dto) {
-        return repository.save(mapper.fromCreateDto(dto)).getId();
+        Comment comment = mapper.fromCreateDto(dto);
+        comment.setAuthorUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+        return repository.save(comment).getId();
     }
 
     @Override
