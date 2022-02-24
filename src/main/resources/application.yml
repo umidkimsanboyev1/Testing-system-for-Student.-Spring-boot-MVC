@@ -1,15 +1,15 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/atomsproject?currentSchema=todo
+    url: jdbc:postgresql://localhost:5432/realproject
     username: postgres
-    password: umidmaster98
+    password: jafar
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     open-in-view: false
   messages:
     always-use-message-format: true
 server:
-  port: 8081
+  port: 8080

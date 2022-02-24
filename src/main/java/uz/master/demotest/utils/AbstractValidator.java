@@ -5,11 +5,6 @@ import uz.master.demotest.exceptions.NotFoundException;
 
 public abstract class AbstractValidator<CD, UD, K> implements Validator {
 
-    protected final BaseUtils baseUtils;
-
-    protected AbstractValidator(BaseUtils baseUtils) {
-        this.baseUtils = baseUtils;
-    }
 
     public abstract void validateKey(K id) throws NotFoundException;
 

@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,6 +31,9 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
         this.encoder = encoder;
         this.service = service;
     }
+    public static final String[] WHITE_LIST_RESOURCES = {
+            "/css/**", "/webjars/**", "/js/**","/error"
+    };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -49,7 +53,7 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
                         .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(40))
                 ).logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer
                         .logoutUrl("/auth/logout")
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout","POST"))
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
                         .deleteCookies("JSESSIONID", "remember-me")
@@ -61,8 +65,8 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(service).passwordEncoder(encoder);
     }
 
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/auth/login");
-//    }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(WHITE_LIST_RESOURCES);
+    }
 }

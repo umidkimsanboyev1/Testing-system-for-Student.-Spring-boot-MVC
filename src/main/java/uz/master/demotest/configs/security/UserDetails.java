@@ -24,7 +24,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     private AuthRole role;
 
-    private Organization organization;
+    private Long organization;
 
     private boolean active = true;
 
@@ -37,7 +37,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.role = user.getRole();
-        this.organization = user.getOrganization();
+        this.organization=user.getOrganizationId();
         this.active = user.isActive();
         this.blocked = user.isBlocked();
         processAuthorities(user);

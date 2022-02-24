@@ -13,11 +13,6 @@ import uz.master.demotest.exceptions.NotFoundException;
 public class OrganizationValidator extends AbstractValidator<OrganizationCreateDto, OrganizationUpdateDto, Long> {
 
 
-    @Autowired
-    protected OrganizationValidator(BaseUtils baseUtils) {
-        super(baseUtils);
-    }
-
     @Override
     public void validateKey(Long id) throws NotFoundException {
 
@@ -29,7 +24,7 @@ public class OrganizationValidator extends AbstractValidator<OrganizationCreateD
     }
 
     @Override
-    public void validOnUpdate(OrganizationUpdateDto cd) throws NotFoundException  {
+    public void validOnUpdate(OrganizationUpdateDto cd) throws NotFoundException {
 
     }
 }
