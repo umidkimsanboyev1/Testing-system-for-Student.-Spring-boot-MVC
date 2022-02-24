@@ -79,7 +79,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.blocked;
+        return !this.blocked;
     }
 
     @Override

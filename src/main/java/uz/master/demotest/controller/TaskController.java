@@ -30,7 +30,7 @@ public class TaskController {
     @RequestMapping("")
     public String task(Model model) {
         model.addAttribute("tasks", taskService.getAll());
-        return "task/all";
+        return "pages/task";
     }
 
     @RequestMapping(value = "create", method = RequestMethod.GET)

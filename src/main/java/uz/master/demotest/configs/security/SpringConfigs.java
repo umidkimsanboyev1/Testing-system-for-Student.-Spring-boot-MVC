@@ -31,6 +31,9 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
         this.encoder = encoder;
         this.service = service;
     }
+    public static final String[] WHITE_LIST = {
+            "/", "/auth/login","/auth/registration"
+    };
     public static final String[] WHITE_LIST_RESOURCES = {
             "/css/**", "/webjars/**", "/js/**","/error"
     };
@@ -39,8 +42,7 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(expressionInterceptUrlRegistry -> expressionInterceptUrlRegistry
-                        .antMatchers("/auth/login","/index")
-                        .permitAll()
+                        .antMatchers(WHITE_LIST).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
                         .loginPage("/auth/login")

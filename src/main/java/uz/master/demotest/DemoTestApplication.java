@@ -15,7 +15,7 @@ import java.util.UUID;
 
 //@EnableJpaAuditing
 @SpringBootApplication
-public class DemoTestApplication /*implements CommandLineRunner */{
+public class DemoTestApplication /*implements CommandLineRunner*/ {
 
 
     private final AuthUserRepository authUserRepository;
