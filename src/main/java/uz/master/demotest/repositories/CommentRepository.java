@@ -22,6 +22,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "Update Comment t SET t.text =: text WHERE t.id=:id")
+    @Query(value = "Update Comment t SET t.text =:text WHERE t.id=:id")
     void update(@Param("id") Long id, @Param("text") String text);
 }
