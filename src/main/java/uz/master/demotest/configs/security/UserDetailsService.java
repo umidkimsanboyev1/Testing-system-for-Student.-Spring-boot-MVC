@@ -4,14 +4,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import uz.master.demotest.entity.auth.AuthUser;
-import uz.master.demotest.repositories.UserRepository;
+import uz.master.demotest.repositories.AuthUserRepository;
 
 @Service
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private final UserRepository repository;
+    private final AuthUserRepository repository;
 
-    public UserDetailsService(UserRepository repository) {
+    public UserDetailsService(AuthUserRepository repository) {
         this.repository = repository;
     }
 

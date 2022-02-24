@@ -5,11 +5,6 @@ import uz.master.demotest.entity.auth.AuthUser;
 
 import java.util.Optional;
 
-
-public interface UserRepository extends JpaRepository<AuthUser, Long> {
-
+public interface AuthUserRepository extends JpaRepository<AuthUser,Long> {
     Optional<AuthUser> getAuthUserByUsername(String username);
-
-
-
 }
