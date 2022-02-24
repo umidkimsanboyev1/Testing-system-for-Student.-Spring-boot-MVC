@@ -6,22 +6,16 @@
     <meta charset="UTF-8">
     <title th:text="${name}"></title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
-    <link rel="stylesheet" href="/webjars/bootstrap/4.6.1/css/bootstrap.min.css">
-    <link
-            rel="stylesheet"
-            href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
-            integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
-            crossorigin="anonymous"
-    />
-
-
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
+
 <body>
 
 <section th:fragment="js-files">
     <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/4.6.1/js/bootstrap.min.js"></script>
+    <script src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
     <script th:src="@{/js/main.js}"></script>
 </section>
 </body>
+
 </html>
