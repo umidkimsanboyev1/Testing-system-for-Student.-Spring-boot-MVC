@@ -44,7 +44,7 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
                         .anyRequest().authenticated())
                 .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
                         .loginPage("/auth/login")
-                        .defaultSuccessUrl("/index", false)
+                        .defaultSuccessUrl("/", false)
                         .loginProcessingUrl("/auth/login")
                 )
                 .rememberMe(httpSecurityRememberMeConfigurer -> httpSecurityRememberMeConfigurer

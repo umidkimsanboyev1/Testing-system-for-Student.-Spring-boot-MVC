@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../../static/css/login.css">
+    <link rel="stylesheet" href="/css/login.css">
 
     <!-- google font link  -->
 
@@ -23,38 +23,40 @@
 
 <body>
     <div class="container">
-        <div class="goBack" id="link">
-            <a href="#">Back</a>
-            <a href="#">Register</a>
-        </div>
-        <div class="login-text">
-            <h3>Login</h3>
-            <p>Please login using account detail bellow.</p>
-        </div>
-
-        <div class="login-input" th:action="@{/auth/login}" th:method="POST" >
-            <input type="text" placeholder="username" name="username">
-            <div class="password">
-                <i class="fas"></i>
-                <input type="password" placeholder="Password" class="InputPassword" name="password">
+        <form th:action="@{/auth/login/}" th:method="post">
+            <div class="goBack" id="link">
+                <a href="#">Back</a>
+                <a href="#">Register</a>
             </div>
-           
-            <div class="forgot">
-                <p>Forgot your password?</p>
+            <div class="login-text">
+                <h3>Login</h3>
+                <p>Please login using account detail bellow.</p>
+            </div>
 
-                <div>
-                    <label>Remember Me</label>
-                    <input type="checkbox" name="remember-me">
+            <div class="login-input" th:action="@{/auth/login}" th:method="POST" >
+                <input type="text" placeholder="username" name="username">
+                <div class="password">
+                    <i class="fas"></i>
+                    <input type="password" placeholder="Password" class="InputPassword" name="password">
                 </div>
-               
-            </div>
-           
-        </div>
 
-        <div class="login-button">
-            <button type="submit">Sign In</button>
-            <p>Don’t have an Account?Create account</p>
-        </div>
+                <div class="forgot">
+                    <p>Forgot your password?</p>
+
+                    <div>
+                        <label>Remember Me</label>
+                        <input type="checkbox" name="remember-me">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="login-button">
+                <button type="submit">Sign In</button>
+                <p>Don’t have an Account?Create account</p>
+            </div>
+        </form>
     </div>
 
     <script>
