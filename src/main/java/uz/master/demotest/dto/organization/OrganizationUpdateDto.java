@@ -1,15 +1,23 @@
-package uz.master.demotest.dto.organization;
+package uz.master.demotest.dto.Organization;
 
-
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import uz.master.demotest.dto.GenericDto;
-
 
 @Getter
 @Setter
-public class OrganizationUpdateDto extends GenericDto {
+public class OrganizationUpdateDto {
+
+    private String name;
+
+    private String logo;
+
+    private String email;
+
+    private String phone;
+
+    private String address;
+
+    private String webSite;
+
 
 }
