@@ -5,6 +5,7 @@ import lombok.Setter;
 import uz.master.demotest.entity.Auditable;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 /**
  * @author Bekpulatov Shoxruh, Wed 2:40 PM. 2/23/2022
@@ -29,5 +30,8 @@ public class Project extends Auditable {
     @Column(nullable = false)
     private Long orgId;
 
+
+    @Column(nullable = false)
+    private Instant deadline;
 
 }

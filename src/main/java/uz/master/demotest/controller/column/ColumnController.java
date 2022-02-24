@@ -18,24 +18,20 @@ import java.util.List;
 @RequestMapping("project/column/")
 public class ColumnController {
     private final ColumnService service;
-    private final TaskService taskService;
 
 
     public ColumnController(
             ColumnService service,
             TaskService taskService) {
         this.service = service;
-        this.taskService = taskService;
+
     }
 
     @RequestMapping("list/{id}")
     public String list(Model model, @RequestParam Long id) {
-        List<ColumnDto> all = service.getAll(id);
 
-        all.forEach(idColoumn -> {
-            idColoumn.setTaskDtos(taskService.getAll(id));
-        });
-        model.addAttribute("columns", all);
+
+        model.addAttribute("columns", service.getAll(id));
         return "index2";
     }
 

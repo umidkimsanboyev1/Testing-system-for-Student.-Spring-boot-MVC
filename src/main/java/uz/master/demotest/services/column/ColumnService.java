@@ -11,6 +11,7 @@ import uz.master.demotest.repositories.ColumnRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
 import uz.master.demotest.services.GenericService;
+import uz.master.demotest.services.task.TaskService;
 import uz.master.demotest.utils.ColumnValidator;
 
 import java.util.List;
@@ -22,10 +23,14 @@ public class ColumnService extends AbstractService<
         ColumnValidator>
         implements GenericService<ColumnDto, Long>,
         GenericCrudService<ProjectColumn, ColumnDto, ColumnCreateDto, ColumnUpdateDto, Long> {
+  private final TaskService service;
 
-
-    protected ColumnService(ColumnRepository repository, ColumnMapper mapper, ColumnValidator validator) {
+    protected ColumnService(ColumnRepository repository,
+                            ColumnMapper mapper,
+                            ColumnValidator validator,
+                            TaskService service) {
         super(repository, mapper, validator);
+        this.service = service;
     }
 
     @Override
@@ -62,7 +67,10 @@ public class ColumnService extends AbstractService<
     }
 
     public List<ColumnDto> getAll(Long id) {
-        List<ProjectColumn> all = repository.findByProjectIdAndDeletedFalse(id);
-        return mapper.toDto(all);
+        List<ColumnDto> all = mapper.toDto(repository.findByProjectIdAndDeletedFalse(id));
+        all.forEach(column -> {
+            column.setTaskDtos(service.getAll(column.getId()));
+        });
+        return all;
     }
 }

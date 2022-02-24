@@ -9,6 +9,6 @@ public class BaseController {
 
     @RequestMapping(value = {"/home","/"})
     public String home(){
-        return "pages/projects";
+        return "project/project";
     }
 }

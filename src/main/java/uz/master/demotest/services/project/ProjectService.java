@@ -10,16 +10,21 @@ import uz.master.demotest.repositories.ProjectRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
 
-import uz.master.demotest.utils.Validator;
+import uz.master.demotest.services.column.ColumnService;
+import uz.master.demotest.utils.ProjectValidator;
 
 import java.util.List;
 
 @Service
-public class ProjectService extends AbstractService<ProjectRepository, ProjectMapper, Validator>
+public class ProjectService extends AbstractService<ProjectRepository, ProjectMapper, ProjectValidator>
         implements GenericCrudService<Project, ProjectDto, ProjectCreateDto, ProjectUpdateDto, Long> {
 
-    protected ProjectService(ProjectRepository repository, ProjectMapper mapper, Validator validator) {
+    private final ColumnService columnService;
+
+    protected ProjectService(ProjectRepository repository, ProjectMapper mapper, ProjectValidator validator,
+                             ColumnService columnService) {
         super(repository, mapper, validator);
+        this.columnService = columnService;
     }
 
     @Override
@@ -46,7 +51,9 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
 
     @Override
     public ProjectDto get(Long id) {
-        return mapper.toDto(repository.findByIdAndDeletedFalse(id));
+        ProjectDto projectDto = mapper.toDto(repository.findByIdAndDeletedFalse(id));
+        projectDto.setColumns(columnService.getAll(projectDto.getId()));
+        return projectDto;
     }
 
     public ProjectUpdateDto getUpdateDto(Long id) {

@@ -29,7 +29,7 @@ public class ProjectController {
 
     @RequestMapping("all")
     public String task(Model model) {
-        model.addAttribute("tasks", projectService.getAll());
+//        model.addAttribute("tasks", projectService.getAll());
         return "project/list";
     }
 
@@ -74,6 +74,4 @@ public class ProjectController {
         projectService.update(dto);
         return "redirect:/project/all";
     }
-
-
 }
