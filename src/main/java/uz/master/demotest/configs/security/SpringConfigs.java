@@ -57,7 +57,7 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
                         .loginProcessingUrl("/auth/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/", false)
+                        .defaultSuccessUrl("/", true)
                 )
                 .rememberMe(httpSecurityRememberMeConfigurer -> httpSecurityRememberMeConfigurer
                         .key("bsiudbhfsdhbf")
