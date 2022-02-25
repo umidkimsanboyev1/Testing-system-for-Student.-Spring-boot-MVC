@@ -1,8 +1,5 @@
 package uz.master.demotest.services.project;
 
-import org.apache.catalina.core.ApplicationContext;
-import org.apache.catalina.core.ApplicationFilterRegistration;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import uz.master.demotest.configs.security.UserDetails;
@@ -14,7 +11,6 @@ import uz.master.demotest.mappers.ProjectMapper;
 import uz.master.demotest.repositories.ProjectRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
-
 import uz.master.demotest.services.column.ColumnService;
 import uz.master.demotest.utils.ProjectValidator;
 

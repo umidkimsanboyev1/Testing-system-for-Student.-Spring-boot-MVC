@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.master.demotest.dto.project.ProjectCreateDto;
 import uz.master.demotest.dto.project.ProjectUpdateDto;
 import uz.master.demotest.services.project.ProjectService;
+import uz.master.demotest.services.task.TaskService;
 
 import javax.validation.Valid;
 
@@ -19,11 +20,9 @@ import javax.validation.Valid;
 public class ProjectController {
 
     private final ProjectService projectService;
-    private final TaskService taskService;
 
-    public ProjectController(ProjectService projectService, TaskService taskService) {
+    public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
-        this.taskService = taskService;
     }
 
     @RequestMapping("all")
