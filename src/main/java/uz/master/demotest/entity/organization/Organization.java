@@ -2,6 +2,7 @@ package uz.master.demotest.entity.organization;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import uz.master.demotest.entity.Auditable;
 import uz.master.demotest.entity.BaseEntity;
 
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@ToString
 public class Organization extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,5 +41,5 @@ public class Organization extends Auditable{
     @Column(nullable = false)
     private String status;
 
-    private Boolean deleted;
+    private Boolean deleted = false;
 }

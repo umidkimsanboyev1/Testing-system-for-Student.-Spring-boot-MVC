@@ -2,7 +2,7 @@ package uz.master.demotest.mappers;
 
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
-import uz.master.demotest.dto.Organization.OrganizationCreateDto;
+import uz.master.demotest.dto.organization.OrganizationCreateDto;
 import uz.master.demotest.dto.organization.OrganizationUpdateDto;
 import uz.master.demotest.entity.organization.Organization;
 

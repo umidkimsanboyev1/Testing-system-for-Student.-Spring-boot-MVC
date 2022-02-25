@@ -241,12 +241,18 @@ nav .input {
 .content-box textarea::-webkit-scrollbar {
   display: none;
 }
+.contentblock{
 
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
 .box-text {
   display: flex;
   align-items: center;
+  text-align: right !important;
   gap: 8px;
-  font-family: Rubik;
+  font-family: Rubik, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
