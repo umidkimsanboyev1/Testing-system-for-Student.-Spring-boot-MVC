@@ -1,6 +1,11 @@
 package uz.master.demotest.services.project;
 
+import org.apache.catalina.core.ApplicationContext;
+import org.apache.catalina.core.ApplicationFilterRegistration;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.project.ProjectCreateDto;
 import uz.master.demotest.dto.project.ProjectDto;
 import uz.master.demotest.dto.project.ProjectUpdateDto;
@@ -29,7 +34,9 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
 
     @Override
     public Long create(ProjectCreateDto createDto) {
-        return repository.save(mapper.fromCreateDto(createDto)).getId();
+        Project project = mapper.fromCreateDto(createDto);
+        project.setId(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getOrganization());
+        return repository.save(project).getId();
     }
 
     @Override

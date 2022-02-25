@@ -8,8 +8,8 @@ import uz.master.demotest.dto.GenericDto;
 import uz.master.demotest.dto.column.ColumnDto;
 import uz.master.demotest.entity.organization.Organization;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -20,12 +20,13 @@ public class ProjectDto extends GenericDto {
     private String name;
     private String description;
     private String tz;
-    private String organizationName;
+    private String organizationName="arra";
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private Instant deadline;
-    private List<ColumnDto> columns;
-    private int projectMembersCount;
+    private LocalDateTime deadline;
+    private List<ColumnDto> columns=new ArrayList<>();
+    private int projectMembersCount=0;
+
+
 
     public Integer getTasksCount() {
         int countOfTasks = 0;
