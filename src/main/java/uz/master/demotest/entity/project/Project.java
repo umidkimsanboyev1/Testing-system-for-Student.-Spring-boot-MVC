@@ -2,10 +2,13 @@ package uz.master.demotest.entity.project;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 import uz.master.demotest.entity.Auditable;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 /**
  * @author Bekpulatov Shoxruh, Wed 2:40 PM. 2/23/2022
@@ -27,11 +30,14 @@ public class Project extends Auditable {
     @Column(nullable = false)
     private String tz;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private Long orgId;
 
 
-    @Column(nullable = false)
-    private Instant deadline;
+    @CreatedDate
+    @CreationTimestamp
+    @Column(name = "deadline", columnDefinition = "TIMESTAMP default NOW()")
+    private LocalDateTime deadline;
+
 
 }
