@@ -33,8 +33,8 @@ public class ProjectController {
     }
 
     @RequestMapping("{id}")
-    public String getProjectPage(Model model, @PathVariable String id) {
-        model.addAttribute("project", projectService.get(Long.parseLong(id)));
+    public String getProjectPage(Model model, @PathVariable Long id) {
+        model.addAttribute("project", projectService.get(id));
         return "project/project";
     }
 

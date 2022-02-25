@@ -10,6 +10,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    .d-none{
+        display: none;
+    }
+</style>
 </head>
 <body>
         <header>
@@ -78,43 +83,33 @@
                             </div>
                         </div>
 
-                        <div class="todoContainer" th:each="column : *{columns}">
-                            <div class="todoContent-box" th:each="task : ${column.taskDtos}">
+                        <div class="todoContainer" >
+                            <div class="todoContent-box" th:each="column : *{columns}">
                                 <div class="todo-img">
                                     <p th:text="${column.name}">To do</p>
-                                    <a th:href="@{/task/add/{column_id}(column_id = ${column.id})}">
+                                    <a th:href="@{/task/create/{column_id}(column_id = ${column.id})}">
                                         <img src="/imges/plus-circle.png" alt="add-task-btn" class=" " th:classappend="${column.name.equals('Todo')?'d-none':''}">
                                     </a>
                                 </div>
 
-                                <div class="todo-box">
-                                    <h4 th:text="${task.name}">CRM system design
-                                        <button class="medium" th:text="${task.level}">Medium</button>
-                                    </h4>
-                                    <p><span>Participant:  </span>Azhar</p>
-                                    <p><span>Participant:  </span>Azhar</p>
-                                </div>
+                                <div th:each="task : ${column.taskDtos}">
+                                    <div class="todo-box">
+                                        <h4 >
+                                            <a th:text="${task.name}" th:href="@{/task/{task_id}(task_id = ${task.id})}" ></a>
+                                            <button class="medium" th:text="${task.level}">Medium</button>
+                                        </h4>
+                                        <p>
+                                            <span>Created :  </span>
+                                            <span th:text="${task.createdAt}"></span>
+                                        </p>
 
-                                <div class="todo-box">
-                                    <h4>CRM system design
-                                        <button class="low">Low</button>
-                                    </h4>
-                                    <p><span>Participant:  </span>Azhar</p>
-                                    <p><span>Participant:  </span>Azhar</p>
-                                    <a th:href="@{/task/{task_id}(task_id = ${task.id})}">
-                                        Go Details
-                                    </a>
-                                </div>
-
-                                <div class="todo-box">
-                                    <h4>CRM system design
-                                        <button class="high">High</button>
-                                    </h4>
-                                    <p><span>Participant:  </span>Azhar</p>
-                                    <p><span>Participant:  </span>Azhar</p>
+                                        <p>
+                                            <span>Members :  </span>
+                                            <span th:text="${task.taskMembers.size()}"></span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -122,6 +117,6 @@
 
         </header>
 
-        <section th:include="fragment.html :: js-files"></section>
 </body>
+        <section th:include="fragment.html :: js-files"></section>
 </html>

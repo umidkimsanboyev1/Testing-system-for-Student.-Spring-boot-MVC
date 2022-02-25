@@ -31,8 +31,8 @@ public class TaskController {
         this.commentService = commentService;
     }
 
-    @GetMapping(value = "{id}")
-    public String task(@PathVariable(name = "id") Long id, Model model) {
+    @GetMapping("{id}")
+    public String taskPage( Model model, @PathVariable(name = "id") Long id) {
         List<Action> actions = taskService.getActions(id);
         model.addAttribute("actions", actions);
 
@@ -44,7 +44,14 @@ public class TaskController {
 
         List<AuthUser> members = taskService.getMembers(id);
         model.addAttribute("members", members);
+
         return "task/tasks";
+    }
+
+    @GetMapping("/create/{column_id}")
+    public String createTaskPage(@PathVariable(name = "column_id") Long id ) {
+
+        return "task/create";
     }
 
 

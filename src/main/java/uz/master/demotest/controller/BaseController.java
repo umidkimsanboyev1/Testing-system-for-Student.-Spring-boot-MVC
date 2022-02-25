@@ -10,7 +10,7 @@ public class BaseController {
 
     @RequestMapping(value = {"/home", "/"})
     public String home() {
-        return "project/project";
+        return "/project/all";
     }
 
     @RequestMapping(value = {"/contacts"})
