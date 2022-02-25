@@ -284,11 +284,17 @@ nav .input {
   line-height: 20px;
   color: #000000;
 }
+.content-status{
+  height: 50%!important;
+  display: flex!important;
+  flex-direction: column!important;
+  justify-content: space-between!important;
 
+}
 .status {
   padding: 22px;
   width: 324px;
-  height: 176px;
+  /*height: 190px;*/
   background: #f6f6f6;
   border-radius: 17px;
 }
@@ -296,7 +302,7 @@ nav .input {
 .status-text {
   margin: 8px;
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   gap: 50px;
 }
 
@@ -377,122 +383,122 @@ nav .input {
   
   */
 
-@media (max-width: 1490px) {
-  header {
-    display: grid;
-    grid-template-columns: 60px 1fr;
-  }
+/*@media (max-width: 1490px) {*/
+/*  header {*/
+/*    display: grid;*/
+/*    grid-template-columns: 60px 1fr;*/
+/*  }*/
 
-  main {
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
+/*  main {*/
+/*    position: fixed;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*  }*/
 
-  header main {
-    width: 300px;
-    height: 100%;
-    position: relative;
-    top: 0;
-    left: -250px;
-    transition: 1s;
-    z-index: 2;
-  }
+/*  header main {*/
+/*    width: 300px;*/
+/*    height: 100%;*/
+/*    position: relative;*/
+/*    top: 0;*/
+/*    left: -250px;*/
+/*    transition: 1s;*/
+/*    z-index: 2;*/
+/*  }*/
 
-  .menu-bar {
-    display: block;
-    position: fixed;
-    top: 20px;
-    left: 15px;
-  }
+/*  .menu-bar {*/
+/*    display: block;*/
+/*    position: fixed;*/
+/*    top: 20px;*/
+/*    left: 15px;*/
+/*  }*/
 
-  .open {
-    width: 300px;
-    position: relative;
-    top: 0;
-    left: 0px;
-    z-index: 1;
-    transition: 1s;
-  }
-}
+/*  .open {*/
+/*    width: 300px;*/
+/*    position: relative;*/
+/*    top: 0;*/
+/*    left: 0px;*/
+/*    z-index: 1;*/
+/*    transition: 1s;*/
+/*  }*/
+/*}*/
 
-@media (max-width: 1130px) {
-  .contents {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: 330px 1fr;
-    gap: 20px;
-  }
-}
+/*@media (max-width: 1130px) {*/
+/*  .contents {*/
+/*    margin-top: 20px;*/
+/*    display: grid;*/
+/*    grid-template-columns: 330px 1fr;*/
+/*    gap: 20px;*/
+/*  }*/
+/*}*/
 
-@media (max-width: 810px) {
-  .contents {
-    margin: 20px auto;
-    display: grid;
-    grid-template-columns: 330px;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-  }
-}
+/*@media (max-width: 810px) {*/
+/*  .contents {*/
+/*    margin: 20px auto;*/
+/*    display: grid;*/
+/*    grid-template-columns: 330px;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    gap: 20px;*/
+/*  }*/
+/*}*/
 
-@media (max-width: 430px) {
-  .contents {
-    margin: 20px auto;
-    display: grid;
-    grid-template-columns: 250px;
-    align-items: center;
-    justify-content: start;
-    gap: 20px;
-    padding: 0;
-  }
-  .status,
-  .content-actions {
-    width: 250px;
-  }
-  .actions-box,
-  .content-box {
-    height: 170px;
-  }
+/*@media (max-width: 430px) {*/
+/*  .contents {*/
+/*    margin: 20px auto;*/
+/*    display: grid;*/
+/*    grid-template-columns: 250px;*/
+/*    align-items: center;*/
+/*    justify-content: start;*/
+/*    gap: 20px;*/
+/*    padding: 0;*/
+/*  }*/
+/*  .status,*/
+/*  .content-actions {*/
+/*    width: 250px;*/
+/*  }*/
+/*  .actions-box,*/
+/*  .content-box {*/
+/*    height: 170px;*/
+/*  }*/
 
-  .content-box {
-    padding: 5px;
-    height: 170px;
-  }
+/*  .content-box {*/
+/*    padding: 5px;*/
+/*    height: 170px;*/
+/*  }*/
 
-  .status {
-    height: 200px;
-  }
-  .container {
-    padding: 0;
-  }
-}
+/*  .status {*/
+/*    !*height: 200px;*!*/
+/*  }*/
+/*  .container {*/
+/*    padding: 0;*/
+/*  }*/
+/*}*/
 
-@media (max-width: 630px) {
-  .user-information {
-    width: 50px;
-    display: block;
-  }
+/*@media (max-width: 630px) {*/
+/*  .user-information {*/
+/*    width: 50px;*/
+/*    display: block;*/
+/*  }*/
 
-  .user {
-    display: block;
-    margin: 0;
-  }
+/*  .user {*/
+/*    display: block;*/
+/*    margin: 0;*/
+/*  }*/
 
-  nav {
-    display: block;
-  }
+/*  nav {*/
+/*    display: block;*/
+/*  }*/
 
-  .icon,
-  .user {
-    display: none;
-  }
+/*  .icon,*/
+/*  .user {*/
+/*    display: none;*/
+/*  }*/
 
-  .container {
-    padding: 30px 10px;
-  }
+/*  .container {*/
+/*    padding: 30px 10px;*/
+/*  }*/
 
-  .content-box {
-    height: 150px;
-  }
-}
+/*  .content-box {*/
+/*    height: 150px;*/
+/*  }*/
+/*}*/

@@ -53,7 +53,7 @@
             </div>
         </nav>
         <div class="container">
-            <h3></h3>
+            <h3>Organization</h3>
             <div class="content" th:each="organization, iter : ${organizations}">
                 <div class="contents">
                     <div class="content-text">
@@ -67,17 +67,21 @@
                             justify-content: space-around;
                             align-items: center;">
                         <img alt="Lgo Organization"
-                             style="width: 5em !important; height: 5em !important;"
+                             style="width: 10em !important; height: 10em !important;"
                              th:src="${organization.getLogo()}">
-                        <div class="blockkk">
-                            <p><i class="fa-solid fa-location-crosshairs"> </i> <i class="fa-solid fa-right-long"></i> <label
-                                    th:text="${organization.getAddress()}"></label></p>
+                        <div>
+                            <p><i class="fa-solid fa-location-crosshairs"> </i> <i class="fa-solid fa-right-long"></i>
+                                <label
+                                        th:text="${organization.getAddress()}"></label></p>
                             <p><i class="fa-solid fa-envelope"> </i> <i class="fa-solid fa-right-long"></i> <label
                                     th:text="${organization.getEmail()}"></label>
                             </p>
-                            <p><i class="fa-solid fa-browser"></i> <i class="fa-solid fa-right-long"></i> <label
-                                    th:text="${organization.getWebSite()}"></label></p>
-                            <p><i class="fa-solid fa-phone"></i> <i class="fa-solid fa-right-long"></i> <label th:text="${organization.getPhone()}"></label>
+                            <a style="cursor: pointer !important; text-decoration: none !important" th:href="${organization.getWebSite()}"><p><i class="fa-solid fa-link"></i> <i
+                                    class="fa-solid fa-right-long"></i> <label
+                                    th:text="${organization.getWebSite()}"></label>
+                            </p></a>
+                            <p><i class="fa-solid fa-phone"></i> <i class="fa-solid fa-right-long"></i> <label
+                                    th:text="${organization.getPhone()}"></label>
                             </p>
                             <p><i class="fa-solid fa-registered"></i> <i class="fa-solid fa-right-long"></i> <label
                                     th:text="${organization.getRegistrationNumber()}"></label></p>
