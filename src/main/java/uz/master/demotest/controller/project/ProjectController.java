@@ -3,13 +3,11 @@ package uz.master.demotest.controller.project;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import uz.master.demotest.dto.project.ProjectCreateDto;
 import uz.master.demotest.dto.project.ProjectUpdateDto;
 import uz.master.demotest.services.project.ProjectService;
+import uz.master.demotest.services.task.TaskService;
 
 import javax.validation.Valid;
 
@@ -22,15 +20,23 @@ import javax.validation.Valid;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final TaskService taskService;
 
-    public ProjectController(ProjectService projectService) {
+    public ProjectController(ProjectService projectService, TaskService taskService) {
         this.projectService = projectService;
+        this.taskService = taskService;
     }
 
     @RequestMapping("all")
     public String task(Model model) {
 //        model.addAttribute("tasks", projectService.getAll());
         return "project/list";
+    }
+
+    @RequestMapping("{id}")
+    public String getProjectPage(Model model, @PathVariable String id) {
+        model.addAttribute("project", projectService.get(Long.parseLong(id)));
+        return "project/project";
     }
 
     @RequestMapping(value = "create", method = RequestMethod.GET)

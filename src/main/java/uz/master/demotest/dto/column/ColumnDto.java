@@ -22,6 +22,6 @@ public class ColumnDto extends GenericDto {
     private String name;
     private int columnOrder;
     private Long projectId;
-    private List<TaskDto>taskDtos=new ArrayList<>(0);
+    private List<TaskDto> taskDtos = new ArrayList<>(0);
 
 }

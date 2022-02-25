@@ -5,8 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import uz.master.demotest.dto.GenericDto;
+import uz.master.demotest.entity.task.Task_Member;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,4 +24,5 @@ public class TaskDto extends GenericDto {
     private Long columnId;
     private String createdAt;
     private String updatedAt;
+    private List<Task_Member> taskMembers = new ArrayList<>();
 }
