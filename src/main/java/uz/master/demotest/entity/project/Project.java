@@ -8,6 +8,7 @@ import uz.master.demotest.entity.Auditable;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -30,14 +31,13 @@ public class Project extends Auditable {
     @Column(nullable = false)
     private String tz;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private Long orgId;
 
 
     @CreatedDate
-    @CreationTimestamp
-    @Column(name = "deadline", columnDefinition = "TIMESTAMP default NOW()")
-    private LocalDateTime deadline;
+    @Column(name = "deadline", columnDefinition = "date")
+    private LocalDate deadline;
 
 
 }

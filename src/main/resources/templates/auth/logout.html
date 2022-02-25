@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,19 +9,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&display=swap"
+            rel="stylesheet">
 
-        <link rel="stylesheet" href="/css/logout.css">
+    <link rel="stylesheet" href="/css/logout.css">
 </head>
 <body>
-    <div class="container">
-        <h3>You want to leave your Account</h3>
+<div class="container">
+    <h3>You want to leave your Account</h3>
 
-        <div class="btn">
-            <button type="submit">No</button>
+    <div class="btn">
+        <button type="submit"><a th:href="@{/}" class="btn btn-warning active">No</a></button>
+        <form th:action="@{/auth/logout}" method="post">
             <button type="submit">Yes</button>
-        </div>
+        </form>
     </div>
+</div>
 </body>
 </html>

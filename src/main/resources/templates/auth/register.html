@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,25 +19,26 @@
 </head>
 <body>
     <div class="container">
-        <div class="goBack" id="link">
-            <a href="#">Back</a>
-            <a href="#">Login</a>
+        <div class="goBack" id="link" >
+            <a th:href="@{/project/all}" >Back</a>
+            <a th:href="@{/auth/login}">Login</a>
         </div>
         <div class="login-text">
             <h3>Registratsiya</h3>
         </div>
-
+        <form th:action="@{/auth/register}">
         <div class="login-input">
-            <input type="text" placeholder="Enter your Username">
-            <input type="text" placeholder="Enter your Email">
-            <input type="number" placeholder="Enter your Number">
-            <input type="password" placeholder="Enter your password">
-            <input type="password" placeholder="Confirm your password">
+            <input type="text" placeholder="Enter your Username" name="username">
+            <input type="email" placeholder="Enter your Email" name="email">
+            <input type="number" placeholder="Enter your Number" name="phoneNumber">
+            <input type="password" placeholder="Enter your password" name="password">
+            <input type="password" placeholder="Confirm your password" name="confirmPassword">
         </div>
 
         <div class="login-button">
             <button type="submit">Registratsiya</button>
         </div>
+        </form>
     </div>
 </body>
 </html>

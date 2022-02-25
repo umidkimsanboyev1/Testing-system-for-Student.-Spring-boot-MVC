@@ -7,6 +7,7 @@ import lombok.Setter;
 import uz.master.demotest.dto.GenericDto;
 import uz.master.demotest.dto.column.ColumnDto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,9 @@ public class ProjectDto extends GenericDto {
     private String name;
     private String description;
     private String tz;
-    private String organizationName = "arra";
+    private String organizationName;
     private LocalDateTime createdAt;
-    private LocalDateTime deadline;
+    private LocalDate deadline;
     private List<ColumnDto> columns = new ArrayList<>();
     private int projectMembersCount = 0;
 

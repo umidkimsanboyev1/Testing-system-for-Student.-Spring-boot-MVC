@@ -7,6 +7,7 @@ import lombok.Setter;
 import uz.master.demotest.dto.BaseDto;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -17,5 +18,5 @@ public class ProjectCreateDto implements BaseDto {
     private String name;
     private String description;
     private String tz;
-    private LocalDateTime deadline;
+    private LocalDate deadline;
 }
