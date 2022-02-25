@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Index html one</title>
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&family=Rubik:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <img alt="" src="/imges/logo.png">
+        </div>
+
+        <div class="link">
+            <a href="#"> -- Clients
+            </a>
+            <a href="#">Task manager</a>
+            <a href="#">Inbox</a>
+            <a href="#">Contacts</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+                <input placeholder="Search" type="text">
+            </div>
+            <div class="user-information">
+                <div class="icon">
+                    <img alt="" src="/imges/bell.png">
+                    <i class="far fa-envelope"></i>
+                </div>
+                <div class="user">
+                    <img alt="" src="/imges/useer.png">
+                    <p>Azhar I.
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <h3></h3>
+            <div class="content" th:each="organization, iter : ${organizations}">
+                <div class="contents">
+                    <div class="content-text">
+                        <p>Export</p>
+                    </div>
+                    <div class="box">
+                        <p th:text="${organization.getName()}"></p>
+                    </div>
+                    <div style="
+                            display: flex;
+                            justify-content: space-around;
+                            align-items: center;">
+                        <img alt="Lgo Organization"
+                             style="width: 5em !important; height: 5em !important;"
+                             th:src="${organization.getLogo()}">
+                        <div class="blockkk">
+                            <p><i class="fa-solid fa-location-crosshairs"> </i> <i class="fa-solid fa-right-long"></i> <label
+                                    th:text="${organization.getAddress()}"></label></p>
+                            <p><i class="fa-solid fa-envelope"> </i> <i class="fa-solid fa-right-long"></i> <label
+                                    th:text="${organization.getEmail()}"></label>
+                            </p>
+                            <p><i class="fa-solid fa-browser"></i> <i class="fa-solid fa-right-long"></i> <label
+                                    th:text="${organization.getWebSite()}"></label></p>
+                            <p><i class="fa-solid fa-phone"></i> <i class="fa-solid fa-right-long"></i> <label th:text="${organization.getPhone()}"></label>
+                            </p>
+                            <p><i class="fa-solid fa-registered"></i> <i class="fa-solid fa-right-long"></i> <label
+                                    th:text="${organization.getRegistrationNumber()}"></label></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </aside>
+
+</header>
+
+<section th:include="fragment.html :: js-files"></section>
+</body>
+</html>

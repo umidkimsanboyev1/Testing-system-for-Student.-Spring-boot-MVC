@@ -52,9 +52,12 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
                         .antMatchers(WHITE_LIST).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
+                        .permitAll()
                         .loginPage("/auth/login")
-                        .defaultSuccessUrl("/", false)
                         .loginProcessingUrl("/auth/login")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/", false)
                 )
                 .rememberMe(httpSecurityRememberMeConfigurer -> httpSecurityRememberMeConfigurer
                         .key("bsiudbhfsdhbf")

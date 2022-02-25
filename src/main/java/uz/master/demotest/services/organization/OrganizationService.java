@@ -2,7 +2,6 @@ package uz.master.demotest.services.organization;
 
 
 import org.springframework.stereotype.Service;
-import uz.master.demotest.dto.Organization.OrganizationCreateDto;
 import uz.master.demotest.dto.Organization.OrganizationDto;
 import uz.master.demotest.dto.organization.OrganizationUpdateDto;
 import uz.master.demotest.entity.organization.Organization;
@@ -10,14 +9,12 @@ import uz.master.demotest.mappers.OrganizationMapper;
 import uz.master.demotest.repositories.OrganizationRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
-
 import uz.master.demotest.utils.OrganizationValidator;
 
 import java.util.List;
 
 @Service
-public class OrganizationService extends AbstractService<OrganizationRepository, OrganizationMapper, OrganizationValidator>
-        implements GenericCrudService<Organization, OrganizationDto, uz.master.demotest.dto.Organization.OrganizationCreateDto, OrganizationUpdateDto, Long> {
+public class OrganizationService extends AbstractService<OrganizationRepository, OrganizationMapper, OrganizationValidator> implements GenericCrudService<Organization, OrganizationDto, uz.master.demotest.dto.organization.OrganizationCreateDto, OrganizationUpdateDto, Long> {
 
     protected OrganizationService(OrganizationRepository repository, OrganizationMapper mapper, OrganizationValidator validator) {
         super(repository, mapper, validator);
@@ -30,6 +27,10 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
     @Override
     public List<OrganizationDto> getAll() {
+        for (Organization organization : repository.findAllByDeletedFalse()) {
+            System.out.println("organization = " + organization);
+        }
+
         return mapper.toDto(repository.findAllByDeletedFalse());
     }
 
@@ -38,8 +39,13 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
         return mapper.toDto(repository.findOrganizationByIdAndDeletedFalse(id));
     }
 
+
     @Override
-    public Long create(OrganizationCreateDto createDto) {
+    public Long create(uz.master.demotest.dto.organization.OrganizationCreateDto createDto) {
+        Organization organization = mapper.fromCreateDto(createDto);
+        organization.setStatus("ACTIVE");
+        organization.setDeleted(false);
+        repository.save(organization);
         return null;
     }
 

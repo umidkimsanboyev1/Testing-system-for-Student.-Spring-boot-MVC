@@ -1,9 +1,8 @@
-package uz.master.demotest.dto.Organization;
+package uz.master.demotest.dto.organization;
 
 import lombok.Getter;
 import lombok.Setter;
 import uz.master.demotest.dto.BaseDto;
-import uz.master.demotest.dto.GenericDto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -21,11 +20,15 @@ public class OrganizationCreateDto implements BaseDto {
     @NotBlank(message = "E-mail not be null or Blank")
     private String email;
 
+    @NotBlank(message = "Web site Address not be null or Blank")
+    private String webSite;
+
+    @NotBlank(message = "Registration number not be null or Blank")
+    private Long registrationNumber;
+
     private String phone;
 
     private String address;
 
-    @NotBlank(message = "Web site Address not be null or Blank")
-    private String webSite;
 
 }
