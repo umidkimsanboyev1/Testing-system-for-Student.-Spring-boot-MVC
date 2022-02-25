@@ -20,23 +20,28 @@
 <body>
     <div class="container">
         <div class="goBack" id="link" >
-            <a th:href="@{/project/all}" >Back</a>
-            <a th:href="@{/auth/login}">Login</a>
+            <a th:href="@{/project/all}">Back</a>
         </div>
         <div class="login-text">
-            <h3>Registratsiya</h3>
+            <h3>Add User</h3>
         </div>
-        <form th:action="@{/auth/register}">
+        <form th:action="@{/auth/addUser}" method="POST">
         <div class="login-input">
             <input type="text" placeholder="Enter your Username" name="username">
             <input type="email" placeholder="Enter your Email" name="email">
             <input type="number" placeholder="Enter your Number" name="phoneNumber">
             <input type="password" placeholder="Enter your password" name="password">
             <input type="password" placeholder="Confirm your password" name="confirmPassword">
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="userRole">
+                <option selected>Roles</option>
+                <option value="1">ADMIN</option>
+                <option value="2">MANAGER</option>
+                <option value="3">USER</option>
+            </select>
         </div>
 
         <div class="login-button">
-            <button type="submit">Registratsiya</button>
+            <button type="submit">Add</button>
         </div>
         </form>
     </div>

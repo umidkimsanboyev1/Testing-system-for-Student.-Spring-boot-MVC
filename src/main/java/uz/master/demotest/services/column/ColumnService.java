@@ -67,10 +67,8 @@ public class ColumnService extends AbstractService<
     }
 
     public List<ColumnDto> getAll(Long id) {
-        List<ColumnDto> all = mapper.toDto(repository.findByProjectIdAndDeletedFalse(id));
-        all.forEach(column -> {
-            column.setTaskDtos(service.getAll(column.getId()));
-        });
+        List<ColumnDto> all = mapper.toDto(repository.findAllByProjectIdAndDeletedFalseOrderByColumnOrder(id));
+        all.forEach(column -> {column.setTaskDtos(service.getAll(column.getId()));});
         return all;
     }
 }
