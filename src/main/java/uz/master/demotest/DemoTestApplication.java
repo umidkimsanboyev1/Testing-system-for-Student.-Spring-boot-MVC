@@ -39,7 +39,8 @@ public class DemoTestApplication /*implements CommandLineRunner*/ {
     public void run(String... args) throws Exception {
         AuthUser admin = new AuthUser();
         admin.setUsername("admin");
-        admin.setPassword(passwordEncoder.encode("admin123"));
+        admin.setPassword(passwordEncoder.encode("123"));
+        System.out.println(admin.getPassword());
         AuthRole adminRole = authRoleRepository.findAuthRoleByCode("ADMIN").get();
         admin.setRole(adminRole);
 

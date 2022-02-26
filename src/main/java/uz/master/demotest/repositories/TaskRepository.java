@@ -47,7 +47,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Action> getActions(@Param("id") Long id);
 
     @Query("SELECT u FROM Task_Member u WHERE u.taskId =:id")
-    List<Task_Member> getMembers(@Param("id")Long id);
+    List<Task_Member> getMembers(@Param("id") Long id);
 
     @Transactional
     @Modifying
@@ -60,7 +60,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     void updateLevel(@Param("id") Long id, @Param("code") String code);
 
     @Modifying
-    @Query(value = "insert into action (author_username,task_id,text) VALUES (:username,:taskId,:text)", nativeQuery = true)
+    @Query(value = "insert into action (author_username,task_id,text,is_deleted) VALUES (:username,:taskId,:text,false)", nativeQuery = true)
     @Transactional
     void addAction(@Param("taskId") Long id, @Param("username") String username, @Param("text") String text);
 }
