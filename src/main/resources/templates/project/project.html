@@ -141,10 +141,10 @@
                     </div>
                 </div>
 
-                <div style="overflow-x:scroll;" class="todoContainer mt-3">
+                <div style="overflow-x:scroll;" class="todoContainer mt-3 mb-5">
                     <div class="todoContent-box" th:each="column : *{columns}">
                         <div class="todo-img">
-                            <p th:text="${column.name}">To do</p>
+                            <p th:text="${column.name}"></p>
                             <a th:href="@{/task/create/{column_id}(column_id = ${column.id})}">
                                 <img src="/imges/plus-circle.png" alt="add-task-btn" class=" "
                                      th:classappend="${column.name.equals('Todo')?'d-none':''}">
