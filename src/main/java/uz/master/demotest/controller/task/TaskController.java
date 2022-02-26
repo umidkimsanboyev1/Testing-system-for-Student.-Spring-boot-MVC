@@ -49,6 +49,9 @@ public class TaskController {
         List<AuthUser> members = taskService.getMembers(id);
         model.addAttribute("members", members);
 
+        List<AuthUser> projectMembers = projectService.getMembers(id);
+        model.addAttribute("projectMembers", projectMembers);
+
         return "task/task";
     }
 

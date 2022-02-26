@@ -6,6 +6,7 @@ import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.project.ProjectCreateDto;
 import uz.master.demotest.dto.project.ProjectDto;
 import uz.master.demotest.dto.project.ProjectUpdateDto;
+import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.project.Project;
 import uz.master.demotest.mappers.ProjectMapper;
 import uz.master.demotest.repositories.ProjectRepository;
@@ -14,6 +15,7 @@ import uz.master.demotest.services.GenericCrudService;
 import uz.master.demotest.services.column.ColumnService;
 import uz.master.demotest.validator.project.ProjectValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -67,5 +69,17 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
 
     public Long getTeamLead(Long projectId) {
         return repository.getTeamLead(projectId);
+    }
+
+    public List<AuthUser> getMembers(Long id) {
+        //todo : Axrullo aka tugirlab yozib quying, men uzimga kerak buganinucun qildm,project Id kirib kesa undagi memberlarni bersin
+        return new ArrayList<>() {{
+            add(AuthUser.builder()
+                    .id(3L)
+                    .username("Kimdram")
+                    .password("123123")
+                    .build()
+            );
+        }};
     }
 }
