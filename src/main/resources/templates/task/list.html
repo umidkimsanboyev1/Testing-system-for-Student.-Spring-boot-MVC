@@ -19,43 +19,93 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="logo">
-            <img src="/imges/logo.png" alt="">
+            <a th:href="@{/home}"><img src="/imges/logo.png" alt=""></a>
         </div>
 
         <div class="link">
-            <a href="#"> -- Clients
+            <a class="btn btn-light" href="#"> Clients
             </a>
-            <a href="#">Task manager</a>
-            <a href="#">Inbox</a>
-            <a href="#">Contacts</a>
+            <a class="btn btn-light" th:href="@{/home}">Task manager</a>
+            <a class="btn btn-light" href="#">Inbox</a>
+            <a class="btn btn-light" sec:authorize="hasAnyRole('ADMIN','MANAGER')" th:href="@{/auth/addUser}">Create
+                User</a>
+            <a class="btn btn-light" data-bs-target="#exampleModal" data-bs-toggle="modal"
+               type="button">
+                Contacts
+            </a>
+            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+                 tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Contacts Atom Group in telegram</h5>
+                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @UMIDMASTER98
+                                    <span class="badge bg-primary rounded-pill">93-376-98-26</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @AKHRULLO
+                                    <span class="badge bg-primary rounded-pill">99-999-99-99</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @THEPROGRAMMERR
+                                    <span class="badge bg-primary rounded-pill">97-777-77-77</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @JAVA_SWING_ONE
+                                    <span class="badge bg-primary rounded-pill">93-333-33-33</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
     <aside>
         <nav>
-            <div class="input">
-                <div>
-                    <i class="fas fa-search"></i>
-                </div>
+            <a th:href="@{search}">
+                <div class="input">
+                    <div>
+                        <i class="fas fa-search"></i>
+                    </div>
 
-                <input type="text" placeholder="Search">
-            </div>
+                    <input type="text" placeholder="Search">
+                </div>
+            </a>
+
 
             <div class="user-information">
                 <div class="icon">
-                    <img src="/imges/bell.png" alt="">
+                    <img alt="" src="/imges/bell.png">
                     <i class="far fa-envelope"></i>
                 </div>
 
                 <div class="user">
-                    <img src="/imges/useer.png" alt="">
-                    <p>Azhar I.
-                        <i class="fas fa-angle-down"></i>
+                    <p>
+                    <div style="border: none!important;background-color: white!important;" class="dropdown">
+
+                        <img aria-expanded="false"
+                             data-bs-toggle="dropdown"
+                             id="dropdownMenuButton11" alt="" src="/imges/useer.png">
+
+                        <ul aria-labelledby="dropdownMenuButton11" class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/auth/logout}">logout</a></li>
+                            <li><a class="dropdown-item" th:href="@{/auth/profil}">profil</a></li>
+                        </ul>
+                    </div>
                     </p>
                 </div>
 
             </div>
-
         </nav>
 
         <div class="container">
