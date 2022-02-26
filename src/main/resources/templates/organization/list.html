@@ -116,7 +116,7 @@
                         </div>
                         <div style="
                             display: flex;
-                            justify-content: space-around;
+                            justify-content: space-between;
                             align-items: center;">
                             <img alt="Logo Organization"
                                  style="width: 10em !important; height: 10em !important;"
@@ -140,11 +140,41 @@
                                 <p><i class="fa-solid fa-registered"></i> <i class="fa-solid fa-right-long"></i> <label
                                         th:text="${organization.getRegistrationNumber()}"></label></p>
                             </div>
-                            <div style="display: block">
-                                <a class="btn btn-success my-2" style="width: 90%"
-                                   th:href="@{/organization/update/{id}(id=${organization.id})}">Update</a>
-                                <a class="btn btn-success my-2" style="width: 90%"
-                                   th:href="@{/organization/delete/{id}(id=${organization.id})}">Delete</a>
+                            <div style="display: grid; font-size: xx-large;">
+                                <a class="btn btn-outline-info" style="text-decoration: none; color: limegreen;"
+                                   th:href="@{/organization/update/{id}(id=${organization.id})}"> Update </a>
+                                <br>
+                                <button class="btn btn-outline-warning" data-bs-target="#exampleModal1"
+                                        data-bs-toggle="modal"
+                                        type="button">
+                                    Delete
+                                </button>
+                                <div aria-hidden="true" aria-labelledby="exampleModalLabel1" class="modal fade"
+                                     id="exampleModal1" tabindex="-1">
+                                    <form , th:action="@{/organization/delete/{id}(id = ${organization.getId()})}"
+                                          th:method="POST">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel1">Delete ?</h5>
+                                                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                                            type="button"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4 th:text="${organization.getName()}"></h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" data-bs-dismiss="modal"
+                                                            type="button">Close
+                                                    </button>
+                                                    <button class="btn btn-primary" type="submit"> Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
                             </div>
 
                         </div>
