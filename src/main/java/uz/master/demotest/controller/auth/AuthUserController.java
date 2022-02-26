@@ -54,7 +54,7 @@ public class AuthUserController {
     @RequestMapping(value = "reset", method = RequestMethod.POST)
     public String checkToken(@ModelAttribute ResetPassword password) {
         service.resetPassword(password);
-        return "redirect:auth/login";
+        return "redirect:/auth/login";
 
     }
 
@@ -68,7 +68,7 @@ public class AuthUserController {
     @RequestMapping(value = "forgot", method = RequestMethod.POST)
     public String forgotPage(@RequestParam String email, @RequestParam String username) {
         service.sendMail(email, username);
-        return "redirect:auth/login";
+        return "redirect:/auth/login";
     }
 
 }

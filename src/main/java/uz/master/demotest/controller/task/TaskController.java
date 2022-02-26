@@ -82,7 +82,7 @@ public class TaskController {
         dto.setColumnId(id);
         taskService.create(dto);
         Long projectId = taskService.getProjectId(id);
-        return "redirect:/project/"+projectId;
+        return "redirect:/project/" + projectId;
     }
 
     @GetMapping("/update/{id}")
@@ -117,6 +117,27 @@ public class TaskController {
         Long userId = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
         if (!userId.equals(teamLead)) throw new RuntimeException("Permission Denied!!!!");
         taskService.delete(id);
-        return "redirect:/project/"+projectId;
+        return "redirect:/project/" + projectId;
     }
+
+    @GetMapping("removeMember/{taskId}/{memberId}")
+    public String removeMember(@PathVariable(name = "taskId") Long taskId, @PathVariable(name = "memberId") Long memberId) {
+        Long projectId = taskService.getProjectId(taskId);
+        Long teamLead = projectService.getTeamLead(projectId);
+        Long userId = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        if (!userId.equals(teamLead)) throw new RuntimeException("Permission Denied!!!!");
+        taskService.deleteMember(taskId, memberId);
+        return "redirect:/task/" + taskId;
+    }
+
+    @GetMapping("addMember/{taskId}/{memberId}")
+    public String addMember(@PathVariable(name = "taskId") Long taskId, @PathVariable(name = "memberId") Long memberId) {
+        Long projectId = taskService.getProjectId(taskId);
+        Long teamLead = projectService.getTeamLead(projectId);
+        Long userId = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        if (!userId.equals(teamLead)) throw new RuntimeException("Permission Denied!!!!");
+        taskService.addMamber(taskId, memberId);
+        return "redirect:/task/" + taskId;
+    }
+
 }

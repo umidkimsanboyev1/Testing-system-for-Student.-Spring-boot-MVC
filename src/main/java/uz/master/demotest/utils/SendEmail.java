@@ -16,7 +16,7 @@ public class SendEmail {
         String recipient = args[0];
         Properties properties=System.getProperties();
         String host = "smtp.gmail.com";
-        String sender = "gmail codni yozinglar";
+        String sender = "Shoxruh0912";
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", "465");
         properties.put("mail.smtp.ssl.enable", "true");
@@ -25,7 +25,7 @@ public class SendEmail {
         Session session = Session.getDefaultInstance(properties,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("emailni yozinglar","gmail codni yozinglar");
+                        return new PasswordAuthentication("bekpulatovshoxruh9@gmail.com","Shoxruh0912");
                     }
                 });
 
