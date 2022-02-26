@@ -35,7 +35,7 @@
             <a class="btn btn-light" th:href="@{/home}">Task manager</a>
             <a class="btn btn-light" href="#">Inbox</a>
             <a sec:autorize="hasAnyRole('ADMIN','MANAGER')" class="btn btn-light" th:href="@{/auth/addUser}">Create User</a>
-            <a sec:authorize="hasRole('SUPERADMIN')" class="btn btn-light" th:href="@{/organization/list}">Organizations</a>
+            <a sec:authorize=" hasRole( 'SUPERADMIN' ) " class="btn btn-light" th:href="@{/organization/list}">Organizations</a>
             <a class="btn btn-light" data-bs-target="#exampleModal" data-bs-toggle="modal"
                type="button">
                 Contacts
