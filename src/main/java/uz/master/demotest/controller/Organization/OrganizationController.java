@@ -21,43 +21,43 @@ public class OrganizationController {
     }
 
     @RequestMapping(value = "create", method = RequestMethod.GET)
-    public String createPage(Model model){
+    public String createPage(Model model) {
         //model.addAttribute("Organization", new OrganizationCreateDto());
         return "organization/create";
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String create(@ModelAttribute OrganizationCreateDto dto){
+    public String create(@ModelAttribute OrganizationCreateDto dto) {
         service.create(dto);
-        return "/home";
+        return "redirect:/organization/list";
     }
 
     @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
-    public String updateOrganization(Model model, @PathVariable Long id){
+    public String updateOrganization(Model model, @PathVariable Long id) {
         model.addAttribute("organization", service.getOrganization(id));
         return "organization/update";
     }
 
     @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
-    public String update(@PathVariable Long id, @ModelAttribute OrganizationUpdateDto dto){
+    public String update(@PathVariable Long id, @ModelAttribute OrganizationUpdateDto dto) {
         service.update(dto, id);
-        return "/home";
+        return "redirect:/organization/list";
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String delete(Model model, @PathVariable Long id){
+    public String delete(Model model, @PathVariable Long id) {
         model.addAttribute("organization", service.getOrganization(id));
         return "organization/delete";
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id) {
         service.delete(id);
-        return "/home";
+        return "redirect:/organization/list";
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String delete(Model model){
+    public String delete(Model model) {
         model.addAttribute("organizations", service.getAll());
         return "organization/list";
     }
