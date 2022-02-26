@@ -48,7 +48,9 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
 
     @Override
     public Long create(TaskCreateDto createDto) {
-        return repository.save(mapper.fromCreateDto(createDto)).getId();
+        Task task = mapper.fromCreateDto(createDto);
+        repository.save(task);
+        return task.getId();
     }
 
     @Override
