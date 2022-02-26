@@ -48,11 +48,27 @@ public class TaskController {
         return "task/tasks";
     }
 
-    @GetMapping("/create/{column_id}")
-    public String createTaskPage(@PathVariable(name = "column_id") Long id ) {
+    @GetMapping("/priority/{id}/{code}")
+    public String changePriority(@PathVariable(name = "id") Long id, @PathVariable(name = "code") String code) {
+        taskService.updatePriority(id, code);
+        return "redirect:/task/" + id;
 
-        return "task/create";
     }
 
+    @GetMapping("/level/{id}/{code}")
+    public String changeLevel(@PathVariable(name = "id") Long id, @PathVariable(name = "code") String code) {
+        taskService.updateLevel(id, code);
+        return "redirect:/task/" + id;
+    }
 
+    @GetMapping("/join/{id}")
+    public String joinTask(@PathVariable(name = "id") Long id) {
+        taskService.joinTask(id);
+        return "redirect:/task/" + id;
+    }
+
+    @GetMapping("/create/{column_id}")
+    public String createTaskPage(@PathVariable(name = "column_id") Long id) {
+        return "task/create";
+    }
 }

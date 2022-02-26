@@ -31,7 +31,7 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
     @Override
     public Long create(ProjectCreateDto createDto) {
         Project project = mapper.fromCreateDto(createDto);
-        project.setId(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getOrganization());
+        project.setOrgId(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getOrganization());
         return repository.save(project).getId();
     }
 

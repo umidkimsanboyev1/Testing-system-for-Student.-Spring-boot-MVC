@@ -12,7 +12,7 @@ public enum ActionTexts {
     USER_JOINED("New user joined to task"),
     USER_REMOVED("User removed from task"),
     TASK_COLUMN_UPDATED("Task Column updated"),
-    TASK_UPDATED("Task ");
+    TASK_UPDATED("Task Updated");
 
     private String text;
 }

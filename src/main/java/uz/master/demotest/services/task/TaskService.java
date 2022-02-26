@@ -1,6 +1,8 @@
 package uz.master.demotest.services.task;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.auth.AuthDto;
 import uz.master.demotest.dto.task.TaskCreateDto;
 import uz.master.demotest.dto.task.TaskDto;
@@ -9,6 +11,7 @@ import uz.master.demotest.entity.action.Action;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.task.Task;
 import uz.master.demotest.entity.task.Task_Member;
+import uz.master.demotest.enums.ActionTexts;
 import uz.master.demotest.mappers.TaskMapper;
 import uz.master.demotest.repositories.AuthUserRepository;
 import uz.master.demotest.repositories.TaskRepository;
@@ -95,5 +98,18 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
             list.add(authUserRepository.findById(memberId.getUserId()).get());
         }
         return list;
+    }
+
+    public void updatePriority(Long id, String code) {
+        repository.updatePriority(id, code);
+        repository.addAction(id, ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername(), ActionTexts.TASK_UPDATED.getText());
+    }
+
+    public void updateLevel(Long id, String code) {
+        repository.updateLevel(id, code);
+    }
+
+    public void joinTask(Long id) {
+        repository.addMember(id, ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
     }
 }
