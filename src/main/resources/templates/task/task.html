@@ -435,14 +435,13 @@
 </head>
 <body>
 <header style="overflow-x: hidden !important;">
-    <main >
+    <main>
         <div class="menu-bar">
             <i class="fas fa-bars"></i>
         </div>
         <div class="logo">
             <a th:href="@{/home}"><img src="/imges/logo.png" alt=""></a>
         </div>
-
         <div class="link">
             <a class="btn btn-light" href="#"> Clients
             </a>
@@ -530,7 +529,12 @@
         </nav>
 
         <div class="container">
-            <h4>Task name</h4>
+            <div style="display: flex;justify-content: center;align-items: center">
+                <h4 th:text="${dto.name}"></h4>
+                <a class=" ml-3 btn btn-success" th:href="@{/task/update/{id}(id=${dto.id})}">Update</a>
+                <a class=" ml-3 btn btn-danger" th:href="@{/task/delete/{id}(id=${dto.id})}">Delete</a>
+            </div>
+
 
             <div class="contents">
                 <div class="content-actions">

@@ -34,6 +34,9 @@ public class Project extends Auditable {
     @Column(nullable = false)
     private Long orgId;
 
+    @Column(nullable = false)
+    private Long teamLeaderId;
+
 
     @CreatedDate
     @Column(name = "deadline", columnDefinition = "date")

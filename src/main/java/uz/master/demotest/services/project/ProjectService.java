@@ -31,7 +31,9 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
     @Override
     public Long create(ProjectCreateDto createDto) {
         Project project = mapper.fromCreateDto(createDto);
-        project.setOrgId(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getOrganization());
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        project.setOrgId(principal.getOrganization());
+        project.setTeamLeaderId(principal.getId());
         return repository.save(project).getId();
     }
 
@@ -61,5 +63,9 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
 
     public ProjectUpdateDto getUpdateDto(Long id) {
         return mapper.toUpdateDto(get(id));
+    }
+
+    public Long getTeamLead(Long projectId) {
+        return repository.getTeamLead(projectId);
     }
 }

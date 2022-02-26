@@ -1,17 +1,18 @@
 package uz.master.demotest.controller.task;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.comment.CommentDto;
 import uz.master.demotest.dto.task.TaskCreateDto;
 import uz.master.demotest.dto.task.TaskDto;
+import uz.master.demotest.dto.task.TaskUpdateDto;
 import uz.master.demotest.entity.action.Action;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.services.comment.CommentService;
+import uz.master.demotest.services.project.ProjectService;
 import uz.master.demotest.services.task.TaskService;
 
 import java.util.List;
@@ -26,10 +27,12 @@ public class TaskController {
 
     private final TaskService taskService;
     private final CommentService commentService;
+    private final ProjectService projectService;
 
-    public TaskController(TaskService taskService, CommentService commentService) {
+    public TaskController(TaskService taskService, CommentService commentService, ProjectService projectService) {
         this.taskService = taskService;
         this.commentService = commentService;
+        this.projectService = projectService;
     }
 
     @GetMapping("{id}")
@@ -78,6 +81,42 @@ public class TaskController {
     public String createTask(@PathVariable(name = "id") Long id, TaskCreateDto dto) {
         dto.setColumnId(id);
         taskService.create(dto);
-        return "redirect:/project/all";
+        Long projectId = taskService.getProjectId(id);
+        return "redirect:/project/"+projectId;
+    }
+
+    @GetMapping("/update/{id}")
+    public String updatePage(Model model, @PathVariable(name = "id") Long id) {
+        TaskDto dto = taskService.get(id);
+        model.addAttribute("dto", dto);
+        return "task/update";
+    }
+
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable(name = "id") Long id, @ModelAttribute TaskUpdateDto dto) {
+        Long projectId = taskService.getProjectId(id);
+        Long teamLead = projectService.getTeamLead(projectId);
+        Long userId = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        if (!userId.equals(teamLead)) throw new RuntimeException("Permission Denied!!!!");
+        dto.setId(id);
+        taskService.update(dto);
+        return "redirect:/task/" + id;
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deletePage(Model model, @PathVariable(name = "id") Long id) {
+        TaskDto dto = taskService.get(id);
+        model.addAttribute("dto", dto);
+        return "task/delete";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable(name = "id") Long id) {
+        Long projectId = taskService.getProjectId(id);
+        Long teamLead = projectService.getTeamLead(projectId);
+        Long userId = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        if (!userId.equals(teamLead)) throw new RuntimeException("Permission Denied!!!!");
+        taskService.delete(id);
+        return "redirect:/project/"+projectId;
     }
 }
