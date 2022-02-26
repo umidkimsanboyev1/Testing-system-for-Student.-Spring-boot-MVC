@@ -173,6 +173,7 @@ nav .input {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  overflow-x: scroll;
 }
 
 .todoContent-box {

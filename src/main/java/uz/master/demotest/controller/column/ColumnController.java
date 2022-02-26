@@ -31,10 +31,19 @@ public class ColumnController {
         return "project/project";
     }
 
-    @RequestMapping(value = "create/", method = RequestMethod.POST)
-    public String create(@ModelAttribute ColumnCreateDto dto) {
+    @RequestMapping(value = "create/{id}", method = RequestMethod.POST)
+    public String create(@PathVariable(name = "id") Long id, @ModelAttribute ColumnCreateDto dto) {
+        dto.setProjectId(id);
         service.create(dto);
-        return "redirect:/project/project";
+        return "redirect:/project/"+id;
+    }
+
+    @RequestMapping(value = "create/{id}", method = RequestMethod.GET)
+    public String createPAage(@PathVariable(name = "id") Long id, Model model) {
+        ColumnCreateDto columnCreateDto = new ColumnCreateDto();
+        columnCreateDto.setProjectId(id);
+        model.addAttribute("dto", columnCreateDto);
+        return "column/create";
     }
 
     @RequestMapping(value = "update/", method = RequestMethod.POST)

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import uz.master.demotest.dto.auth.AuthDto;
 import uz.master.demotest.dto.comment.CommentDto;
 import uz.master.demotest.dto.task.TaskCreateDto;
 import uz.master.demotest.dto.task.TaskDto;
@@ -79,6 +78,6 @@ public class TaskController {
     public String createTask(@PathVariable(name = "id") Long id, TaskCreateDto dto) {
         dto.setColumnId(id);
         taskService.create(dto);
-        return "redirect:/project/all";
+        return "redirect:/project/"+id;
     }
 }
