@@ -46,7 +46,7 @@ public class TaskController {
         List<AuthUser> members = taskService.getMembers(id);
         model.addAttribute("members", members);
 
-        return "task/tasks";
+        return "task/task";
     }
 
     @GetMapping("/priority/{id}/{code}")
@@ -78,6 +78,6 @@ public class TaskController {
     public String createTask(@PathVariable(name = "id") Long id, TaskCreateDto dto) {
         dto.setColumnId(id);
         taskService.create(dto);
-        return "redirect:/project/"+id;
+        return "redirect:/project/all";
     }
 }

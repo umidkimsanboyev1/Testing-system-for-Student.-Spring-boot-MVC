@@ -27,7 +27,6 @@ public class ProjectController {
 
     @RequestMapping("all")
     public String task(Model model) {
-        model.addAttribute("name","atom");
         model.addAttribute("projects", projectService.getAll());
         return "project/list";
     }
