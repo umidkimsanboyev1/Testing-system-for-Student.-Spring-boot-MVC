@@ -11,6 +11,8 @@ import javax.validation.constraints.Size;
 @Setter
 public class OrganizationUpdateDto extends GenericDto {
 
+    private Long id;
+
     @Size(min = 2, max = 30, message = "value for title must be between {min} and {max}")
     private String name;
 
@@ -27,4 +29,15 @@ public class OrganizationUpdateDto extends GenericDto {
     @NotBlank(message = "Web site Address not be null or Blank")
     private String webSite;
 
+    private Long registrationNumber;
+
+    private String status;
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 }

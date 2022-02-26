@@ -3,6 +3,7 @@ package uz.master.demotest.entity.auth;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import uz.master.demotest.entity.Auditable;
 import uz.master.demotest.entity.organization.Organization;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@ToString
 public class AuthUser extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

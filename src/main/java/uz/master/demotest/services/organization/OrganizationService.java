@@ -22,7 +22,7 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
 
     public OrganizationUpdateDto getOrganization(Long id) {
-        return mapper.toUpdateDto(repository.findOrganizationByIdAndDeletedFalse(id));
+        return mapper.toUpdateDto(repository.findOrganizationByIdAndDeletedFalseOrderByIdAsc(id));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
     @Override
     public OrganizationDto get(Long id) {
-        return mapper.toDto(repository.findOrganizationByIdAndDeletedFalse(id));
+        return mapper.toDto(repository.findOrganizationByIdAndDeletedFalseOrderByIdAsc(id));
     }
 
 
@@ -57,6 +57,13 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
     @Override
     public Void update(OrganizationUpdateDto updateDto) {
+        return null;
+    }
+
+    public Void update(OrganizationUpdateDto updateDto, Long id) {
+        updateDto.setId(id);
+        updateDto.setRegistrationNumber(repository.findOrganizationByIdAndDeletedFalseOrderByIdAsc(id).getRegistrationNumber());
+        updateDto.setStatus("ACTIVE");
         repository.save(mapper.fromUpdateDto(updateDto));
         return null;
     }

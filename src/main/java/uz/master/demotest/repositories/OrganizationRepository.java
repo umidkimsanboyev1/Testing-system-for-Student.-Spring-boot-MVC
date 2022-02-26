@@ -11,10 +11,7 @@ import java.util.List;
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
 
 
-    @Transactional
-    @Modifying
-    @Query(value = "")
-    Organization findOrganizationByIdAndDeletedFalse(Long id);
+    Organization findOrganizationByIdAndDeletedFalseOrderByIdAsc(Long id);
 
     List<Organization> findAllByDeletedFalse();
 
@@ -23,4 +20,10 @@ public interface OrganizationRepository extends JpaRepository<Organization, Long
     @Modifying
     @Query(value = "Update Organization o SET o.deleted = true WHERE o.id=:id")
     void deleteOrganization(Long id);
+
+
+//    @Transactional
+//    @Modifying
+//    @Query(value = "Update Organization o SET o.name =:dto. WHERE o.id=:id")
+//    void updateOrganization(OrganizationUpdateDto dto);
 }

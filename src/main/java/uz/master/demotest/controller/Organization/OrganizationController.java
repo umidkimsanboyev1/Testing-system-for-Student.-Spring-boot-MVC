@@ -40,7 +40,7 @@ public class OrganizationController {
 
     @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable Long id, @ModelAttribute OrganizationUpdateDto dto){
-        service.update(dto);
+        service.update(dto, id);
         return "/home";
     }
 
