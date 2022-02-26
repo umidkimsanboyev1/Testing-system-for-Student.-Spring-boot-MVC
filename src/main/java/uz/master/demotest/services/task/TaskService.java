@@ -18,8 +18,8 @@ import uz.master.demotest.repositories.ColumnRepository;
 import uz.master.demotest.repositories.TaskRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
-import uz.master.demotest.utils.TaskValidator;
-import uz.master.demotest.utils.Validator;
+import uz.master.demotest.validator.task.TaskValidator;
+import uz.master.demotest.validator.Validator;
 
 import java.util.ArrayList;
 import java.util.List;

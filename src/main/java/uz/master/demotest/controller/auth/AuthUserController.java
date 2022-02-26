@@ -1,12 +1,10 @@
-package uz.master.demotest.controller;
+package uz.master.demotest.controller.auth;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import uz.master.demotest.dto.auth.AuthUserCreateDto;
+import uz.master.demotest.dto.auth.ResetPassword;
 import uz.master.demotest.services.auth.AuthUserService;
 
 @Controller
@@ -24,15 +22,18 @@ public class AuthUserController {
         return "auth/login";
     }
 
+
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logoutPage() {
         return "auth/logout";
     }
 
+
     @RequestMapping(value = "addUser", method = RequestMethod.GET)
     public String addPage() {
         return "auth/addUser";
     }
+
 
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
     public String add(@ModelAttribute AuthUserCreateDto dto) {
@@ -40,15 +41,33 @@ public class AuthUserController {
         return "redirect:/project/all";
     }
 
-//    @RequestMapping(value = "/auth/reset/{token}",method = RequestMethod.GET)
 
-    @RequestMapping(value = "/auth/forgotPassword",method = RequestMethod.GET)
-    public String forgotPage(){
+    @RequestMapping(value = "reset/{token}")
+    public String checkToken(@PathVariable String token) {
+        if (service.checkToken(token)) {
+            return "redirect:/auth/login";
+        }
+        return "auth/reset";
+
+    }
+
+    @RequestMapping(value = "reset", method = RequestMethod.POST)
+    public String checkToken(@ModelAttribute ResetPassword password) {
+        service.resetPassword(password);
+        return "redirect:auth/login";
+
+    }
+
+
+    @RequestMapping(value = "forgot", method = RequestMethod.GET)
+    public String forgotPage() {
         return "auth/forgot";
     }
-    @RequestMapping(value = "/auth/forgotPassword",method = RequestMethod.POST)
-    public String forgotPage(@RequestParam String email,@RequestParam String username){
-        service.sendMail(email,username);
+
+
+    @RequestMapping(value = "forgot", method = RequestMethod.POST)
+    public String forgotPage(@RequestParam String email, @RequestParam String username) {
+        service.sendMail(email, username);
         return "redirect:auth/login";
     }
 

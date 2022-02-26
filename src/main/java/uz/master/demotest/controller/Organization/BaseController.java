@@ -1,4 +1,4 @@
-package uz.master.demotest.controller;
+package uz.master.demotest.controller.Organization;
 
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
