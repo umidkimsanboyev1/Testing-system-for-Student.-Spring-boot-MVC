@@ -12,7 +12,7 @@ import uz.master.demotest.repositories.ProjectRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
 import uz.master.demotest.services.column.ColumnService;
-import uz.master.demotest.utils.ProjectValidator;
+import uz.master.demotest.validator.project.ProjectValidator;
 
 import java.util.List;
 

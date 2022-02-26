@@ -2,9 +2,8 @@ package uz.master.demotest.services;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 import uz.master.demotest.mappers.Mapper;
-import uz.master.demotest.utils.Validator;
+import uz.master.demotest.validator.Validator;
 
 /**
  * @param <R> repository

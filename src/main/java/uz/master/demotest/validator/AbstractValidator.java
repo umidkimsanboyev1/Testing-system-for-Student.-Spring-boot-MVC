@@ -1,4 +1,4 @@
-package uz.master.demotest.utils;
+package uz.master.demotest.validator;
 
 
 import uz.master.demotest.exceptions.NotFoundException;

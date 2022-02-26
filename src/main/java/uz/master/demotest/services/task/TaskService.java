@@ -3,7 +3,6 @@ package uz.master.demotest.services.task;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import uz.master.demotest.configs.security.UserDetails;
-import uz.master.demotest.dto.auth.AuthDto;
 import uz.master.demotest.dto.task.TaskCreateDto;
 import uz.master.demotest.dto.task.TaskDto;
 import uz.master.demotest.dto.task.TaskUpdateDto;
@@ -17,8 +16,8 @@ import uz.master.demotest.repositories.AuthUserRepository;
 import uz.master.demotest.repositories.TaskRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
-import uz.master.demotest.utils.TaskValidator;
-import uz.master.demotest.utils.Validator;
+import uz.master.demotest.validator.task.TaskValidator;
+import uz.master.demotest.validator.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
