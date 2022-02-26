@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uz.master.demotest.entity.action.Action;
 import uz.master.demotest.entity.task.Task;
 import uz.master.demotest.entity.task.Task_Member;
+import uz.master.demotest.enums.ActionTexts;
 
 import java.util.List;
 
@@ -48,4 +49,19 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query("SELECT u FROM Task_Member u WHERE u.taskId =:id")
     List<Task_Member> getMembers(Long id);
+
+    @Transactional
+    @Modifying
+    @Query("Update Tasks t SET t.priority =:code WHERE t.id=:id")
+    void updatePriority(@Param("id") Long id, @Param("code") String code);
+
+    @Transactional
+    @Modifying
+    @Query("Update Tasks t SET t.level =:code WHERE t.id=:id")
+    void updateLevel(@Param("id") Long id, @Param("code") String code);
+
+    @Modifying
+    @Query(value = "insert into action (author_username,task_id,text) VALUES (:username,:taskId,:text)", nativeQuery = true)
+    @Transactional
+    void addAction(@Param("taskId") Long id, @Param("username") String username, @Param("text") String text);
 }

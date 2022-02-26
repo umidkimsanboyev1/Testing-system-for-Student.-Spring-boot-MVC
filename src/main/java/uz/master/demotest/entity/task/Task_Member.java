@@ -20,6 +20,5 @@ public class Task_Member {
     private Long id;
 
     private Long userId;
-    private String username;
     private Long taskId;
 }
