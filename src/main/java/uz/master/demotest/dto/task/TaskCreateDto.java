@@ -19,4 +19,5 @@ public class TaskCreateDto implements BaseDto {
     private String level;
     private String priority;
     private Long columnId;
+    private Long projectId;
 }

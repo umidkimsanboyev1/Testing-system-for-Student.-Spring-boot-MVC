@@ -26,21 +26,22 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="logo">
-            <img alt="" src="/imges/logo.png">
+            <a th:href="@{/home}"><img src="/imges/logo.png" alt=""></a>
         </div>
 
         <div class="link">
             <a class="btn btn-light" href="#"> Clients
             </a>
-            <a class="btn btn-light" href="#">Task manager</a>
+            <a class="btn btn-light" th:href="@{/home}">Task manager</a>
             <a class="btn btn-light" href="#">Inbox</a>
-            <a sec:autorize="hasAnyRole('SUPERADMIN','ADMIN,MANAGER')" class="btn btn-light" th:href="@{/auth/addUser}"> Add User</a>
+            <a sec:autorize="hasAnyRole('ADMIN','MANAGER')" class="btn btn-light" th:href="@{/auth/addUser}">Create User</a>
             <a sec:authorize="hasRole('SUPERADMIN')" class="btn btn-light" th:href="@{/organization/list}">Organizations</a>
             <a class="btn btn-light" data-bs-target="#exampleModal" data-bs-toggle="modal"
-                    type="button">
+               type="button">
                 Contacts
             </a>
-            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal" tabindex="-1">
+            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+                 tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -77,13 +78,16 @@
     </main>
     <aside>
         <nav>
-            <div class="input">
-                <div>
-                    <i class="fas fa-search"></i>
-                </div>
+            <a th:href="@{search}">
+                <div class="input">
+                    <div>
+                        <i class="fas fa-search"></i>
+                    </div>
 
-                <input placeholder="Search" type="text">
-            </div>
+                    <input type="text" placeholder="Search">
+                </div>
+            </a>
+
 
             <div class="user-information">
                 <div class="icon">
@@ -92,15 +96,14 @@
                 </div>
 
                 <div class="user">
-                    <img alt="" src="/imges/useer.png">
                     <p>
-                    <div class="dropdown">
-                        <button aria-expanded="false" class="btn btn-secondary dropdown-toggle"
-                                data-bs-toggle="dropdown"
-                                id="dropdownMenuButton1" type="button">
-                            Dropdown button
-                        </button>
-                        <ul aria-labelledby="dropdownMenuButton1" class="dropdown-menu">
+                    <div style="border: none!important;background-color: white!important;" class="dropdown">
+
+                        <img aria-expanded="false"
+                             data-bs-toggle="dropdown"
+                             id="dropdownMenuButton11" alt="" src="/imges/useer.png">
+
+                        <ul aria-labelledby="dropdownMenuButton11" class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/auth/logout}">logout</a></li>
                             <li><a class="dropdown-item" th:href="@{/auth/profil}">profil</a></li>
                         </ul>
@@ -109,12 +112,10 @@
                 </div>
 
             </div>
-
         </nav>
 
-        <div class="container">
-            <h3 th:text="${name}"></h3>
-            <div class="content">
+        <div class="container p-0">
+            <div class="content mt-3">
                 <div class="contents">
                     <div class="content-text">
                         <p>My Projects</p>

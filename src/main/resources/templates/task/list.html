@@ -8,238 +8,289 @@
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&family=Rubik:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
 </head>
 <body>
-        <header>
-            <main>
-                <div  class="menu-bar">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <div class="logo">
-                    <img src="/imges/logo.png" alt="">
-                </div>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <a th:href="@{/home}"><img src="/imges/logo.png" alt=""></a>
+        </div>
 
-                <div class="link">
-                    <a href="#"> -- Clients
-                    </a>
-                    <a href="#">Task manager</a>
-                    <a href="#">Inbox</a>
-                    <a href="#">Contacts</a>
-                </div>
-            </main>
-
-            <aside>
-                <nav>
-                    <div class="input">
-                        <div>
-                            <i class="fas fa-search"></i>
+        <div class="link">
+            <a class="btn btn-light" href="#"> Clients
+            </a>
+            <a class="btn btn-light" th:href="@{/home}">Task manager</a>
+            <a class="btn btn-light" href="#">Inbox</a>
+            <a class="btn btn-light" sec:authorize="hasAnyRole('ADMIN','MANAGER')" th:href="@{/auth/addUser}">Create
+                User</a>
+            <a class="btn btn-light" data-bs-target="#exampleModal" data-bs-toggle="modal"
+               type="button">
+                Contacts
+            </a>
+            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+                 tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Contacts Atom Group in telegram</h5>
+                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
                         </div>
-                       
-                        <input type="text" placeholder="Search">
-                    </div>
-
-                    <div class="user-information">
-                        <div class="icon">
-                            <img src="/imges/bell.png" alt="">
-                            <i class="far fa-envelope"></i>
-                        </div>    
-                        
-                        <div class="user">
-                            <img src="/imges/useer.png" alt="">
-                            <p>Azhar I.
-                                <i class="fas fa-angle-down"></i>
-                            </p>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @UMIDMASTER98
+                                    <span class="badge bg-primary rounded-pill">93-376-98-26</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @AKHRULLO
+                                    <span class="badge bg-primary rounded-pill">99-999-99-99</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @THEPROGRAMMERR
+                                    <span class="badge bg-primary rounded-pill">97-777-77-77</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @JAVA_SWING_ONE
+                                    <span class="badge bg-primary rounded-pill">93-333-33-33</span>
+                                </li>
+                            </ul>
                         </div>
-
-                    </div>
-                    
-                </nav>
-
-                <div class="container">
-                    <h3>ОсОО “Energi.kg”</h3>
-                    <div class="content">
-                        <div class="contents">
-                            <div class="content-text">
-                                <p>Projects</p>
-                                <p>Export</p>
-                            </div>
-                            <div class="box">
-                                <p>ОсОО “Energi.kg”</p>
-                                <div class="box-text">
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                    <span>
-                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
-                                    </span>
-                                    <span>
-                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="box">
-                                <p>ОсОО “Energi.kg”</p>
-                                <div class="box-text">
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                    <span>
-                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
-                                    </span>
-                                    <span>
-                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="box">
-                                <p>ОсОО “Energi.kg”</p>
-                                <div class="box-text">
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                    <span>
-                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
-                                    </span>
-                                    <span>
-                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="content-box">
-                            <div class="content-text">
-                                <p>Tasks</p>
-                            </div>
-                            <div class="box">
-                                
-                                <div class="box-text">
-                                    <p>ОсОО “Energi.kg”</p>
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                </div>
-                                
-                            </div>
-
-                            <div class="box">
-                                
-                                <div class="box-text">
-                                    <p>ОсОО “Energi.kg”</p>
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                </div>
-                                
-                            </div>
-
-                            <div class="box">
-                                
-                                <div class="box-text">
-                                    <p>ОсОО “Energi.kg”</p>
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div class="contents">
-                            <div class="content-text">
-                                <p>Projects</p>
-                                <p>Export</p>
-                            </div>
-                            <div class="box">
-                                <p>ОсОО “Energi.kg”</p>
-                                <div class="box-text">
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                    <span>
-                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
-                                    </span>
-                                    <span>
-                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="box">
-                                <p>ОсОО “Energi.kg”</p>
-                                <div class="box-text">
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                    <span>
-                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
-                                    </span>
-                                    <span>
-                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="box">
-                                <p>ОсОО “Energi.kg”</p>
-                                <div class="box-text">
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                    <span>
-                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
-                                    </span>
-                                    <span>
-                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="content-box">
-                            <div class="content-text">
-                                <p>Tasks</p>
-                            </div>
-                            <div class="box">
-
-                                <div class="box-text">
-                                    <p>ОсОО “Energi.kg”</p>
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                </div>
-
-                            </div>
-
-                            <div class="box">
-
-                                <div class="box-text">
-                                    <p>ОсОО “Energi.kg”</p>
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                </div>
-
-                            </div>
-
-                            <div class="box">
-
-                                <div class="box-text">
-                                    <p>ОсОО “Energi.kg”</p>
-                                    <span>
-                                        <img src="/imges/sunrise.png" alt="">12/04/2021
-                                    </span>
-                                </div>
-
-                            </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
                         </div>
                     </div>
                 </div>
-            </aside>
+            </div>
+        </div>
+    </main>
 
-        </header>
+    <aside>
+        <nav>
+            <a th:href="@{search}">
+                <div class="input">
+                    <div>
+                        <i class="fas fa-search"></i>
+                    </div>
 
-        <section th:include="fragment.html :: js-files"></section>
+                    <input type="text" placeholder="Search">
+                </div>
+            </a>
+
+
+            <div class="user-information">
+                <div class="icon">
+                    <img alt="" src="/imges/bell.png">
+                    <i class="far fa-envelope"></i>
+                </div>
+
+                <div class="user">
+                    <p>
+                    <div style="border: none!important;background-color: white!important;" class="dropdown">
+
+                        <img aria-expanded="false"
+                             data-bs-toggle="dropdown"
+                             id="dropdownMenuButton11" alt="" src="/imges/useer.png">
+
+                        <ul aria-labelledby="dropdownMenuButton11" class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/auth/logout}">logout</a></li>
+                            <li><a class="dropdown-item" th:href="@{/auth/profil}">profil</a></li>
+                        </ul>
+                    </div>
+                    </p>
+                </div>
+
+            </div>
+        </nav>
+
+        <div class="container">
+            <h3>ОсОО “Energi.kg”</h3>
+            <div class="content">
+                <div class="contents">
+                    <div class="content-text">
+                        <p>Projects</p>
+                        <p>Export</p>
+                    </div>
+                    <div class="box">
+                        <p>ОсОО “Energi.kg”</p>
+                        <div class="box-text">
+                                    <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                            <span>
+                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
+                                    </span>
+                            <span>
+                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
+                                    </span>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <p>ОсОО “Energi.kg”</p>
+                        <div class="box-text">
+                                    <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                            <span>
+                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
+                                    </span>
+                            <span>
+                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
+                                    </span>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <p>ОсОО “Energi.kg”</p>
+                        <div class="box-text">
+                                    <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                            <span>
+                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
+                                    </span>
+                            <span>
+                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-box">
+                    <div class="content-text">
+                        <p>Tasks</p>
+                    </div>
+                    <div class="box">
+
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+
+                    </div>
+
+                    <div class="box">
+
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+
+                    </div>
+
+                    <div class="box">
+
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="contents">
+                    <div class="content-text">
+                        <p>Projects</p>
+                        <p>Export</p>
+                    </div>
+                    <div class="box">
+                        <p>ОсОО “Energi.kg”</p>
+                        <div class="box-text">
+                                    <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                            <span>
+                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
+                                    </span>
+                            <span>
+                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
+                                    </span>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <p>ОсОО “Energi.kg”</p>
+                        <div class="box-text">
+                                    <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                            <span>
+                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
+                                    </span>
+                            <span>
+                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
+                                    </span>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <p>ОсОО “Energi.kg”</p>
+                        <div class="box-text">
+                                    <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                            <span>
+                                        <img src="/imges/sunset2.png" alt=""> 12/04/2021
+                                    </span>
+                            <span>
+                                       <img src="/imges/users.png" alt=""> Adyl, Azhar, Arthur
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-box">
+                    <div class="content-text">
+                        <p>Tasks</p>
+                    </div>
+                    <div class="box">
+
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+
+                    </div>
+
+                    <div class="box">
+
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+
+                    </div>
+
+                    <div class="box">
+
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+</header>
+
+<section th:include="fragment.html :: js-files"></section>
 </body>
 </html>

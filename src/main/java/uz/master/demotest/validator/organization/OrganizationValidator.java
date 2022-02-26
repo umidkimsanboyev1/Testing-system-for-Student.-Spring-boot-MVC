@@ -1,14 +1,16 @@
-package uz.master.demotest.utils;
+package uz.master.demotest.validator.organization;
 
 import org.springframework.stereotype.Component;
+import uz.master.demotest.dto.organization.OrganizationCreateDto;
 import uz.master.demotest.dto.organization.OrganizationUpdateDto;
 import uz.master.demotest.exceptions.NotFoundException;
+import uz.master.demotest.validator.AbstractValidator;
 
 
 // TODO: 2/24/2022  o'zomizni exception yozishimiz kerak
 
 @Component
-public class OrganizationValidator extends AbstractValidator<uz.master.demotest.dto.organization.OrganizationCreateDto, uz.master.demotest.dto.organization.OrganizationUpdateDto, Long> {
+public class OrganizationValidator extends AbstractValidator<OrganizationCreateDto, OrganizationUpdateDto, Long> {
 
 
     @Override

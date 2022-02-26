@@ -9,7 +9,7 @@ import uz.master.demotest.mappers.OrganizationMapper;
 import uz.master.demotest.repositories.OrganizationRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
-import uz.master.demotest.utils.OrganizationValidator;
+import uz.master.demotest.validator.organization.OrganizationValidator;
 
 import java.util.List;
 

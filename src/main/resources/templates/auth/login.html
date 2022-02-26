@@ -13,72 +13,72 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&display=swap"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&display=swap"
+            rel="stylesheet">
 
-        <!-- font awesome link -->
+    <!-- font awesome link -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
-    <div class="container">
-        <form   th:action="@{/auth/login}" th:method="POST">
-            <div class="goBack" id="link">
-                <a href="#">Back</a>
-                <a href="#">Register</a>
-            </div>
-            <div class="login-text">
-                <h3>Login</h3>
-                <p>Please login using account detail bellow.</p>
+<div class="container">
+    <form th:action="@{/auth/login}" th:method="POST">
+        <div class="goBack" id="link">
+            <a th:href="@{/home}">Back</a>
+
+        </div>
+        <div class="login-text">
+            <h3>Login</h3>
+            <p>Please login using account detail bellow.</p>
+        </div>
+
+        <div class="login-input" th:action="@{/auth/login}" th:method="POST">
+            <input type="text" placeholder="username" name="username">
+            <div class="password">
+                <i class="fas"></i>
+                <input type="password" placeholder="Password" class="InputPassword" name="password">
             </div>
 
-            <div class="login-input" th:action="@{/auth/login}" th:method="POST" >
-                <input type="text" placeholder="username" name="username">
-                <div class="password">
-                    <i class="fas"></i>
-                    <input type="password" placeholder="Password" class="InputPassword" name="password">
+            <div class="forgot">
+                <a th:href="@{/auth/forgot}"><p>Forgot your password?</p>
+                </a>
+                <div>
+                    <label>Remember Me</label>
+                    <input type="checkbox" name="remember-me">
                 </div>
 
-                <div class="forgot">
-                    <p>Forgot your password?</p>
-
-                    <div>
-                        <label>Remember Me</label>
-                        <input type="checkbox" name="remember-me">
-                    </div>
-
-                </div>
-
             </div>
 
-            <div class="login-button">
-                <button type="submit">Sign In</button>
-                <p>Don’t have an Account?Create account</p>
-            </div>
-        </form>
-    </div>
+        </div>
 
-    <script>
-        const passwordEye = document.querySelector(".fas")
-        const InputPassword = document.querySelector(".InputPassword")
-        
-        passwordEye.addEventListener('click', function() {
-            passwordEye.classList.toggle("fa-eye-slash")
-            passwordEye.classList.add("fa-eye")
-        
-            if (passwordEye.classList.value != "fas fa-eye fa-eye-slash") {
-                console.log("fa-eye")
-                InputPassword.type = "text"
-                 
-            } else {
-                InputPassword.type = "password"
-            }
-                      
-        })
-        passwordEye.classList.add("fa-eye-slash")
-      
-    </script>
+        <div class="login-button">
+            <button type="submit">Sign In</button>
+            <p>Don’t have an Account?Create account</p>
+        </div>
+    </form>
+</div>
+
+<script>
+    const passwordEye = document.querySelector(".fas")
+    const InputPassword = document.querySelector(".InputPassword")
+
+    passwordEye.addEventListener('click', function () {
+        passwordEye.classList.toggle("fa-eye-slash")
+        passwordEye.classList.add("fa-eye")
+
+        if (passwordEye.classList.value != "fas fa-eye fa-eye-slash") {
+            console.log("fa-eye")
+            InputPassword.type = "text"
+
+        } else {
+            InputPassword.type = "password"
+        }
+
+    })
+    passwordEye.classList.add("fa-eye-slash")
+
+</script>
 </body>
 
 </html>
