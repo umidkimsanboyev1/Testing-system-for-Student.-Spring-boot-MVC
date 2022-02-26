@@ -78,6 +78,10 @@
             grid-template-columns: 1fr 350px;
         }
 
+        .fs8 {
+            font-size: 8px;
+        }
+
         nav .input {
             display: flex;
             align-items: center;
@@ -128,6 +132,12 @@
             font-size: 28px;
         }
 
+        .flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .user {
             display: flex;
             align-items: center;
@@ -151,13 +161,22 @@
             display: grid;
             grid-template-columns: 330px 1fr 330px;
             gap: 20px;
-            height: 800px;
+            height: 630px;
         }
 
         .content-actions {
             padding: 22px;
             width: 330px;
-            height: 260px;
+            height: 630px;
+            background: #f6f6f6;
+            border-radius: 17px;
+            overflow-y: scroll;
+        }
+
+        .content-actions2 {
+            padding: 22px;
+            width: 330px;
+            height: 290px;
             background: #f6f6f6;
             border-radius: 17px;
             overflow-y: scroll;
@@ -180,7 +199,7 @@
             margin-top: 20px;
             padding: 22px;
             width: 100%;
-            height: 153px;
+            height: 163px;
             background: #e0e4ea;
             border-radius: 17px;
         }
@@ -223,6 +242,14 @@
             width: 100%;
             height: 130px;
             background: #f6f6f6;
+            border-radius: 17px;
+        }
+
+        .content-box2 {
+            padding: 22px;
+            width: 100%;
+            height: 130px;
+            background: #e0e4ea;
             border-radius: 17px;
         }
 
@@ -405,8 +432,8 @@
     </style>
 </head>
 <body>
-<header>
-    <main>
+<header style="overflow-x: hidden !important;">
+    <main style="width: 300px">
         <div class="menu-bar">
             <i class="fas fa-bars"></i>
         </div>
@@ -415,11 +442,50 @@
         </div>
 
         <div class="link">
-            <a href="#"> -- Clients
+            <a class="btn btn-light" href="#"> Clients
             </a>
-            <a th:href="@{/home}">Task manager</a>
-            <a sec:authorize="hasAnyRole('MANAGER','ADMIN')" th:href="@{/monitoring}"></a>
-            <a th:href="@{/contacts}">Contacts</a>
+            <a class="btn btn-light" th:href="@{/home}">Task manager</a>
+            <a class="btn btn-light" href="#">Inbox</a>
+            <a class="btn btn-light" sec:authorize="hasAnyRole('ADMIN','MANAGER')" th:href="@{/auth/addUser}">Create
+                User</a>
+            <a class="btn btn-light" data-bs-target="#exampleModal" data-bs-toggle="modal"
+               type="button">
+                Contacts
+            </a>
+            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+                 tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Contacts Atom Group in telegram</h5>
+                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @UMIDMASTER98
+                                    <span class="badge bg-primary rounded-pill">93-376-98-26</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @AKHRULLO
+                                    <span class="badge bg-primary rounded-pill">99-999-99-99</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @THEPROGRAMMERR
+                                    <span class="badge bg-primary rounded-pill">97-777-77-77</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @JAVA_SWING_ONE
+                                    <span class="badge bg-primary rounded-pill">93-333-33-33</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -438,14 +504,23 @@
 
             <div class="user-information">
                 <div class="icon">
-                    <img src="/imges/bell.png" alt="">
+                    <img alt="" src="/imges/bell.png">
                     <i class="far fa-envelope"></i>
                 </div>
 
                 <div class="user">
-                    <img src="/imges/useer.png" alt="">
-                    <p>Azhar I.
-                        <i class="fas fa-angle-down"></i>
+                    <p>
+                    <div style="border: none!important;background-color: white!important;" class="dropdown">
+
+                        <img aria-expanded="false"
+                             data-bs-toggle="dropdown"
+                             id="dropdownMenuButton11" alt="" src="/imges/useer.png">
+
+                        <ul aria-labelledby="dropdownMenuButton11" class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/auth/logout}">logout</a></li>
+                            <li><a class="dropdown-item" th:href="@{/auth/profil}">profil</a></li>
+                        </ul>
+                    </div>
                     </p>
                 </div>
 
@@ -484,16 +559,28 @@
                             <button type="submit">Comment</button>
                         </div>
                     </form>
-                    <div class="content-box" th:each="comment : ${comments}">
-                        <div class="flex">
-                            <p class="box-text" th:text="${comment.authorUsername}">
-                                <img src="/imges/avatar.png" alt="">
-                            </p>
-                            <p th:text="${comment.createdAt}"></p>
+                    <div class="content-actions2">
+                        <div th:each="comment : ${comments}">
+                            <div class="content-box2 my-1">
+                                <div class="flex mb-1">
+                                    <div class="box-text ml-1 " th:text="'Author : '+ ${comment.authorUsername}"></div>
+                                    <div class="fs8" th:text="'at: '+ ${comment.createdAt}"></div>
+                                </div>
+                                <span th:text="'Comment : '+ ${comment.text}"></span>
+                            </div>
                         </div>
-                        <span th:text="${comment.text}"></span>
 
                     </div>
+                    <!--                    <div class="content-box" th:each="comment : ${comments}">-->
+                    <!--                        <div class="flex">-->
+                    <!--                            <p class="box-text" th:text="${comment.authorUsername}">-->
+                    <!--                                <img src="/imges/avatar.png" alt="">-->
+                    <!--                            </p>-->
+                    <!--                            <p th:text="${comment.createdAt}"></p>-->
+                    <!--                        </div>-->
+                    <!--                        <span th:text="${comment.text}"></span>-->
+
+                    <!--                    </div>-->
                 </div>
                 <div class="content-status">
                     <div class="status">
@@ -509,12 +596,12 @@
 
                         <div class="status-text mb-2">
                             <p>CreatedAt:</p>
-                            <span th:text="${dto.updatedAt}"></span>
+                            <div class="fs8" th:text="${dto.updatedAt}"></div>
                         </div>
 
                         <div class="status-text mb2">
                             <p>UpdatedAt:</p>
-                            <span th:text="${dto.createdAt}"></span>
+                            <div class="fs8" th:text="${dto.createdAt}"></div>
                         </div>
 
                         <div class="status-text member-status  mt-3 mb-4">
@@ -527,9 +614,9 @@
 
                     <div class="btn">
                         <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton12"
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton12"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                Level
+                                <div style="color: black">Level</div>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton12">
                                 <li><a class="dropdown-item"
@@ -543,9 +630,10 @@
                         </div>
 
                         <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                Priority
+                                <div style="color: black">Priority</div>
+
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="dropdown-item"
@@ -558,13 +646,19 @@
                             </ul>
                         </div>
 
-                        <a class="btn" sec:authorize="hasRole('ADMIN')" th:href="@{/task/join/{id}(id=${dto.id})}">
-                            <img src="/imges/usercheck.png" alt="">Become a participant
+                        <a class="text-decoration-none" sec:authorize="hasRole('ADMIN')"
+                           th:href="@{/task/join/{id}(id=${dto.id})}">
+                            <button style="color: #d9e5f9" class="btn-secondary">
+                                <div style="color: black">Become a participant</div>
+                            </button>
                         </a>
 
-                        <button th:action="@{/project/all}" type="submit">
-                            <img src="/imges/check.png" alt="">Close task
-                        </button>
+                        <a class="text-decoration-none" sec:authorize="hasRole('ADMIN')" th:href="@{/project/all}">
+                            <button style="background-color: #ff4444" class="btn-danger">
+                                <div style="color: black">Close task</div>
+                            </button>
+                        </a>
+
                     </div>
                 </div>
             </div>
