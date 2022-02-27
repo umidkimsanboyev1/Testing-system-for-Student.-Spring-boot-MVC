@@ -89,8 +89,6 @@ public class TaskController {
         taskService.create(dto);
 
         return "redirect:/project/"+dto.getProjectId();
-        Long projectId = taskService.getProjectId(id);
-        return "redirect:/project/" + projectId;
     }
 
     @GetMapping("/update/{id}")

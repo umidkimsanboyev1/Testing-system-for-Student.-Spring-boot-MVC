@@ -24,21 +24,21 @@
                     <!--th:field="*{description}"-->
                     <span style="color: red"></span>
                 </div>
-                <div style="display: flex">
-                    <div class="form-group col-md-4 ml-3">
+                <div class="d-flex justify-content-between">
+                    <div class="form-group">
                         <label for="inputState">Level</label>
-                        <select name="level" id="inputState" class="form-control">
-                            <option selected>EASY</option>
-                            <option>MEDIUM</option>
-                            <option>HARD</option>
+                        <select name="level" id="inputState" class="form-select">
+                            <option th:value="EASY" selected>EASY</option>
+                            <option th:value="MEDIUM"> MEDIUM</option>
+                            <option th:value="HARD">HARD</option>
                         </select>
                     </div>
-                    <div class="form-group mr-3 col-md-4">
+                    <div class="form-group">
                         <label for="inputState2">Priority</label>
-                        <select name="priority" id="inputState2" class="form-control">
-                            <option selected>EASY</option>
-                            <option>MEDIUM</option>
-                            <option>HARD</option>
+                        <select name="priority" id="inputState2" class="form-select">
+                            <option th:value="EASY" selected>EASY</option>
+                            <option th:value="MEDIUM">MEDIUM</option>
+                            <option th:value="HARD">HARD</option>
                         </select>
                     </div>
                 </div>
