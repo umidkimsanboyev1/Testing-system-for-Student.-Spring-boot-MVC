@@ -2,10 +2,7 @@ package uz.master.demotest.controller.task;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import uz.master.demotest.dto.comment.CommentDto;
 import uz.master.demotest.dto.task.TaskCreateDto;
 import uz.master.demotest.dto.task.TaskDto;
@@ -68,16 +65,19 @@ public class TaskController {
         return "redirect:/task/" + id;
     }
 
-    @GetMapping("/create/{column_id}")
-    public String createTaskPage(Model model, @PathVariable(name = "column_id") Long id) {
-        model.addAttribute("id", id);
+    @GetMapping("/create")
+    public String createTaskPage(Model model, @RequestParam String colId,@RequestParam String proId) {
+        model.addAttribute("id", colId);
+        model.addAttribute("proId",proId);
         return "task/create";
     }
 
     @PostMapping("/create/{id}")
-    public String createTask(@PathVariable(name = "id") Long id, TaskCreateDto dto) {
+    public String createTask(@PathVariable(name = "id") Long id,TaskCreateDto dto) {
+
         dto.setColumnId(id);
         taskService.create(dto);
-        return "redirect:/project/all";
+
+        return "redirect:/project/"+dto.getProjectId();
     }
 }

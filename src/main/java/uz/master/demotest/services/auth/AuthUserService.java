@@ -64,10 +64,15 @@ public class AuthUserService
         return null;
     }
 
+
+
     @Override
     public Void update(AuthUserUpdateDto updateDto) {
         return null;
     }
+
+
+
 
     @Override
     public List<AuthDto> getAll() {

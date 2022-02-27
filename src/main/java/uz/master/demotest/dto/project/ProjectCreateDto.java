@@ -9,6 +9,7 @@ import uz.master.demotest.dto.BaseDto;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,5 +19,5 @@ public class ProjectCreateDto implements BaseDto {
     private String name;
     private String description;
     private String tz;
-    private LocalDate deadline;
+    private String deadline;
 }

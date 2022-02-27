@@ -6,8 +6,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import uz.master.demotest.dto.project.ProjectCreateDto;
 import uz.master.demotest.dto.project.ProjectUpdateDto;
+import uz.master.demotest.services.organization.OrganizationService;
 import uz.master.demotest.services.project.ProjectService;
-import uz.master.demotest.services.task.TaskService;
 
 import javax.validation.Valid;
 
@@ -20,14 +20,16 @@ import javax.validation.Valid;
 public class ProjectController {
 
     private final ProjectService projectService;
-
-    public ProjectController(ProjectService projectService) {
+   private final OrganizationService organizationService;
+    public ProjectController(ProjectService projectService, OrganizationService organizationService) {
         this.projectService = projectService;
+        this.organizationService = organizationService;
     }
 
     @RequestMapping("all")
     public String task(Model model) {
         model.addAttribute("projects", projectService.getAll());
+        model.addAttribute("organization",organizationService.get(1L));
         return "project/list";
     }
 
@@ -47,18 +49,11 @@ public class ProjectController {
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute ProjectCreateDto dto, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "project/create";
-//        }
+        if (bindingResult.hasErrors()) {
+            return "project/create";
+        }
         projectService.create(dto);
         return "redirect:/project/all";
-    }
-
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String deletePage(@PathVariable Long id, Model model) {
-        model.addAttribute("dto", projectService.get(id));
-        return "project/delete";
-
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)

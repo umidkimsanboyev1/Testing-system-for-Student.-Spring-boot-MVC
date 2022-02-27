@@ -14,12 +14,17 @@ import uz.master.demotest.services.GenericCrudService;
 import uz.master.demotest.services.column.ColumnService;
 import uz.master.demotest.validator.project.ProjectValidator;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectService extends AbstractService<ProjectRepository, ProjectMapper, ProjectValidator>
         implements GenericCrudService<Project, ProjectDto, ProjectCreateDto, ProjectUpdateDto, Long> {
 
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     private final ColumnService columnService;
 
     protected ProjectService(ProjectRepository repository, ProjectMapper mapper, ProjectValidator validator,
@@ -49,9 +54,17 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
 
     @Override
     public List<ProjectDto> getAll() {
-        return mapper.toDto(repository.findAllByDeletedFalse());
+        return repository.findAllByDeletedFalse().stream().map(project -> {
+            ProjectDto dto=mapper.toDto(project);
+            dto.setCreatedAt(project.getCreatedAt().format(FORMATTER));
+        return dto; }).collect(Collectors.toList());
     }
-
+    public List<ProjectDto> getAll(Long id ) {
+        return repository.findAllByOrgIdAndDeletedFalse(id).stream().map(project -> {
+            ProjectDto dto=mapper.toDto(project);
+            dto.setCreatedAt(project.getCreatedAt().format(FORMATTER));
+            return dto; }).collect(Collectors.toList());
+    }
     @Override
     public ProjectDto get(Long id) {
         ProjectDto projectDto = mapper.toDto(repository.findByIdAndDeletedFalse(id));

@@ -14,6 +14,7 @@ import java.util.List;
 public interface ProjectRepository extends JpaRepository<Project,Long> {
     Project findByIdAndDeletedFalse(Long id);
 
+    List<Project> findAllByOrgIdAndDeletedFalse(Long id);
     List<Project> findAllByDeletedFalse();
 
     @Transactional

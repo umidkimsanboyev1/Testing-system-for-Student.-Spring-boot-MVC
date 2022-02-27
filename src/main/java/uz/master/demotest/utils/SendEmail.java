@@ -16,7 +16,7 @@ public class SendEmail {
         String recipient = args[0];
         Properties properties=System.getProperties();
         String host = "smtp.gmail.com";
-        String sender = "gmail codni yozinglar";
+        String sender = "ibook2025com@gmail.com";
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", "465");
         properties.put("mail.smtp.ssl.enable", "true");
@@ -25,16 +25,16 @@ public class SendEmail {
         Session session = Session.getDefaultInstance(properties,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("emailni yozinglar","gmail codni yozinglar");
+                        return new PasswordAuthentication("ibook2025com@gmail.com","sokcrrlqangdxcmh");
                     }
                 });
 
         try {
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(sender));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+            message.setFrom(new InternetAddress(recipient));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(sender));
             message.setSubject("code for email");
-            message.setText("http://localhost:8080/auth/reset/" +args[1]);
+            message.setText("http://localhost:8080/auth/reset" +args[1]);
             Transport.send(message);
         } catch (MessagingException mex) {
             mex.printStackTrace();
