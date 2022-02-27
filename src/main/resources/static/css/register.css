@@ -73,6 +73,13 @@
   color: #000000;
 }
 
+.login-input select {
+  width: 432px;
+  height: 52px;
+  margin: 10px auto;
+  display: block;
+}
+
 .login-input p {
   font-family: Josefin Sans;
   font-style: normal;

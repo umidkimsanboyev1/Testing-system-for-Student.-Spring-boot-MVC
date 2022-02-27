@@ -24,7 +24,7 @@ header main {
   top: 20px;
   right: 20px;
   font-size: 24px;
-  display: none;
+  width: 50px;
 }
 
 .link {
