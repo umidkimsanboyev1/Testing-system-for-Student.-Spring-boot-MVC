@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 >
 <head>
     <meta charset="UTF-8">
@@ -24,7 +25,7 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="logo">
-            <a th:href="@{/home}"><img src="/imges/logo.png" alt=""></a>
+            <a th:href="@{/project/all}"><img src="/imges/logo.png" alt=""></a>
         </div>
 
         <div class="link">
@@ -151,7 +152,7 @@
                                 </button>
                                 <div aria-hidden="true" aria-labelledby="exampleModalLabel1" class="modal fade"
                                      id="exampleModal1" tabindex="-1">
-                                    <form , th:action="@{/organization/delete/{id}(id = ${organization.getId()})}"
+                                    <form th:action="@{/organization/delete/{id}(id = ${organization.getId()})}"
                                           th:method="POST">
                                         <div class="modal-dialog">
                                             <div class="modal-content">

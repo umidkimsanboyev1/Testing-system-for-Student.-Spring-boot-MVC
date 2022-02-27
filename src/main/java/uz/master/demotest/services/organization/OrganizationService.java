@@ -45,8 +45,7 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
         Organization organization = mapper.fromCreateDto(createDto);
         organization.setStatus("ACTIVE");
         organization.setDeleted(false);
-        repository.save(organization);
-        return null;
+        return repository.save(organization).getId();
     }
 
     @Override
