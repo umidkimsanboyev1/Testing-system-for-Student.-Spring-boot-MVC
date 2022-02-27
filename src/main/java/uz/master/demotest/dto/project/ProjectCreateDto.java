@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 import uz.master.demotest.dto.BaseDto;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +18,6 @@ import java.util.Date;
 public class ProjectCreateDto implements BaseDto {
     private String name;
     private String description;
-    private String tz;
-    private String deadline;
+    private MultipartFile tz;
+    private LocalDateTime deadline;
 }

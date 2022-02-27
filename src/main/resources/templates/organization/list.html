@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <head>
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Index html one</title>
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
     <link href="/css/index.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -24,7 +25,7 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="logo">
-            <a th:href="@{/home}"><img src="/imges/logo.png" alt=""></a>
+            <a th:href="@{/project/all}"><img src="/imges/logo.png" alt=""></a>
         </div>
 
         <div class="link">
@@ -32,8 +33,8 @@
             </a>
             <a class="btn btn-light" th:href="@{/home}">Task manager</a>
             <a class="btn btn-light" href="#">Inbox</a>
-            <a class="btn btn-light" sec:authorize="hasAnyRole('ADMIN','MANAGER')" th:href="@{/auth/addUser}">Create
-                User</a>
+            <a sec:autorize="hasAnyRole('ADMIN','MANAGER')" class="btn btn-light" th:href="@{/auth/addUser}">Create User</a>
+            <a sec:authorize=" hasRole( 'SUPERADMIN' ) " class="btn btn-light" th:href="@{/organization/list}">Organizations</a>
             <a class="btn btn-light" data-bs-target="#exampleModal" data-bs-toggle="modal"
                type="button">
                 Contacts
@@ -98,7 +99,14 @@
         </nav>
         <div style="display: flex">
             <div class="container">
-                <h3>Organizations</h3>
+                <div style="display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 100vh!important;">
+                    <h3>Organizations</h3>
+                    <a th:href="@{/organization/create/}"><img alt="Create organization"
+                                                               src="/imges/plus-circle.png"></a>
+                </div>
                 <div class="content" th:each="organization, iter : ${organizations}">
                     <div class="contents">
                         <div class="content-text">
@@ -109,9 +117,9 @@
                         </div>
                         <div style="
                             display: flex;
-                            justify-content: space-around;
+                            justify-content: space-between;
                             align-items: center;">
-                            <img alt="Lgo Organization"
+                            <img alt="Logo Organization"
                                  style="width: 10em !important; height: 10em !important;"
                                  th:src="${organization.getLogo()}">
                             <div>
@@ -133,17 +141,47 @@
                                 <p><i class="fa-solid fa-registered"></i> <i class="fa-solid fa-right-long"></i> <label
                                         th:text="${organization.getRegistrationNumber()}"></label></p>
                             </div>
-                            <div style="display: block">
-                                <a class="btn btn-success my-2" style="width: 90%"
-                                   th:href="@{/organization/update/{id}(id=${organization.id})}">Update</a>
-                                <a class="btn btn-success my-2" style="width: 90%"
-                                   th:href="@{/organization/delete/{id}(id=${organization.id})}">Delete</a>
+                            <div style="display: grid; font-size: xx-large;">
+                                <a class="btn btn-outline-info" style="text-decoration: none; color: limegreen;"
+                                   th:href="@{/organization/update/{id}(id=${organization.id})}"> Update </a>
+                                <br>
+                                <button class="btn btn-outline-warning" data-bs-target="#exampleModal1"
+                                        data-bs-toggle="modal"
+                                        type="button">
+                                    Delete
+                                </button>
+                                <div aria-hidden="true" aria-labelledby="exampleModalLabel1" class="modal fade"
+                                     id="exampleModal1" tabindex="-1">
+                                    <form th:action="@{/organization/delete/{id}(id = ${organization.getId()})}"
+                                          th:method="POST">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel1">Delete ?</h5>
+                                                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                                            type="button"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4 th:text="${organization.getName()}"></h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" data-bs-dismiss="modal"
+                                                            type="button">Close
+                                                    </button>
+                                                    <button class="btn btn-primary" type="submit"> Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <a class="btn btn-success" th:href="@{/organization/create}">Add Organization</a>
+                <!--                <a class="btn btn-success" th:href="@{/organization/create}">Add Organization</a>-->
             </div>
 
         </div>

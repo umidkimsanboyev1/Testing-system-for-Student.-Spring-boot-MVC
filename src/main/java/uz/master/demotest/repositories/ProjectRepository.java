@@ -26,4 +26,8 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
     @Modifying
     @Query(value = "update Project p set p.name = #{#dto.name}, p.description = #{#dto.description}, p.tz = #{#dto.tz}, p.orgId = #{#dto.orgId}  where p.id = #{#dto.id}",nativeQuery = true)
     void update(@Param("dto") ProjectUpdateDto dto);
+
+    @Query("select u.teamLeaderId from  Project u where u.id=:id")
+    Long getTeamLead(@Param("id") Long projectId);
+
 }

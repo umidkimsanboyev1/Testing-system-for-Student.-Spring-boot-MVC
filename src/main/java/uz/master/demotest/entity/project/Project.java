@@ -34,10 +34,13 @@ public class Project extends Auditable {
     @Column(nullable = false)
     private Long orgId;
 
+    @Column(nullable = false)
+    private Long teamLeaderId;
+
 
     @CreatedDate
-    @Column(name = "deadline", columnDefinition = "date")
-    private LocalDate deadline;
+    @Column(name = "deadline", columnDefinition = " timestamp ")
+    private LocalDateTime deadline;
 
 
 }

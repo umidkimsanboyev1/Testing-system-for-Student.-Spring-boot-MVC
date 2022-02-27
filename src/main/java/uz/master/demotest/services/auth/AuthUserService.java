@@ -5,11 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import uz.master.demotest.configs.security.UserDetails;
-import uz.master.demotest.dto.auth.AuthDto;
-import uz.master.demotest.dto.auth.AuthUserCreateDto;
+import uz.master.demotest.dto.auth.*;
 
-import uz.master.demotest.dto.auth.AuthUserUpdateDto;
-import uz.master.demotest.dto.auth.ResetPassword;
 import uz.master.demotest.entity.auth.AuthRole;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.auth.Token;
@@ -56,6 +53,16 @@ public class AuthUserService
         authUser.setOrganizationId(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getOrganization());
         authUser.setRole(byId);
         authUser.setPassword(encoder.encode(createDto.getPassword()));
+        return repository.save(authUser).getId();
+    }
+
+
+    public Long createAdmin(AddAdminDto addAdminDto, Long id) {
+        AuthUser authUser = mapper.fromDto(addAdminDto);
+        AuthRole byId = roleRepository.getById(1L);
+        authUser.setOrganizationId(id);
+        authUser.setRole(byId);
+        authUser.setPassword(encoder.encode(addAdminDto.getPassword()));
         return repository.save(authUser).getId();
     }
 

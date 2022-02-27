@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -130,6 +131,7 @@
                         <p><b>Participants:</b><span th:text="*{projectMembersCount}">12/04/2021 </span></p>
                     </div>
                     <div style="height: 180px" class="content-box">
+                        <p><b>Project TZ : </b><a th:href="@{'/'+*{tz}}">Download</a></p>
                         <p><b>Description : </b></p>
                         <p th:text="*{description}">
                         </p>

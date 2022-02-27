@@ -38,7 +38,7 @@ public abstract class Auditable implements BaseEntity, Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @Column(name = "is_deleted")
+    @Column(name = "is_deleted",columnDefinition = "boolean default false")
     private boolean deleted;
 
     public boolean isDeleted() {

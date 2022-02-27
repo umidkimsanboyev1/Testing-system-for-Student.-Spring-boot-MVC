@@ -14,6 +14,7 @@ import uz.master.demotest.services.organization.OrganizationService;
 @RequestMapping(value = "/organization/")
 public class OrganizationController {
 
+
     private final OrganizationService service;
 
     public OrganizationController(OrganizationService service) {
@@ -22,14 +23,13 @@ public class OrganizationController {
 
     @RequestMapping(value = "create", method = RequestMethod.GET)
     public String createPage(Model model) {
-        //model.addAttribute("Organization", new OrganizationCreateDto());
         return "organization/create";
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String create(@ModelAttribute OrganizationCreateDto dto) {
-        service.create(dto);
-        return "redirect:/organization/list";
+    public String create(Model model, @ModelAttribute OrganizationCreateDto dto) {
+        model.addAttribute("organizationId", service.create(dto));
+        return "auth/addAdmin";
     }
 
     @RequestMapping(value = "update/{id}", method = RequestMethod.GET)

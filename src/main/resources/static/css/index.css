@@ -327,3 +327,13 @@ nav .input {
     margin: 0;
   }
 }
+
+.links{
+  display: grid;
+  font-size: xx-large;
+}
+
+.links a {
+  text-decoration: none;
+  color: limegreen;
+}

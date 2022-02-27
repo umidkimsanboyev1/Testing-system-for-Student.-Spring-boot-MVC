@@ -2,16 +2,19 @@ package uz.master.demotest.services.project;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.project.ProjectCreateDto;
 import uz.master.demotest.dto.project.ProjectDto;
 import uz.master.demotest.dto.project.ProjectUpdateDto;
+import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.project.Project;
 import uz.master.demotest.mappers.ProjectMapper;
 import uz.master.demotest.repositories.ProjectRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
 import uz.master.demotest.services.column.ColumnService;
+import uz.master.demotest.services.file.FileStorageService;
 import uz.master.demotest.validator.project.ProjectValidator;
 
 import java.time.LocalDateTime;
@@ -26,17 +29,24 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     private final ColumnService columnService;
+    private final FileStorageService fileStorageService;
 
     protected ProjectService(ProjectRepository repository, ProjectMapper mapper, ProjectValidator validator,
-                             ColumnService columnService) {
+                             ColumnService columnService, FileStorageService fileStorageService) {
         super(repository, mapper, validator);
         this.columnService = columnService;
+        this.fileStorageService = fileStorageService;
     }
 
     @Override
     public Long create(ProjectCreateDto createDto) {
+        MultipartFile file = createDto.getTz();
+        String tzPath = fileStorageService.store(file);
         Project project = mapper.fromCreateDto(createDto);
-        project.setOrgId(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getOrganization());
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        project.setOrgId(principal.getOrganization());
+        project.setTeamLeaderId(principal.getId());
+        project.setTz(tzPath);
         return repository.save(project).getId();
     }
 
@@ -74,5 +84,21 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
 
     public ProjectUpdateDto getUpdateDto(Long id) {
         return mapper.toUpdateDto(get(id));
+    }
+
+    public Long getTeamLead(Long projectId) {
+        return repository.getTeamLead(projectId);
+    }
+
+    public List<AuthUser> getMembers(Long id) {
+        //todo : Axrullo aka tugirlab yozib quying, men uzimga kerak buganinucun qildm,project Id kirib kesa undagi memberlarni bersin
+        return new ArrayList<>() {{
+            add(AuthUser.builder()
+                    .id(3L)
+                    .username("Kimdram")
+                    .password("123123")
+                    .build()
+            );
+        }};
     }
 }

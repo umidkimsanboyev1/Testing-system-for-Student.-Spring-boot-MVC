@@ -3,6 +3,7 @@ package uz.master.demotest.controller.auth;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import uz.master.demotest.dto.auth.AddAdminDto;
 import uz.master.demotest.dto.auth.AuthUserCreateDto;
 import uz.master.demotest.dto.auth.ResetPassword;
 import uz.master.demotest.services.auth.AuthUserService;
@@ -36,6 +37,19 @@ public class AuthUserController {
 
 
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
+    public String addAdmin(@ModelAttribute AuthUserCreateDto dto) {
+        service.create(dto);
+        return "redirect:/project/all";
+    }
+
+    @RequestMapping(value = "addAdmin/{id}", method = RequestMethod.POST)
+    public String addAdminPage(@ModelAttribute AddAdminDto dto, @PathVariable Long id) {
+        service.createAdmin(dto, id);
+        return "project/list";
+    }
+
+
+    @RequestMapping(value = "addUser/", method = RequestMethod.POST)
     public String add(@ModelAttribute AuthUserCreateDto dto) {
         service.create(dto);
         return "redirect:/project/all";
@@ -54,7 +68,7 @@ public class AuthUserController {
     @RequestMapping(value = "reset", method = RequestMethod.POST)
     public String checkToken(@ModelAttribute ResetPassword password) {
         service.resetPassword(password);
-        return "redirect:auth/login";
+        return "redirect:/auth/login";
 
     }
 
@@ -68,7 +82,9 @@ public class AuthUserController {
     @RequestMapping(value = "forgot", method = RequestMethod.POST)
     public String forgotPage(@RequestParam String email, @RequestParam String username) {
         service.sendMail(email, username);
-        return "redirect:auth/login";
+        return "redirect:/auth/login";
     }
+
+
 
 }

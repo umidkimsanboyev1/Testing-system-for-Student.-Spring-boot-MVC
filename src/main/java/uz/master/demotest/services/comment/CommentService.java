@@ -7,8 +7,10 @@ import uz.master.demotest.dto.comment.CommentCreateDto;
 import uz.master.demotest.dto.comment.CommentDto;
 import uz.master.demotest.dto.comment.CommentUpdateDto;
 import uz.master.demotest.entity.comment.Comment;
+import uz.master.demotest.enums.ActionTexts;
 import uz.master.demotest.mappers.CommentMapper;
 import uz.master.demotest.repositories.CommentRepository;
+import uz.master.demotest.repositories.TaskRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
 import uz.master.demotest.validator.task.CommentValidator;
@@ -20,12 +22,16 @@ import java.util.List;
 public class CommentService extends AbstractService<CommentRepository, CommentMapper, Validator>
         implements GenericCrudService<Comment, CommentDto, CommentCreateDto, CommentUpdateDto, Long> {
 
+    private final TaskRepository taskRepository;
 
     protected CommentService(CommentRepository repository,
                              CommentMapper mapper,
-                             CommentValidator validator) {
+                             CommentValidator validator, TaskRepository taskRepository) {
         super(repository, mapper, validator);
+
+        this.taskRepository = taskRepository;
     }
+
 
     @Override
     public List<CommentDto> getAll() {
@@ -40,6 +46,7 @@ public class CommentService extends AbstractService<CommentRepository, CommentMa
     public Long create(CommentCreateDto dto) {
         Comment comment = mapper.fromCreateDto(dto);
         comment.setAuthorUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+        taskRepository.addAction(dto.getTaskId(), comment.getAuthorUsername(), ActionTexts.NEW_COMMIT.getText());
         return repository.save(comment).getId();
     }
 
