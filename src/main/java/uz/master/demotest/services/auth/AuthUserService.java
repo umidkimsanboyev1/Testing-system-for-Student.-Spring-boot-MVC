@@ -62,6 +62,7 @@ public class AuthUserService
         AuthRole byId = roleRepository.getById(1L);
         authUser.setOrganizationId(id);
         authUser.setRole(byId);
+        authUser.setActive(true);
         authUser.setPassword(encoder.encode(addAdminDto.getPassword()));
         return repository.save(authUser).getId();
     }

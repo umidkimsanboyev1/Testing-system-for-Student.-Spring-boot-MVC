@@ -1,12 +1,16 @@
 package uz.master.demotest.controller.project;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.project.ProjectCreateDto;
 import uz.master.demotest.dto.project.ProjectUpdateDto;
+import uz.master.demotest.entity.auth.AuthUser;
+import uz.master.demotest.entity.organization.Organization;
 import uz.master.demotest.services.organization.OrganizationService;
 import uz.master.demotest.services.project.ProjectService;
 import uz.master.demotest.services.task.TaskService;
@@ -30,8 +34,9 @@ public class ProjectController {
 
     @RequestMapping("all")
     public String task(Model model) {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("projects", projectService.getAll());
-        model.addAttribute("organization",organizationService.get(1L));
+        model.addAttribute("organization", organizationService.get(user.getOrganization()));
         return "project/list";
     }
 

@@ -10,10 +10,9 @@ import java.util.List;
 
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
 
+    Organization findOrganizationByIdAndDeletedFalse(Long id);
 
-    Organization findOrganizationByIdAndDeletedFalseOrderByIdAsc(Long id);
-
-    List<Organization> findAllByDeletedFalse();
+    List<Organization> findAllByDeletedFalseOrderByIdAsc();
 
 
     @Transactional

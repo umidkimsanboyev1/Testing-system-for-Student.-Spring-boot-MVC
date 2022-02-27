@@ -2,7 +2,7 @@ package uz.master.demotest.services.organization;
 
 
 import org.springframework.stereotype.Service;
-import uz.master.demotest.dto.Organization.OrganizationDto;
+import uz.master.demotest.dto.organization.OrganizationDto;
 import uz.master.demotest.dto.organization.OrganizationUpdateDto;
 import uz.master.demotest.entity.organization.Organization;
 import uz.master.demotest.mappers.OrganizationMapper;
@@ -22,21 +22,22 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
 
     public OrganizationUpdateDto getOrganization(Long id) {
-        return mapper.toUpdateDto(repository.findOrganizationByIdAndDeletedFalseOrderByIdAsc(id));
+        return mapper.toUpdateDto(repository.findOrganizationByIdAndDeletedFalse(id));
     }
 
     @Override
     public List<OrganizationDto> getAll() {
-        for (Organization organization : repository.findAllByDeletedFalse()) {
+        for (Organization organization : repository.findAllByDeletedFalseOrderByIdAsc()) {
             System.out.println("organization = " + organization);
         }
 
-        return mapper.toDto(repository.findAllByDeletedFalse());
+        return mapper.toDto(repository.findAllByDeletedFalseOrderByIdAsc());
     }
 
     @Override
     public OrganizationDto get(Long id) {
-        return mapper.toDto(repository.findOrganizationByIdAndDeletedFalseOrderByIdAsc(id));
+        System.out.println("mapper.toDto(repository.findOrganizationByIdAndDeletedFalse(id)) = " + mapper.toDto(repository.findOrganizationByIdAndDeletedFalse(id)));
+        return mapper.toDto(repository.findOrganizationByIdAndDeletedFalse(id));
     }
 
 
@@ -61,9 +62,16 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
     public Void update(OrganizationUpdateDto updateDto, Long id) {
         updateDto.setId(id);
-        updateDto.setRegistrationNumber(repository.findOrganizationByIdAndDeletedFalseOrderByIdAsc(id).getRegistrationNumber());
+        updateDto.setRegistrationNumber(repository.findOrganizationByIdAndDeletedFalse(id).getRegistrationNumber());
         updateDto.setStatus("ACTIVE");
         repository.save(mapper.fromUpdateDto(updateDto));
         return null;
+    }
+
+    public void block(Long id, boolean b) {
+        Organization organization = repository.findOrganizationByIdAndDeletedFalse(id);
+        organization.setBlocked(b);
+        repository.save(organization);
+        System.out.println("repository.findOrganizationByIdAndDeletedFalseOrderByIdAsc(id) = " + repository.findOrganizationByIdAndDeletedFalse(id));
     }
 }
