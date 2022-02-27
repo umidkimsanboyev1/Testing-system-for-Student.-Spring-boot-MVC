@@ -116,7 +116,7 @@ nav .input {
 .flex {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .user {
@@ -285,7 +285,6 @@ nav .input {
   gap: 8px;
   font-family: Rubik;
   font-style: normal;
-  font-weight: 500;
   font-size: 14px;
   line-height: 20px;
   color: #000000;

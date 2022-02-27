@@ -120,7 +120,7 @@
 
         <div class="container">
             <div class="my-3" style="display: flex; align-items: center">
-                <h4 class="mx-4" th:text="${dto.name}"></h4>
+                <h4 class="mx-4" th:text="'Task Name : '+${dto.name}"></h4>
                 <div class="btn-group">
                     <a class=" ml-3 btn btn-success mt-0" th:href="@{/task/update/{id}(id=${dto.id})}">Update</a>
                     <a class=" ml-3 btn btn-danger mt-0" th:href="@{/task/delete/{id}(id=${dto.id})}">Delete</a>
@@ -148,8 +148,11 @@
                 </div>
                 <div class="container-box">
                     <div class="content-box">
-                        <b th:text="${dto.name}"></b>
-                        <p th:text="${dto.description}"></p>
+                        <b>Name : </b>
+                        <span th:text="${dto.name}"></span>
+                        <br>
+                        <b>Description : </b>
+                        <span th:text="${dto.description}"></span>
                     </div>
                     <form th:action="@{/comment/create/{id}(id = ${dto.id})}" method="post">
                         <div class="content-box">
@@ -161,10 +164,14 @@
                         <div th:each="comment : ${comments}">
                             <div class="content-box2 my-2">
                                 <div class="flex mb-1">
-                                    <div class="box-text ml-1 " th:text="'Author : '+ ${comment.authorUsername}"></div>
+                                    <div style="display: flex">
+                                        <b>Author : </b>
+                                        <div class="box-text ml-1 " th:text="${comment.authorUsername}"></div>
+                                    </div>
                                     <div class="fs8" th:text="'at: '+ ${comment.createdAt}"></div>
                                 </div>
-                                <span th:text="'Comment : '+ ${comment.text}"></span>
+                                <b>Commit : </b>
+                                <span th:text="${comment.text}"></span>
                             </div>
                         </div>
 
@@ -233,7 +240,9 @@
                                     </div>
                                     <div class="modal-body" th:each="member : ${projectMembers}" style="display: flex">
                                         <div th:text="${member.username}"></div>
-                                        <a class="btn btn-success mt-0 ml-2" th:href="@{/task/addMember/{taskId}/{memberId}(taskId=${dto.id},memberId=${member.id})}">➕  Add</a>
+                                        <a class="btn btn-success mt-0 ml-2"
+                                           th:href="@{/task/addMember/{taskId}/{memberId}(taskId=${dto.id},memberId=${member.id})}">➕
+                                            Add</a>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -248,7 +257,7 @@
                         <div class="dropdown">
                             <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton12"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                 Level
+                                Level
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton12">
                                 <li><a class="dropdown-item"
@@ -262,7 +271,8 @@
                         </div>
 
                         <div class="dropdown">
-                            <button class="btn btn-outline-warning dropdown-toggle col-white" type="button" id="dropdownMenuButton1"
+                            <button class="btn btn-outline-warning dropdown-toggle col-white" type="button"
+                                    id="dropdownMenuButton1"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                 Priority
                             </button>
