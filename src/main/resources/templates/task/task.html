@@ -344,7 +344,7 @@
         }
 
         .status-text {
-            margin: 8px;
+            margin: 8px 3px 8px 8px;
             display: flex;
             /*align-items: center;*/
             gap: 50px;
@@ -367,7 +367,8 @@
         }
 
         .members-body {
-            height: 100px;
+            width: 250px;
+            height: 80px;
             overflow-y: scroll;
             /*overflow: auto;*/
             /*overflow-y: hidden;*/
@@ -529,10 +530,10 @@
         </nav>
 
         <div class="container">
-            <div style="display: flex;justify-content: center;align-items: center">
-                <h4 th:text="${dto.name}"></h4>
-                <a class=" ml-3 btn btn-success" th:href="@{/task/update/{id}(id=${dto.id})}">Update</a>
-                <a class=" ml-3 btn btn-danger" th:href="@{/task/delete/{id}(id=${dto.id})}">Delete</a>
+            <div class="my-3" style="display: flex; align-items: center">
+                <h4 class="mx-4" th:text="${dto.name}"></h4>
+                <a class=" ml-3 btn btn-success mt-0" th:href="@{/task/update/{id}(id=${dto.id})}">Update</a>
+                <a class=" ml-3 btn btn-danger mt-0" th:href="@{/task/delete/{id}(id=${dto.id})}">Delete</a>
             </div>
 
 
@@ -612,8 +613,42 @@
 
                         <div class="status-text member-status  mt-3 mb-4">
                             <p>Members:</p>
-                            <div class=" members-body">
-                                <p th:each="member : ${members}" th:text="${member.username}"></p>
+                            <div class=" members-body" style="width: 250px!important;">
+                                <div th:each="member : ${members}" style="display: flex;align-items: center">
+                                    <div th:text="${member.username}"></div>
+                                    <a class=" ml-1 btn btn-danger fs8 mt-0 pt-0"
+                                       style="height: 10px;width: 40px;padding-left: 3px"
+                                       th:href="@{/task/removeMember/{taskId}/{memberId}(taskId=${dto.id},memberId=${member.id})}">Remove</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Button trigger modal -->
+
+                        <a class=" mx-auto btn btn-success" data-bs-target="#exampleModal2" data-bs-toggle="modal"
+                           type="button">
+                            Add Member
+                        </a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel2">Project Members </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" th:each="member : ${projectMembers}" style="display: flex">
+                                        <div th:text="${member.username}"></div>
+                                        <a class="btn btn-success mt-0 ml-2" th:href="@{/task/addMember/{taskId}/{memberId}(taskId=${dto.id},memberId=${member.id})}">➕  Add</a>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -659,7 +694,7 @@
                             </button>
                         </a>
 
-                        <a class="text-decoration-none" sec:authorize="hasRole('ADMIN')" th:href="@{/project/all}">
+                        <a class="text-decoration-none" th:href="@{/project/all}">
                             <button style="background-color: #ff4444" class="btn-danger">
                                 <div style="color: black">Close task</div>
                             </button>

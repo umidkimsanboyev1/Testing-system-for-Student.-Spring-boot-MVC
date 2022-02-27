@@ -22,7 +22,7 @@ public class ProjectDto extends GenericDto {
     private String tz;
     private String organizationName;
     private LocalDateTime createdAt;
-    private LocalDate deadline;
+    private LocalDateTime deadline;
     private List<ColumnDto> columns = new ArrayList<>();
     private int projectMembersCount = 0;
 
