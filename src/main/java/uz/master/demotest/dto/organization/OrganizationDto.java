@@ -1,4 +1,4 @@
-package uz.master.demotest.dto.Organization;
+package uz.master.demotest.dto.organization;
 
 
 import lombok.Getter;
@@ -29,4 +29,6 @@ public class OrganizationDto extends GenericDto {
     private Long registrationNumber;
 
     private String webSite;
+
+    private boolean blocked;
 }

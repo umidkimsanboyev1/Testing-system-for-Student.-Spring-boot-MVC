@@ -41,5 +41,7 @@ public class Organization extends Auditable{
     @Column(nullable = false)
     private String status;
 
+    private Boolean blocked = false;
+
     private Boolean deleted = false;
 }

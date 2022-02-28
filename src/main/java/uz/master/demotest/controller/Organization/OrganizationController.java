@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import uz.master.demotest.dto.organization.OrganizationBlockDto;
 import uz.master.demotest.dto.organization.OrganizationCreateDto;
 import uz.master.demotest.dto.organization.OrganizationUpdateDto;
 import uz.master.demotest.services.organization.OrganizationService;
@@ -44,6 +45,12 @@ public class OrganizationController {
     @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable Long id, @ModelAttribute OrganizationUpdateDto dto) {
         service.update(dto, id);
+        return "redirect:/organization/list";
+    }
+
+    @RequestMapping(value = "blocked", method = RequestMethod.POST)
+    public String block(@ModelAttribute OrganizationBlockDto dto) {
+        service.block(dto.getId(), !dto.isBlocked());
         return "redirect:/organization/list";
     }
 

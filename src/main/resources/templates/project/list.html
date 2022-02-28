@@ -34,7 +34,8 @@
             </a>
             <a class="btn btn-light" th:href="@{/home}">Task manager</a>
             <a class="btn btn-light" href="#">Inbox</a>
-            <a sec:autorize="hasAnyRole('ADMIN','MANAGER')" class="btn btn-light" th:href="@{/auth/addUser}">Create User</a>
+            <a sec:autorize="hasAnyRole('ADMIN','MANAGER')" class="btn btn-light" th:href="@{/auth/addUser}">Create
+                User</a>
             <a sec:authorize=" hasRole( 'SUPERADMIN' ) " class="btn btn-light" th:href="@{/organization/list}">Organizations</a>
             <a class="btn btn-light" data-bs-target="#exampleModal" data-bs-toggle="modal"
                type="button">
@@ -119,29 +120,32 @@
                 <div class="contents">
                     <div class="content-text">
                         <p>My Projects</p>
-                        <a th:href="@{/project/create}"><img src="/imges/plus-circle.png"></a>
+                        <a th:href="@{/project/create}">
+                            <img src="/imges/plus-circle.png"></a>
 
                     </div>
                     <div class="box" th:each="project:${projects}">
-                        <p>
+                        <span>
                             <a th:href="@{/project/{project_id}(project_id=${project.id})}"
                                th:text="${project.name}"></a>
-                        </p>
+                        </span>
                         <div class="box-text">
-                                    <span>
-                                        <img alt="" src="/imges/sunrise.png"><span
-                                            th:text="${project.createdAt}"></span>
-                                    </span>
                             <span>
-                                        <img alt="" src="/imges/sunset2.png" th:text="${project.deadline}">
-                                    </span>
+                                <img alt="" src="/imges/sunrise.png">
+                                <span th:text="${project.createdAt}"></span>
+                            </span>
                             <span>
-                                       <img alt="" src="/imges/users.png" th:text="${project.projectMembersCount}">
-                                    </span>
+                                <img alt="" src="/imges/sunset2.png">
+                                <span th:text="${project.deadline}"></span>
+                            </span>
                             <span>
-                                <i type="button" class="fa-solid fa-pen" style="color: green" data-bs-toggle="modal"
+                                <img alt="" src="/imges/users.png">
+                                <span th:text="${project.projectMembersCount}"></span>
+                            </span>
+                            <span>
+                                <i type="button" class="fa-solid fa-edit" style="color: green; font-size: 18px" data-bs-toggle="modal"
                                    data-bs-target="#updateModal"></i>
-                                <i type="button" class="fa-solid fa-trash-can-plus" style="color: orangered"
+                                <i type="button" class="fa-solid fa-trash" style="color: orangered; font-size: 18px"
                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
                             </span>
                             <div class="modal fade" id="updateModal" data-bs-backdrop="static"
@@ -155,23 +159,23 @@
                                         <div class="modal-body">
                                             <form th:action="@{/project/update/{project_id}(project_id=${project.getId()})}"
                                                   method="post">
-                                                                                                <div class="mb-3">
-                                                                                                    <label for="exampleInputEmail1" class="form-label">name</label>
-                                                                                                    <input type="text" class="form-control" id="exampleInputEmail1"
-                                                                                                           aria-describedby="emailHelp" th:value="${project.getName()}"
-                                                                                                           name="name">
-                                                                                                </div>
-                                                                                                <div class="mb-3">
-                                                                                                    <label for="exampleInputPassword1"
-                                                                                                           class="form-label">Description</label>
-                                                                                                    <input type="text" class="form-control" id="exampleInputPassword1"
-                                                                                                           th:value="${project.getDescription()}" name="description">
-                                                                                                </div>
-                                                                                                <div class="mb-3">
-                                                                                                    <label for="deadline" class="form-label">deadline</label>
-                                                                                                    <input type="text" class="form-control" id="deadline"
-                                                                                                           th:value="${project.getDeadline()}" name="deadline">
-                                                                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputEmail1" class="form-label">name</label>
+                                                    <input type="text" class="form-control" id="exampleInputEmail1"
+                                                           aria-describedby="emailHelp" th:value="${project.getName()}"
+                                                           name="name">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1"
+                                                           class="form-label">Description</label>
+                                                    <input type="text" class="form-control" id="exampleInputPassword1"
+                                                           th:value="${project.getDescription()}" name="description">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="deadline" class="form-label">deadline</label>
+                                                    <input type="text" class="form-control" id="deadline"
+                                                           th:value="${project.getDeadline()}" name="deadline">
+                                                </div>
                                                 <button type="button" class="btn btn-danger">Yes</button>
                                             </form>
                                         </div>
@@ -211,9 +215,6 @@
                     </div>
                 </div>
                 <div class="contents">
-                    <div class="content-text" sec:authorize="hasAnyRole('ADMIN')">
-                        <a th:href="@{/organization/list}" class="btn btn-success">Organization list</a>
-                    </div>
                     <div class="content-text">
                         <p>Organization</p>
                     </div>
