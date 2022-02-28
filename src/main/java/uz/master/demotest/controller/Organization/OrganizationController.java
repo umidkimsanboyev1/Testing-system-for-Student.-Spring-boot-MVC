@@ -1,5 +1,6 @@
 package uz.master.demotest.controller.Organization;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +12,7 @@ import uz.master.demotest.dto.organization.OrganizationUpdateDto;
 import uz.master.demotest.services.organization.OrganizationService;
 
 @Controller
+@Secured("ROLE_ADMIN")
 @RequestMapping(value = "/organization/")
 public class OrganizationController {
 
@@ -20,6 +22,7 @@ public class OrganizationController {
     public OrganizationController(OrganizationService service) {
         this.service = service;
     }
+
 
     @RequestMapping(value = "create", method = RequestMethod.GET)
     public String createPage(Model model) {
@@ -50,11 +53,14 @@ public class OrganizationController {
         return "organization/delete";
     }
 
+
+
     @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable Long id) {
         service.delete(id);
         return "redirect:/organization/list";
     }
+
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String delete(Model model) {

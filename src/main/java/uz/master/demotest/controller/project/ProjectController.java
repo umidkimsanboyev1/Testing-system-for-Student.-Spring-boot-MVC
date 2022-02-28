@@ -1,5 +1,7 @@
 package uz.master.demotest.controller.project;
 
+import org.springframework.context.annotation.Role;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +31,7 @@ public class ProjectController {
     }
 
     @RequestMapping("all")
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN"})
     public String task(Model model) {
         model.addAttribute("projects", projectService.getAll());
         model.addAttribute("organization",organizationService.get(1L));
@@ -42,13 +45,14 @@ public class ProjectController {
     }
 
 
-
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN"})
     @RequestMapping(value = "create", method = RequestMethod.GET)
     public String createPage(Model model) {
         model.addAttribute("dto", new ProjectCreateDto());
         return "project/create";
     }
 
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN"})
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute ProjectCreateDto dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -58,12 +62,14 @@ public class ProjectController {
         return "redirect:/project/all";
     }
 
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN"})
     @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable Long id) {
         projectService.delete(id);
         return "redirect:/project/all";
     }
 
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN"})
     @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
     public String updatePage(@PathVariable(name = "id") Long id, Model model) {
         ProjectUpdateDto dto = projectService.getUpdateDto(id);
@@ -71,6 +77,7 @@ public class ProjectController {
         return "project/update";
     }
 
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN","PM"})
     @RequestMapping(value = "update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable(name = "id") Long id, @ModelAttribute ProjectUpdateDto dto) {
         dto.setId(id);

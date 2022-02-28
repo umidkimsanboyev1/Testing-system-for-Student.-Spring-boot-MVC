@@ -20,4 +20,9 @@ public interface ColumnRepository extends JpaRepository<ProjectColumn,Long> {
     void delete(@Param("id") Long id);
 
 
+    @Transactional
+    @Modifying
+    @Query(value = "Update ProjectColumn t SET t.deleted = true WHERE t.projectId=:id")
+    void deleteAllProjectId(@Param("id") Long id);
+
 }

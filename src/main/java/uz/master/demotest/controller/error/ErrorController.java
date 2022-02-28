@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public String renderErrorPage(Model model, HttpServletRequest httpRequest) {
+    public String renderErrorPageGet(Model model, HttpServletRequest httpRequest) {
         model.addAttribute("code", getErrorCode(httpRequest));
         return "error/error";
     }

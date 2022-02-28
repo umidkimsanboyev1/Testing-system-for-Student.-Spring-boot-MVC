@@ -2,6 +2,7 @@ package uz.master.demotest.services.project;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.project.ProjectCreateDto;
@@ -15,10 +16,12 @@ import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
 import uz.master.demotest.services.column.ColumnService;
 import uz.master.demotest.services.file.FileStorageService;
+import uz.master.demotest.utils.FileUploadUtils;
 import uz.master.demotest.validator.project.ProjectValidator;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,17 +44,17 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
     @Override
     public Long create(ProjectCreateDto createDto) {
         MultipartFile file = createDto.getTz();
-        String tzPath = fileStorageService.store(file);
         Project project = mapper.fromCreateDto(createDto);
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         project.setOrgId(principal.getOrganization());
         project.setTeamLeaderId(principal.getId());
-        project.setTz(tzPath);
+        project.setTz(FileUploadUtils.UPLOAD_DIRECTORY+fileStorageService.store(file));
         return repository.save(project).getId();
     }
 
     @Override
     public Void delete(Long id) {
+        columnService.deleteAll(id);
         repository.delete(id);
         return null;
     }

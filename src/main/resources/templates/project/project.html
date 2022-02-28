@@ -131,7 +131,7 @@
                         <p><b>Participants:</b><span th:text="*{projectMembersCount}">12/04/2021 </span></p>
                     </div>
                     <div style="height: 180px" class="content-box">
-                        <p><b>Project TZ : </b><a th:href="@{'/'+*{tz}}">Download</a></p>
+                        <p><b>Project TZ : </b><a th:href="@{*{tz}}">Download</a></p>
                         <p><b>Description : </b></p>
                         <p th:text="*{description}">
                         </p>

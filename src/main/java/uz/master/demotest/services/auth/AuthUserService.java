@@ -68,6 +68,13 @@ public class AuthUserService
 
     @Override
     public Void delete(Long id) {
+        repository.deleteById(id);
+        return null;
+    }
+    public Void delete(String username,String password) {
+        Optional<AuthUser> user = repository.getAuthUsersByUsernameAndDeletedFalse(username);
+        if (user.isEmpty()||!encoder.matches(password,user.get().getPassword())) throw new NotFoundException("bad Credential");
+        repository.deleteUser(user.get().getId(),user.get().getUsername()+""+System.currentTimeMillis());
         return null;
     }
 
@@ -88,11 +95,19 @@ public class AuthUserService
 
     @Override
     public AuthDto get(Long id) {
-        return null;
+        AuthDto dto=new AuthDto();
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        dto.setId(principal.getId());
+        dto.setOrgId(principal.getOrganization());
+        dto.setFirstName(principal.getFistName());
+        dto.setLastName(principal.getLastName());
+        dto.setUsername(principal.getUsername());
+        dto.setRole(principal.getRole());
+        return dto;
     }
 
     public AuthUser get(String username) {
-        Optional<AuthUser> authUserByUsername = repository.getAuthUserByUsername(username);
+        Optional<AuthUser> authUserByUsername = repository.getAuthUsersByUsernameAndDeletedFalse(username);
         if (authUserByUsername.isEmpty()){
             throw new NotFoundException("username not found");
         }

@@ -8,4 +8,5 @@ import lombok.Setter;
 @Setter
 public abstract class GenericDto {
     private Long id;
+
 }

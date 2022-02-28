@@ -19,5 +19,5 @@ public class ProjectCreateDto implements BaseDto {
     private String name;
     private String description;
     private MultipartFile tz;
-    private LocalDateTime deadline;
+    private String deadline;
 }

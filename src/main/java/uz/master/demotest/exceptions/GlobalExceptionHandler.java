@@ -16,23 +16,23 @@ public class GlobalExceptionHandler {
                            Model model,
                            WebRequest request){
         String path =((ServletWebRequest)(request)).getRequest().getRequestURI();
-        model.addAttribute("time", new Date());
-        model.addAttribute("message", e.getMessage());
-        model.addAttribute("path", path);
-        model.addAttribute("error", e.getStatus().getReasonPhrase());
+//        model.addAttribute("time", new Date());
+//        model.addAttribute("message", e.getMessage());
+//        model.addAttribute("path", path);
+//        model.addAttribute("error", e.getStatus().getReasonPhrase());
         model.addAttribute("code", e.getStatus().value());
-        return "error/404";
+        return "error/error";
 
     }
     @ExceptionHandler(NoHandlerFoundException.class)
     public String rror404(NoHandlerFoundException e, Model model, WebRequest request) {
-        String path = ((ServletWebRequest) (request)).getRequest().getRequestURI();
-        model.addAttribute("time", new Date());
-        model.addAttribute("message", e.getMessage());
-        model.addAttribute("path", path);
+//        String path = ((ServletWebRequest) (request)).getRequest().getRequestURI();
+//        model.addAttribute("time", new Date());
+//        model.addAttribute("message", e.getMessage());
+//        model.addAttribute("path", path);
 //        model.addAttribute("error", e.getStatus().getReasonPhrase());
-//        model.addAttribute("code", e.getStatus().value());
-        return "error/404";
+        model.addAttribute("code", e.getMessage());
+        return "error/error";
     }
 
 

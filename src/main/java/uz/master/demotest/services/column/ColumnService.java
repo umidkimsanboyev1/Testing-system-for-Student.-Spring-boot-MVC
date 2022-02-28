@@ -71,4 +71,12 @@ public class ColumnService extends AbstractService<
         all.forEach(column -> {column.setTaskDtos(service.getAll(column.getId()));});
         return all;
     }
+
+    public void deleteAll(Long id) {
+         repository.findAllByProjectIdAndDeletedFalseOrderByColumnOrder(id).forEach(projectColumn -> {
+             service.deleteAll(projectColumn.getId());
+         });
+         repository.deleteAllProjectId(id);
+
+    }
 }

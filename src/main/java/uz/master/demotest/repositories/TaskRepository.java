@@ -27,6 +27,11 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Transactional
     @Modifying
+    @Query(value = "update Tasks t set t.deleted = true WHERE t.columnId=:id")
+    void deleteAllProjectId(@Param("id") Long id);
+
+    @Transactional
+    @Modifying
     @Query(value = "Update Tasks t SET t.name =:name,t.description =:description," +
             "t.taskOrder =:taskOrder,t.priority =:priority,t.level =:level WHERE t.id=:id")
     void update(@Param("id") Long id, @Param("name") String name,
@@ -43,7 +48,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Transactional
     void deleteMember(@Param("taskId") Long taskId, @Param("memberId") Long memberId);
 
-    @Query("SELECT u FROM Action u WHERE u.taskId =:id")
+    @Query("SELECT u FROM Action u WHERE u.deleted=false and u.taskId =:id")
     List<Action> getActions(@Param("id") Long id);
 
     @Query("SELECT u FROM Task_Member u WHERE u.taskId =:id")

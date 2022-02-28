@@ -85,6 +85,10 @@ public class AuthUserController {
         return "redirect:/auth/login";
     }
 
+    @RequestMapping("/profile")
+    private String profile(){
+        return "auth/profil";
+    }
 
 
 }

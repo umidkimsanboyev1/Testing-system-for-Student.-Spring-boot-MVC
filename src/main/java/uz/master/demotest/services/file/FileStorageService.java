@@ -1,70 +1,66 @@
 package uz.master.demotest.services.file;
 
 
+
+import lombok.NonNull;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import uz.master.demotest.dto.file.UploadsDto;
+import uz.master.demotest.entity.action.Uploads;
+import uz.master.demotest.repositories.UploadsRepository;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
+import java.util.Optional;
 
 
+@Slf4j
 @Service("fileService")
 public class FileStorageService {
-    public static final String UPLOAD_DIRECTORY = "/uploads/";
+    public static final String UNICORN_UPLOADS_B_4_LIB = "/uploads/project/";
+    public static final Path PATH = Paths.get(UNICORN_UPLOADS_B_4_LIB);
 
-    private final Path rootLocation;
+    private final UploadsRepository repository;
 
-
-    public FileStorageService() {
-        this.rootLocation = Paths.get(UPLOAD_DIRECTORY);
+    public FileStorageService(UploadsRepository repository) {
+        this.repository = repository;
     }
 
     @PostConstruct
     public void init() {
-        if (!Files.exists(rootLocation)) {
+        if (!Files.exists(PATH)) {
             try {
-                Files.createDirectories(rootLocation);
+                Files.createDirectories(PATH);
             } catch (IOException e) {
                 e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         }
     }
 
-    public String store(MultipartFile file) {
-        try {
-//            String originalFilename = file.getOriginalFilename();
-            String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
-            String generatedName = "%s.%s".formatted(System.currentTimeMillis() + System.nanoTime(), extension);
-            String path = UPLOAD_DIRECTORY + generatedName;
-            Path rootPath = Paths.get(UPLOAD_DIRECTORY, generatedName);
-            Files.copy(file.getInputStream(), rootPath, StandardCopyOption.REPLACE_EXISTING);
-            return path;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+    @SneakyThrows
+    public String store(@NonNull MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
+        String generatedName = "%s.%s".formatted(System.currentTimeMillis(), extension);
+        Path rootPath = Paths.get(UNICORN_UPLOADS_B_4_LIB, generatedName);
+        Files.copy(file.getInputStream(), rootPath, StandardCopyOption.REPLACE_EXISTING);
+        Uploads uploadedFile = new Uploads(originalFilename,generatedName,file.getContentType(),(UNICORN_UPLOADS_B_4_LIB+ generatedName),file.getSize());
+        repository.save(uploadedFile);
+        return generatedName;
     }
 
-    @Async
-    public void storeAsync(MultipartFile file, String fileName) {
-        try {
-            Files.copy(file.getInputStream(), Paths.get(UPLOAD_DIRECTORY, fileName), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public Resource loadAsResource(String filename) {
-        Resource resource = new FileSystemResource(Paths.get(UPLOAD_DIRECTORY, filename));
-        return resource;
+    public UploadsDto loadResource(@NonNull String fileName) throws NoSuchFileException {
+        Optional<Uploads> uploads = repository.findByGeneratedName(fileName);
+        if (uploads.isEmpty())throw new NoSuchFileException("not found");
+        FileSystemResource resource = new FileSystemResource(UNICORN_UPLOADS_B_4_LIB + fileName);
+        return UploadsDto.builder().resource(resource).originalName(uploads.get().getOriginalName()).newName(uploads.get().getGeneratedName()).contentType(uploads.get().getContentType()).size(uploads.get().getSize()).build();
     }
-
 }

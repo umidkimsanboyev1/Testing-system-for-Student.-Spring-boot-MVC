@@ -1,5 +1,7 @@
 package uz.master.demotest.controller.Organization;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,9 +17,11 @@ import java.util.Objects;
 @Controller
 public class BaseController {
 
+
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = {"/home", "/"})
     public String home() {
-        return "redirect:/project/all";
+        return "index/index";
     }
 
     @RequestMapping(value = {"/contacts"})

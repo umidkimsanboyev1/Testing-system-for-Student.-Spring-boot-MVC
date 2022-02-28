@@ -1,5 +1,6 @@
 package uz.master.demotest.controller.column;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import uz.master.demotest.services.project.ProjectService;
 import uz.master.demotest.services.task.TaskService;
 
 @Controller
+@Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
 @RequestMapping("/project/column/")
 public class ColumnController {
     private final ColumnService service;
@@ -24,6 +26,7 @@ public class ColumnController {
         this.projectService = projectService;
     }
 
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_USER","ROLE_PM"})
     @RequestMapping("list/{id}")
     public String list(Model model, @PathVariable(name = "id") Long id) {
         model.addAttribute("project", projectService.get(id));
@@ -31,6 +34,7 @@ public class ColumnController {
         return "project/project";
     }
 
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
     @RequestMapping(value = "create/{id}", method = RequestMethod.POST)
     public String create(@PathVariable(name = "id") Long id, @ModelAttribute ColumnCreateDto dto) {
         dto.setProjectId(id);
@@ -38,6 +42,7 @@ public class ColumnController {
         return "redirect:/project/"+id;
     }
 
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
     @RequestMapping(value = "create/{id}", method = RequestMethod.GET)
     public String createPAage(@PathVariable(name = "id") Long id, Model model) {
         ColumnCreateDto columnCreateDto = new ColumnCreateDto();
@@ -46,12 +51,14 @@ public class ColumnController {
         return "column/create";
     }
 
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
     @RequestMapping(value = "update/", method = RequestMethod.POST)
     public String create(@ModelAttribute ColumnUpdateDto dto) {
         service.update(dto);
         return "redirect:/project/project";
     }
 
+    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
     @RequestMapping(value = "delete/", method = RequestMethod.DELETE)
     public String delete(@RequestParam Long id) {
         service.delete(id);

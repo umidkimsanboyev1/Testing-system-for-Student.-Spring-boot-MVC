@@ -39,8 +39,8 @@ public class Project extends Auditable {
 
 
     @CreatedDate
-    @Column(name = "deadline", columnDefinition = " timestamp ")
-    private LocalDateTime deadline;
+    @Column(name = "deadline")
+    private LocalDate deadline;
 
 
 }

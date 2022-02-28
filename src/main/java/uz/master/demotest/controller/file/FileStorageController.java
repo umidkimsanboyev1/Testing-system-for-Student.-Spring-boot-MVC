@@ -1,31 +1,34 @@
 package uz.master.demotest.controller.file;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import uz.master.demotest.dto.file.UploadsDto;
+import uz.master.demotest.entity.action.Uploads;
 import uz.master.demotest.services.file.FileStorageService;
 
+import java.nio.file.NoSuchFileException;
+
 @Controller
+@RequestMapping("/uploads/*")
 public class FileStorageController {
 
-    private final FileStorageService fileStorageService;
+    final FileStorageService fileStorageService;
 
-
-    @Autowired
     public FileStorageController(FileStorageService fileStorageService) {
         this.fileStorageService = fileStorageService;
     }
 
-    @GetMapping("/uploads/{filename:.+}")
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    @GetMapping("{filename:.+}")
+    public ResponseEntity<?> download(@PathVariable(name = "filename") String fileName) throws NoSuchFileException {
+        UploadsDto loadedResource = fileStorageService.loadResource(fileName);
 
-        Resource file = fileStorageService.loadAsResource(filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + loadedResource.getOriginalName() + "\"")
+                .body(loadedResource.getResource());
     }
 }

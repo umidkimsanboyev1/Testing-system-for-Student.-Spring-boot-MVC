@@ -105,7 +105,7 @@
 
                         <ul aria-labelledby="dropdownMenuButton11" class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/auth/logout}">logout</a></li>
-                            <li><a class="dropdown-item" th:href="@{/auth/profil}">profil</a></li>
+                            <li><a class="dropdown-item" th:href="@{/auth/profile}">profil</a></li>
                         </ul>
                     </div>
                     </p>
@@ -232,11 +232,6 @@
                             <p><i class="fa-solid fa-envelope"> </i> <i class="fa-solid fa-right-long"></i> <label
                                     th:text="${organization.getEmail()}"></label>
                             </p>
-                            <a style="cursor: pointer !important; text-decoration: none !important"
-                               th:href="${organization.getWebSite()}"><p><i class="fa-solid fa-link"></i> <i
-                                    class="fa-solid fa-right-long"></i> <label
-                                    th:text="${organization.getWebSite()}"></label>
-                            </p></a>
                             <p><i class="fa-solid fa-phone"></i> <i class="fa-solid fa-right-long"></i> <label
                                     th:text="${organization.getPhone()}"></label>
                             </p>

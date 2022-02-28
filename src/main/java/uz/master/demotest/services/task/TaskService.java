@@ -131,4 +131,8 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
         Task task = repository.findById(id).get();
         return columnRepository.findById(task.getColumnId()).get().getProjectId();
     }
+
+    public void deleteAll(Long id) {
+        repository.deleteAllProjectId(id);
+    }
 }
