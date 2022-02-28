@@ -80,22 +80,36 @@
     <aside>
         <nav>
             <div class="input">
-                <div>
+                <a th:href="@{/search}">
                     <i class="fas fa-search"></i>
-                </div>
-                <input placeholder="Search" type="text">
+                </a>
+
+                <input type="text" placeholder="Search">
             </div>
+
+
             <div class="user-information">
                 <div class="icon">
                     <img alt="" src="/imges/bell.png">
                     <i class="far fa-envelope"></i>
                 </div>
+
                 <div class="user">
-                    <img alt="" src="/imges/useer.png">
-                    <p>Azhar I.
-                        <i class="fas fa-angle-down"></i>
+                    <p>
+                    <div style="border: none!important;background-color: white!important;" class="dropdown">
+
+                        <img aria-expanded="false"
+                             data-bs-toggle="dropdown"
+                             id="dropdownMenuButton11" alt="" src="/imges/useer.png">
+
+                        <ul aria-labelledby="dropdownMenuButton11" class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/auth/logout}">logout</a></li>
+                            <li><a class="dropdown-item" th:href="@{/auth/profil}">profil</a></li>
+                        </ul>
+                    </div>
                     </p>
                 </div>
+
             </div>
         </nav>
         <div style="display: flex">

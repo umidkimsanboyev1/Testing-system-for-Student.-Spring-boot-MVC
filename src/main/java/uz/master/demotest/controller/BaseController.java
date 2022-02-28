@@ -35,10 +35,7 @@ public class BaseController {
 
     }
 
-    @RequestMapping(value = {"/contacts"})
-    public String contacts() {
-        return "contatcs";
-    }
+
 
     @PostMapping(value = {"/search"})
     public String search() {
