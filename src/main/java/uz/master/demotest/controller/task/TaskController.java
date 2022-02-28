@@ -93,7 +93,6 @@ public class TaskController {
 
         dto.setColumnId(id);
         taskService.create(dto);
-
         return "redirect:/project/"+dto.getProjectId();
     }
 

@@ -52,6 +52,7 @@ public class ProjectController {
     @GetMapping("addMember/{projectId}/{memberId}")
     public String addMember(@PathVariable(name = "projectId") Long projectId, @PathVariable(name = "memberId") Long memberId) {
 
+
         projectService.addMember(projectId, memberId);
         return "redirect:/project/" + projectId;
     }

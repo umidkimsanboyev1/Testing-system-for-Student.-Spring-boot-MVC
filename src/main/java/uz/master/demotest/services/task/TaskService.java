@@ -118,6 +118,7 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
     }
 
     public void updateLevel(Long id, String code) {
+
         repository.updateLevel(id, code);
         repository.addAction(id, ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername(), ActionTexts.TASK_LEVEL_UPDATED.getText());
     }
