@@ -14,6 +14,7 @@ public class BaseController {
 
     private final SessionUser user;
     private final ProjectService service;
+
     public BaseController(SessionUser user, ProjectService service) {
         this.user = user;
         this.service = service;
@@ -43,4 +44,5 @@ public class BaseController {
     public String search() {
         return "search";
     }
+
 }

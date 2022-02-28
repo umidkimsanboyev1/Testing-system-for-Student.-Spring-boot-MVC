@@ -8,14 +8,16 @@ import uz.master.demotest.dto.project.ProjectDto;
 import uz.master.demotest.dto.project.ProjectUpdateDto;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.project.Project;
+import uz.master.demotest.entity.project.ProjectMember;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
-public interface ProjectRepository extends JpaRepository<Project,Long> {
+public interface ProjectRepository extends JpaRepository<Project, Long> {
     Project findByIdAndDeletedFalse(Long id);
 
     List<Project> findAllByOrgIdAndDeletedFalse(Long id);
+
     List<Project> findAllByDeletedFalse();
 
     @Transactional
@@ -25,13 +27,11 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "update Project p set p.name = #{#dto.name}, p.description = #{#dto.description}, p.tz = #{#dto.tz}, p.orgId = #{#dto.orgId}  where p.id = #{#dto.id}",nativeQuery = true)
+    @Query(value = "update Project p set p.name = #{#dto.name}, p.description = #{#dto.description}, p.tz = #{#dto.tz}, p.orgId = #{#dto.orgId}  where p.id = #{#dto.id}", nativeQuery = true)
     void update(@Param("dto") ProjectUpdateDto dto);
 
     @Query("select u.teamLeaderId from  Project u where u.id=:id")
     Long getTeamLead(@Param("id") Long projectId);
-
-
 
 
     @Query("from AuthUser au where au.organizationId = (select p.orgId from Project p where p.id = :id)")
@@ -44,4 +44,8 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
     @Modifying
     @Query(value = "INSERT INTO project_member (user_id, project_id) VALUES(?2, ?1) ", nativeQuery = true)
     void addMember(Long projectId, Long memberId);
+
+    @Query("from ProjectMember p where p.userId=:id")
+    List<ProjectMember> getProjectCount(Long id);
 }
+

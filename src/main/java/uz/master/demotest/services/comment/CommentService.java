@@ -70,4 +70,8 @@ public class CommentService extends AbstractService<CommentRepository, CommentMa
         repository.update(dto.getId(), dto.getText());
         return null;
     }
+
+    public int getCommentCount(String name) {
+        return repository.getCommentCount(name).size();
+    }
 }

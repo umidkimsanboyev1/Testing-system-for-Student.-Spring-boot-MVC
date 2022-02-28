@@ -35,7 +35,7 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
     private final AuthUserRepository authUserRepository;
     private final ColumnRepository columnRepository;
 
-    protected TaskService(TaskRepository repository,  TaskMapper mapper, TaskValidator validator, AuthUserRepository authUserRepository, ColumnRepository columnRepository) {
+    protected TaskService(TaskRepository repository, TaskMapper mapper, TaskValidator validator, AuthUserRepository authUserRepository, ColumnRepository columnRepository) {
         super(repository, mapper, validator);
         this.authUserRepository = authUserRepository;
         this.columnRepository = columnRepository;
@@ -136,5 +136,13 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
 
     public void deleteAll(Long id) {
         repository.deleteAllProjectId(id);
+    }
+
+    public int getTaskCount(Long id) {
+        return repository.getTaskCount(id).size();
+    }
+
+    public int getActionCount(String username) {
+        return repository.getActionCount(username).size();
     }
 }

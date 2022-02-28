@@ -111,4 +111,7 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
         repository.addMember(projectId, memberId);
     }
 
+    public int getProjectCount(Long id) {
+       return repository.getProjectCount(id).size();
+    }
 }

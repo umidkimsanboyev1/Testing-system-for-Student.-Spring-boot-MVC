@@ -31,6 +31,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
     private String fistName;
 
     private String lastName;
+    private String email;
 
     private Set<GrantedAuthority> authorities;
 
@@ -38,6 +39,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
+        this.email = user.getEmail();
         this.role = user.getRole();
         this.organization=user.getOrganizationId();
         this.active = user.isActive();
