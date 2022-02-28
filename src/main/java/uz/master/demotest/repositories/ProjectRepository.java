@@ -37,7 +37,7 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
     @Query("from AuthUser au where au.organizationId = (select p.orgId from Project p where p.id = :id)")
     List<AuthUser> getProjectMembersFromOrganization(Long id);
 
-    @Query("from AuthUser au where au.id = (select pm.userId from ProjectMember pm where pm.projectId = :id)")
+    @Query("from AuthUser au where au.id = any (select pm.userId from ProjectMember pm where pm.projectId = :id)")
     List<AuthUser> getProjectMembersFromProject(Long id);
 
     @Transactional

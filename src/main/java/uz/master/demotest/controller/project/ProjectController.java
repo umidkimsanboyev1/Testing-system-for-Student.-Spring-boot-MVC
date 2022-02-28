@@ -43,7 +43,8 @@ public class ProjectController {
     @RequestMapping("{id}")
     public String getProjectPage(Model model, @PathVariable Long id) {
         model.addAttribute("project", projectService.get(id));
-        model.addAttribute("projectMembers", projectService.getMembersFromOrganization(id));
+        model.addAttribute("projectMembers", projectService.getMembers(id));
+        model.addAttribute("orgMembers", projectService.getMembersFromOrganization(id));
         return "project/project";
     }
 

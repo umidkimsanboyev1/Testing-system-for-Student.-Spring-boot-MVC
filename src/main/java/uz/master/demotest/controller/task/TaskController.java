@@ -5,14 +5,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.*;
 import uz.master.demotest.configs.security.UserDetails;
+import uz.master.demotest.dto.column.ColumnDto;
 import uz.master.demotest.dto.comment.CommentDto;
 import uz.master.demotest.dto.task.TaskCreateDto;
 import uz.master.demotest.dto.task.TaskDto;
 import uz.master.demotest.dto.task.TaskUpdateDto;
 import uz.master.demotest.entity.action.Action;
 import uz.master.demotest.entity.auth.AuthUser;
+import uz.master.demotest.services.column.ColumnService;
 import uz.master.demotest.services.comment.CommentService;
 import uz.master.demotest.services.project.ProjectService;
 import uz.master.demotest.services.task.TaskService;
@@ -30,11 +31,13 @@ public class TaskController {
     private final TaskService taskService;
     private final CommentService commentService;
     private final ProjectService projectService;
+    private final ColumnService columnService;
 
-    public TaskController(TaskService taskService, CommentService commentService, ProjectService projectService) {
+    public TaskController(TaskService taskService, CommentService commentService, ProjectService projectService, ColumnService columnService) {
         this.taskService = taskService;
         this.commentService = commentService;
         this.projectService = projectService;
+        this.columnService = columnService;
     }
 
     @GetMapping("{id}")
@@ -51,13 +54,15 @@ public class TaskController {
         List<AuthUser> members = taskService.getMembers(id);
         model.addAttribute("members", members);
 
-        List<AuthUser> projectMembers = projectService.getMembers(id);
+        ColumnDto columnDto = columnService.get(dto.getColumnId());
+
+        List<AuthUser> projectMembers = projectService.getMembers(columnDto.getProjectId());
         model.addAttribute("projectMembers", projectMembers);
 
         return "task/task";
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+    @Secured({"ROLE_MANAGER", "ROLE_ADMIN", "ROLE_PM"})
     @GetMapping("/priority/{id}/{code}")
     public String changePriority(@PathVariable(name = "id") Long id, @PathVariable(name = "code") String code) {
         taskService.updatePriority(id, code);
@@ -65,7 +70,7 @@ public class TaskController {
 
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+    @Secured({"ROLE_MANAGER", "ROLE_ADMIN", "ROLE_PM"})
     @GetMapping("/level/{id}/{code}")
     public String changeLevel(@PathVariable(name = "id") Long id, @PathVariable(name = "code") String code) {
         taskService.updateLevel(id, code);
@@ -79,21 +84,21 @@ public class TaskController {
         return "redirect:/task/" + id;
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+    @Secured({"ROLE_MANAGER", "ROLE_ADMIN", "ROLE_PM"})
     @GetMapping("/create")
-    public String createTaskPage(Model model, @RequestParam String colId,@RequestParam String proId) {
+    public String createTaskPage(Model model, @RequestParam String colId, @RequestParam String proId) {
         model.addAttribute("id", colId);
-        model.addAttribute("proId",proId);
+        model.addAttribute("proId", proId);
         return "task/create";
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+    @Secured({"ROLE_MANAGER", "ROLE_ADMIN", "ROLE_PM"})
     @PostMapping("/create/{id}")
-    public String createTask(@PathVariable(name = "id") Long id,TaskCreateDto dto) {
+    public String createTask(@PathVariable(name = "id") Long id, TaskCreateDto dto) {
 
         dto.setColumnId(id);
         taskService.create(dto);
-        return "redirect:/project/"+dto.getProjectId();
+        return "redirect:/project/" + dto.getProjectId();
     }
 
     @GetMapping("/update/{id}")
@@ -114,7 +119,7 @@ public class TaskController {
         return "redirect:/task/" + id;
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+    @Secured({"ROLE_MANAGER", "ROLE_ADMIN", "ROLE_PM"})
     @GetMapping("/delete/{id}")
     public String deletePage(Model model, @PathVariable(name = "id") Long id) {
         TaskDto dto = taskService.get(id);
@@ -122,7 +127,7 @@ public class TaskController {
         return "task/delete";
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+    @Secured({"ROLE_MANAGER", "ROLE_ADMIN", "ROLE_PM"})
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable(name = "id") Long id) {
         Long projectId = taskService.getProjectId(id);
@@ -133,7 +138,7 @@ public class TaskController {
         return "redirect:/project/" + projectId;
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+    @Secured({"ROLE_MANAGER", "ROLE_ADMIN", "ROLE_PM"})
     @GetMapping("removeMember/{taskId}/{memberId}")
     public String removeMember(@PathVariable(name = "taskId") Long taskId, @PathVariable(name = "memberId") Long memberId) {
         Long projectId = taskService.getProjectId(taskId);
@@ -144,7 +149,7 @@ public class TaskController {
         return "redirect:/task/" + taskId;
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+    @Secured({"ROLE_MANAGER", "ROLE_ADMIN", "ROLE_PM"})
     @GetMapping("addMember/{taskId}/{memberId}")
     public String addMember(@PathVariable(name = "taskId") Long taskId, @PathVariable(name = "memberId") Long memberId) {
         Long projectId = taskService.getProjectId(taskId);

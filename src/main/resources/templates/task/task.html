@@ -212,11 +212,11 @@
                         <div class="status-text member-status  mt-3 mb-4">
                             <p>Members:</p>
                             <div class=" members-body" style="width: 250px!important;">
-                                <div th:each="member : ${members}" style="display: flex;align-items: center">
-                                    <div th:text="${member.username}"></div>
+                                <div th:each="mem : ${members}" style="display: flex;align-items: center">
+                                    <div th:text="${mem.getUsername()}"></div>
                                     <a class=" ml-1 btn btn-danger fs8 mt-0 pt-0"
                                        style="height: 10px;width: 40px;padding-left: 3px"
-                                       th:href="@{/task/removeMember/{taskId}/{memberId}(taskId=${dto.id},memberId=${member.id})}">Remove</a>
+                                       th:href="@{/task/removeMember/{taskId}/{memberId}(taskId=${dto.id},memberId=${mem.getId()})}">Remove</a>
                                 </div>
                             </div>
                         </div>

@@ -223,7 +223,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" th:each="member : ${projectMembers}" style="display: flex;">
+                <div class="modal-body" th:each="member : ${orgMembers}" style="display: flex;">
                     <div class="d-flex">
                         <p th:text="${member.username}" class="mr-3"></p>
                         <a class="mt-0 ml-2" th:href="@{/project/addMember/{projectId}/{memberId}(projectId=${project.id},memberId=${member.id})}">
