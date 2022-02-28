@@ -14,7 +14,7 @@ import uz.master.demotest.services.file.FileStorageService;
 import java.nio.file.NoSuchFileException;
 
 @Controller
-@RequestMapping("/uploads/*")
+@RequestMapping("uploads/*")
 public class FileStorageController {
 
     final FileStorageService fileStorageService;

@@ -216,39 +216,39 @@
                         </div>
                     </div>
                 </div>
-                <div class="contents">
-                    <div class="content-text">
-                        <p>Organization</p>
-                    </div>
-                    <div class="box">
-                        <p th:text="${organization.name}"></p>
-                    </div>
-                    <div style="
-                            display: flex;
-                            justify-content: space-around;
-                            align-items: center;">
-                        <div>
-                            <p><i class="fa-solid fa-location-crosshairs"> </i> <i
-                                    class="fa-solid fa-right-long"></i>
-                                <label
-                                        th:text="${organization.getAddress()}"></label></p>
-                            <p><i class="fa-solid fa-envelope"> </i> <i class="fa-solid fa-right-long"></i> <label
-                                    th:text="${organization.getEmail()}"></label>
-                            </p>
-                            <a style="cursor: pointer !important; text-decoration: none !important"
-                               th:href="${organization.getWebSite()}"><p><i class="fa-solid fa-link"></i> <i
-                                    class="fa-solid fa-right-long"></i> <label
-                                    th:text="${organization.getWebSite()}"></label>
-                            </p></a>
-                            <p><i class="fa-solid fa-phone"></i> <i class="fa-solid fa-right-long"></i> <label
-                                    th:text="${organization.getPhone()}"></label>
-                            </p>
-                            <p><i class="fa-solid fa-registered"></i> <i class="fa-solid fa-right-long"></i> <label
-                                    th:text="${organization.getRegistrationNumber()}"></label></p>
-                        </div>
+<!--                <div class="contents">-->
+<!--                    <div class="content-text">-->
+<!--                        <p>Organization</p>-->
+<!--                    </div>-->
+<!--                    <div class="box">-->
+<!--                        <p th:text="${organization.getName()}"></p>-->
+<!--                    </div>-->
+<!--                    <div style="-->
+<!--                            display: flex;-->
+<!--                            justify-content: space-around;-->
+<!--                            align-items: center;">-->
+<!--                        <div>-->
+<!--                            <p><i class="fa-solid fa-location-crosshairs"> </i> <i-->
+<!--                                    class="fa-solid fa-right-long"></i>-->
+<!--                                <label-->
+<!--                                        th:text="${organization.getAddress()}"></label></p>-->
+<!--                            <p><i class="fa-solid fa-envelope"> </i> <i class="fa-solid fa-right-long"></i> <label-->
+<!--                                    th:text="${organization.getEmail()}"></label>-->
+<!--                            </p>-->
+<!--                            <a style="cursor: pointer !important; text-decoration: none !important"-->
+<!--                               th:href="${organization.getWebSite()}"><p><i class="fa-solid fa-link"></i> <i-->
+<!--                                    class="fa-solid fa-right-long"></i> <label-->
+<!--                                    th:text="${organization.getWebSite()}"></label>-->
+<!--                            </p></a>-->
+<!--                            <p><i class="fa-solid fa-phone"></i> <i class="fa-solid fa-right-long"></i> <label-->
+<!--                                    th:text="${organization.getPhone()}"></label>-->
+<!--                            </p>-->
+<!--                            <p><i class="fa-solid fa-registered"></i> <i class="fa-solid fa-right-long"></i> <label-->
+<!--                                    th:text="${organization.getRegistrationNumber()}"></label></p>-->
+<!--                        </div>-->
 
-                    </div>
-                </div>
+<!--                    </div>-->
+<!--                </div>-->
 
             </div>
         </div>
