@@ -91,6 +91,12 @@
   text-align: left;
 }
 
+.login-button {
+  margin: 10px auto;
+  width: 432px;
+  height: 52px;
+}
+
 .login-button button {
   padding: 10px 15px;
   background: #ffa500;

@@ -77,7 +77,7 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
         Task task = repository.findByIdAndDeletedFalse(id);
         TaskDto dto = mapper.toDto(task);
         dto.setCreatedAt(task.getCreatedAt().toString());
-        dto.setUpdatedAt(task.getUpdatedAt().toString());
+//        dto.setUpdatedAt(task.getUpdatedAt().toString());
         return dto;
     }
 
