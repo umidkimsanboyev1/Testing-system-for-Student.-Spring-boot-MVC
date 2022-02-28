@@ -20,7 +20,7 @@ public class BaseController {
     }
 
 
-    @RequestMapping(value = {"/home", "/"})
+    @RequestMapping(value = { "/"})
     public String home() {
 
         UserDetails details = user.getInstance();
