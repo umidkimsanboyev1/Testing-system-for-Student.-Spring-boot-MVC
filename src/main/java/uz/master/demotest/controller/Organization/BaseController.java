@@ -28,14 +28,9 @@ public class BaseController {
 
         if(code.equals("ADMIN")){
             return "redirect:organization/list";
-        }else if(code.equals("MANAGER")){
-            return "redirect:project/all/"+details.getOrganization();
-        }else if(code.equals("PM")){
-            return "redirect:project/"+service.getTeamLead(details.getId());
-        }else if(code.equals("USER")){
-            return "index";
+        }else{
+            return "redirect:project/all/" + details.getOrganization();
         }
-        return "index";
 
     }
 
