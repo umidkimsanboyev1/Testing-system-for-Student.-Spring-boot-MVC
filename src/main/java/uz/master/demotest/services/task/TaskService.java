@@ -1,5 +1,6 @@
 package uz.master.demotest.services.task;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import uz.master.demotest.configs.security.UserDetails;
@@ -34,7 +35,7 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
     private final AuthUserRepository authUserRepository;
     private final ColumnRepository columnRepository;
 
-    protected TaskService(TaskRepository repository, TaskMapper mapper, TaskValidator validator, AuthUserRepository authUserRepository, ColumnRepository columnRepository) {
+    protected TaskService(TaskRepository repository,  TaskMapper mapper, TaskValidator validator, AuthUserRepository authUserRepository, ColumnRepository columnRepository) {
         super(repository, mapper, validator);
         this.authUserRepository = authUserRepository;
         this.columnRepository = columnRepository;

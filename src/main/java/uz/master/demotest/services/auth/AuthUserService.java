@@ -49,6 +49,7 @@ public class AuthUserService
     @Override
     public Long create(AuthUserCreateDto createDto) {
         AuthUser authUser = mapper.fromCreateDto(createDto);
+        authUser.setActive(true);
         AuthRole byId = roleRepository.getById(createDto.getUserRole());
         authUser.setOrganizationId(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getOrganization());
         authUser.setRole(byId);

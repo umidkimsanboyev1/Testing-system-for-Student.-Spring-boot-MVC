@@ -1,27 +1,42 @@
 package uz.master.demotest.controller.Organization;
 
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import uz.master.demotest.configs.security.UserDetails;
-import uz.master.demotest.entity.auth.AuthUser;
-
-import java.util.Objects;
+import uz.master.demotest.utils.SessionUser;
+import uz.master.demotest.services.project.ProjectService;
 
 @Controller
 public class BaseController {
 
 
-    @Secured("ROLE_ADMIN")
+
+    private final SessionUser user;
+    private final ProjectService service;
+    public BaseController(SessionUser user, ProjectService service) {
+        this.user = user;
+        this.service = service;
+    }
+
+
     @RequestMapping(value = {"/home", "/"})
     public String home() {
-        return "index/index";
+
+        UserDetails details = user.getInstance();
+        String code = details.getRole().getCode();
+
+        if(code.equals("ADMIN")){
+            return "redirect:organization/list";
+        }else if(code.equals("MANAGER")){
+            return "redirect:project/all/"+details.getOrganization();
+        }else if(code.equals("PM")){
+            return "redirect:project/"+service.getTeamLead(details.getId());
+        }else if(code.equals("USER")){
+            return "index";
+        }
+        return "index";
+
     }
 
     @RequestMapping(value = {"/contacts"})

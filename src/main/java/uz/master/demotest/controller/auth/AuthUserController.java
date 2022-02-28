@@ -85,7 +85,7 @@ public class AuthUserController {
         return "redirect:/auth/login";
     }
 
-    @RequestMapping("/profile")
+    @RequestMapping("/profil")
     private String profile(){
         return "auth/profil";
     }

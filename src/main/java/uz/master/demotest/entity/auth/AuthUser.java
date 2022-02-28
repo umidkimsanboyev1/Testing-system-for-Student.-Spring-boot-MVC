@@ -38,7 +38,8 @@ public class AuthUser extends Auditable {
 
     private Long organizationId;
 
-    private boolean active = true;
+
+    private boolean active ;
 
     private boolean blocked;
 }
