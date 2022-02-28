@@ -105,7 +105,7 @@ public class AuthUserService
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         dto.setId(principal.getId());
         dto.setOrgId(principal.getOrganization());
-        dto.setFirstName(principal.getFistName());
+        dto.setFirstName(principal.getFirstName());
         dto.setLastName(principal.getLastName());
         dto.setUsername(principal.getUsername());
         dto.setRole(principal.getRole());

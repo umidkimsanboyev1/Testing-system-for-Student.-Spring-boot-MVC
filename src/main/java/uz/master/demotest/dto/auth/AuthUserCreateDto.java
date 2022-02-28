@@ -12,21 +12,18 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 public class AuthUserCreateDto implements BaseDto {
-    @NotNull
+    private String firstName;
+    private String lastname;
     @NotBlank
     private String username;
-    @NotNull
     @NotBlank
     private String password;
     @Pattern(regexp = "[0-9a-zA-Z]{2,16}(@)[0-9a-zA-Z]{2,5}(.)[0-9a-zA-Z]{2,3}")
     @NotBlank
-    @NotNull
     private String email;
     @NotBlank
-    @NotNull
     private String confirmPassword;
     @NotBlank
-    @NotNull
     private Long userRole;
 
 }

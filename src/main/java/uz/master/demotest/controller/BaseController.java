@@ -1,4 +1,4 @@
-package uz.master.demotest.controller.Organization;
+package uz.master.demotest.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;

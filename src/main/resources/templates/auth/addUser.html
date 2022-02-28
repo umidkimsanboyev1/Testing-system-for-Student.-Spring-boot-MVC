@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,14 +28,15 @@
     <form th:action="@{/auth/addUser}" method="POST">
         <div class="login-input">
             <input type="text" placeholder="Enter your Username" name="username">
+            <input type="text" placeholder="Enter your Firstname" name="firstName">
+            <input type="text" placeholder="Enter your LastName" name="lastName">
             <input type="email" placeholder="Enter your Email" name="email">
-            <input type="phone" placeholder="Enter your Number" name="phoneNumber">
             <input type="password" placeholder="Enter your password" name="password">
             <input type="password" placeholder="Confirm your password" name="confirmPassword">
 
             <select class="form-select" aria-label=".form-select example" name="userRole">
                 <option selected>Roles</option>
-                <option value="1">ADMIN</option>
+                <option sec:authorize="hasRole('ADMIN')" value="1">ADMIN</option>
                 <option value="2">MANAGER</option>
                 <option value="3">USER</option>
             </select>

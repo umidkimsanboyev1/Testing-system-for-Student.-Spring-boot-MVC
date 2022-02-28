@@ -6,9 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.master.demotest.configs.security.UserDetails;
-import uz.master.demotest.dto.auth.AddAdminDto;
-import uz.master.demotest.dto.auth.AuthUserCreateDto;
-import uz.master.demotest.dto.auth.ResetPassword;
+import uz.master.demotest.dto.auth.*;
+import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.services.auth.AuthUserService;
 import uz.master.demotest.services.comment.CommentService;
 import uz.master.demotest.services.project.ProjectService;
@@ -114,6 +113,27 @@ public class AuthUserController {
         model.addAttribute("actions", actions);
 
         return "auth/profile";
+    }
+
+    @RequestMapping(value = "/profile/edit")
+    public String editSessionProfile(Model model) {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        return "auth/edit";
+    }
+
+    @RequestMapping(value = "/profile/edit/{id}")
+    public String editProfile(@PathVariable(name = "id") Long id, Model model) {
+        AuthDto user = authService.get(id);
+        model.addAttribute("user", user);
+        return "auth/edit";
+    }
+
+    @RequestMapping(value = "/profile/edit/{id}", method = RequestMethod.POST)
+    public String edit(@PathVariable(name = "id") Long id, @ModelAttribute AuthUserUpdateDto dto) {
+        dto.setId(id);
+        authService.update(dto);
+        return "redirect:/auth/profil";
     }
 
 
