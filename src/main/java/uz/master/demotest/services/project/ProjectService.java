@@ -14,14 +14,13 @@ import uz.master.demotest.mappers.ProjectMapper;
 import uz.master.demotest.repositories.ProjectRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
+import uz.master.demotest.services.auth.AuthUserService;
 import uz.master.demotest.services.column.ColumnService;
 import uz.master.demotest.services.file.FileStorageService;
 import uz.master.demotest.utils.FileUploadUtils;
 import uz.master.demotest.validator.project.ProjectValidator;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +34,7 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
     private final FileStorageService fileStorageService;
 
     protected ProjectService(ProjectRepository repository, ProjectMapper mapper, ProjectValidator validator,
-                             ColumnService columnService, FileStorageService fileStorageService) {
+                             ColumnService columnService,  FileStorageService fileStorageService) {
         super(repository, mapper, validator);
         this.columnService = columnService;
         this.fileStorageService = fileStorageService;
@@ -68,16 +67,20 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
     @Override
     public List<ProjectDto> getAll() {
         return repository.findAllByDeletedFalse().stream().map(project -> {
-            ProjectDto dto=mapper.toDto(project);
+            ProjectDto dto = mapper.toDto(project);
             dto.setCreatedAt(project.getCreatedAt().format(FORMATTER));
-        return dto; }).collect(Collectors.toList());
+            return dto;
+        }).collect(Collectors.toList());
     }
-    public List<ProjectDto> getAll(Long id ) {
+
+    public List<ProjectDto> getAll(Long id) {
         return repository.findAllByOrgIdAndDeletedFalse(id).stream().map(project -> {
-            ProjectDto dto=mapper.toDto(project);
+            ProjectDto dto = mapper.toDto(project);
             dto.setCreatedAt(project.getCreatedAt().format(FORMATTER));
-            return dto; }).collect(Collectors.toList());
+            return dto;
+        }).collect(Collectors.toList());
     }
+
     @Override
     public ProjectDto get(Long id) {
         ProjectDto projectDto = mapper.toDto(repository.findByIdAndDeletedFalse(id));
@@ -94,14 +97,18 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
     }
 
     public List<AuthUser> getMembers(Long id) {
-        //todo : Axrullo aka tugirlab yozib quying, men uzimga kerak buganinucun qildm,project Id kirib kesa undagi memberlarni bersin
-        return new ArrayList<>() {{
-            add(AuthUser.builder()
-                    .id(3L)
-                    .username("Kimdram")
-                    .password("123123")
-                    .build()
-            );
-        }};
+        List<AuthUser> projectMembers = repository.getProjectMembersFromProject(id);
+        return projectMembers;
+    }
+
+    public List<AuthUser> getMembersFromOrganization(Long id) {
+        List<AuthUser> projectMembers ;
+        projectMembers = repository.getProjectMembersFromOrganization(id);
+
+        return projectMembers;
+    }
+
+    public void addMember(Long projectId, Long memberId) {
+        repository.addMember(projectId, memberId);
     }
 }

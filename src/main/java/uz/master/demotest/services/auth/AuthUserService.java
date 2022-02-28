@@ -89,6 +89,10 @@ public class AuthUserService
 
 
 
+    public List<AuthUser> getAll(Long orgId) {
+        return repository.findAllByOrganizationIdAndDeletedFalse(orgId);
+    }
+
     @Override
     public List<AuthDto> getAll() {
         return null;
@@ -137,4 +141,7 @@ public class AuthUserService
         authUser.setPassword(encoder.encode(dto.getPassword()));
         repository.save(authUser);
     }
+
+
+
 }
