@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+
+    <link rel="stylesheet" href="/css/register.css">
+
+    <!-- font aweosome link  -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&display=swap"
+            rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="login-text">
+        <h3>Edit Profile</h3>
+    </div>
+    <form th:action="@{/auth/profile/edit/{id}(id=${user.id})}" method="POST">
+        <div class="login-input">
+            <input th:value="${user.getUsername()}" type="text" placeholder="Enter  Username" name="username">
+            <input th:value="${user.getFirstName()}" type="text" placeholder="Enter your Firstname" name="firstName">
+            <input th:value="${user.getLastName()}" type="text" placeholder="Enter your LastName" name="lastName">
+            <input th:value="${user.getEmail()}" type="email" placeholder="Enter your Email" name="email">
+        </div>
+
+        <div class="login-button text-end">
+            <button class="btn btn-primary" type="submit">Save changes</button>
+            <a class="btn btn-success" th:href="@{/auth/profile}">Back</a>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

@@ -9,11 +9,11 @@ import uz.master.demotest.entity.auth.AuthRole;
 
 @Getter
 @Setter
-
 public class AuthDto extends GenericDto {
     private Long orgId;
     private String firstName;
     private String lastName;
     private AuthRole role;
     private String username;
+    private String email;
 }
