@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.multipart.MultipartFile;
 import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.auth.*;
 
@@ -19,6 +20,7 @@ import uz.master.demotest.repositories.TokenRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
 import uz.master.demotest.services.GenericService;
+import uz.master.demotest.services.file.FileStorageService;
 import uz.master.demotest.validator.auth.AuthUserValidator;
 import uz.master.demotest.utils.SendEmail;
 
@@ -36,6 +38,7 @@ public class AuthUserService
     private final AuthRoleRepository roleRepository;
     private final SendEmail email;
     private final PasswordEncoder encoder;
+
 
     protected AuthUserService(AuthUserRepository repository,
                               AuthUserMapper mapper,
@@ -87,7 +90,7 @@ public class AuthUserService
 
     @Override
     public Void update(AuthUserUpdateDto dto) {
-        repository.updateUser(dto.getFirstName(),dto.getLastName(),dto.getEmail(),dto.getPhone(),dto.getUsername(),dto.getId());
+        repository.updateUser(dto.getFirstName(),dto.getLastName(),dto.getEmail(),dto.getPhone(),dto.getUsername(),dto.getPhotoPath(),dto.getId());
         return null;
     }
 
@@ -142,4 +145,7 @@ public class AuthUserService
     }
 
 
+    public void savePhoto(String store,Long id) {
+        repository.image(store,id);
+    }
 }

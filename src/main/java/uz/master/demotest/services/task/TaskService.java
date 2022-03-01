@@ -22,6 +22,7 @@ import uz.master.demotest.services.GenericCrudService;
 import uz.master.demotest.validator.task.TaskValidator;
 import uz.master.demotest.validator.Validator;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +53,7 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
     public List<TaskDto> getAll(Long columnId) {
         return repository.findAllByColumnIdAndDeletedFalse(columnId).stream().map(task -> {
             TaskDto taskDto = mapper.toDto(task);
-            taskDto.setCreatedAt(task.getCreatedAt().format(FORMATTER));
+            taskDto.setCreatedAt(task.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE));
             return taskDto;
         }).collect(Collectors.toList());
     }
@@ -83,7 +84,7 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
     public TaskDto get(Long id) {
         Task task = repository.findByIdAndDeletedFalse(id);
         TaskDto dto = mapper.toDto(task);
-        dto.setCreatedAt(task.getCreatedAt().toString());
+        dto.setCreatedAt(task.getCreatedAt().format(DateTimeFormatter.ISO_DATE));
 //        dto.setUpdatedAt(task.getUpdatedAt().toString());
         return dto;
     }
@@ -110,12 +111,9 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
     }
 
     public List<AuthUser> getMembers(Long id) {
-        List<Task_Member> memberIds = repository.getMembers(id);
-        List<AuthUser> list = new ArrayList<>();
-        for (Task_Member memberId : memberIds) {
-            list.add(authUserRepository.findById(memberId.getUserId()).get());
-        }
-        return list;
+       return repository.getMembers(id).stream().map(task_member ->
+            authUserRepository.findById(task_member.getUserId()).get()
+        ).collect(Collectors.toList());
     }
 
     public void updatePriority(Long id, String code) {
