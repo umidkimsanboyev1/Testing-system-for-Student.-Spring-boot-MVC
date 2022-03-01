@@ -49,5 +49,9 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     @Query("from ProjectMember p where p.userId=:id")
     List<ProjectMember> getProjectCount(Long id);
+
+
+    @Query(value = "select count(p.id) from ProjectMember p where p.projectId=:id ")
+    int getCount(Long id);
 }
 

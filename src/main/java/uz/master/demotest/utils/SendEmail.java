@@ -4,37 +4,41 @@ package uz.master.demotest.utils;
 
 import org.springframework.stereotype.Service;
 
+import java.util.*;
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
+import javax.mail.internet.*;
+import javax.activation.*;
+import javax.mail.Session;
+import javax.mail.Transport;
 
 
 @Service
 public class SendEmail {
+
     public void sendEmail(String... args) {
         String recipient = args[0];
-        Properties properties=System.getProperties();
-        String host = "smtp.gmail.com";
-        String sender = "ibook2025com@gmail.com";
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.auth", "true");
+        String sender = "Ibook2025com@gmail.com";
+        Properties prop = new Properties();
+        prop.put("mail.smtp.auth", true);
+        prop.put("mail.smtp.starttls.enable", "true");
+        prop.put("mail.smtp.host", "smtp.mailtrap.io");
+        prop.put("mail.smtp.port", "25");
+        prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
 
-        Session session = Session.getDefaultInstance(properties,
+        Session session = Session.getDefaultInstance(prop,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("emailni yozinglar","gmail codni yozinglar");
+                        return new PasswordAuthentication(sender,"lqgmrccwyrdbitph");
                     }
                 });
 
         try {
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(recipient));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(sender));
-            message.setSubject("code for email");
-            message.setText("http://localhost:8080/auth/reset" +args[1]);
+
+            message.setFrom(new InternetAddress(sender));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+            message.setSubject("password change");
+            message.setText("http://localhost:8080/auth/reset/"+args[1],"text/html");
             Transport.send(message);
         } catch (MessagingException mex) {
             mex.printStackTrace();

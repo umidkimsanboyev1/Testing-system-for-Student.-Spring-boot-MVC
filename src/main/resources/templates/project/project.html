@@ -28,7 +28,6 @@
             border-radius: 17px;
             padding: 5px 10px;
         }
-
         .members-body::-webkit-scrollbar{
             display: none;
         }
@@ -184,7 +183,7 @@
                                 <img src="/imges/plus-circle.png" alt="add-task-btn" class=" "
                                      th:classappend="${column.name.equals('Todo')?'d-none':''}">
                             </a>
-                            
+
                         </div>
 
                         <div th:each="task : ${column.taskDtos}">

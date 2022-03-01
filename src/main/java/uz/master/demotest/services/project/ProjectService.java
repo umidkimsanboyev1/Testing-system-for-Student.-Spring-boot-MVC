@@ -29,7 +29,7 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
         implements GenericCrudService<Project, ProjectDto, ProjectCreateDto, ProjectUpdateDto, Long> {
 
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     private final ColumnService columnService;
     private final FileStorageService fileStorageService;
 
@@ -74,10 +74,15 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
     }
 
     public List<ProjectDto> getAll(Long id) {
+//        validator.
+
+
         return repository.findAllByOrgIdAndDeletedFalse(id).stream().map(project -> {
             ProjectDto dto = mapper.toDto(project);
             dto.setCreatedAt(project.getCreatedAt().format(FORMATTER));
+            dto.setProjectMembersCount(repository.getCount(dto.getId()));
             return dto;
+
         }).collect(Collectors.toList());
     }
 

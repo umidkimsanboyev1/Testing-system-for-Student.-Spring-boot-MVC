@@ -25,6 +25,9 @@ import uz.master.demotest.validator.Validator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static uz.master.demotest.services.project.ProjectService.FORMATTER;
 
 @Service
 public class TaskService extends AbstractService<TaskRepository, TaskMapper, Validator>
@@ -47,7 +50,11 @@ public class TaskService extends AbstractService<TaskRepository, TaskMapper, Val
     }
 
     public List<TaskDto> getAll(Long columnId) {
-        return mapper.toDto(repository.findAllByColumnIdAndDeletedFalse(columnId));
+        return repository.findAllByColumnIdAndDeletedFalse(columnId).stream().map(task -> {
+            TaskDto taskDto = mapper.toDto(task);
+            taskDto.setCreatedAt(task.getCreatedAt().format(FORMATTER));
+            return taskDto;
+        }).collect(Collectors.toList());
     }
 
 
