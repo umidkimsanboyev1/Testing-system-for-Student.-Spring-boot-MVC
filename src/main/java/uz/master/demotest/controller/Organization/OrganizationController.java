@@ -13,7 +13,7 @@ import uz.master.demotest.dto.organization.OrganizationUpdateDto;
 import uz.master.demotest.services.organization.OrganizationService;
 
 @Controller
-@Secured("ROLE_ADMIN")
+@Secured("ROLE_SUPERADMIN")
 @RequestMapping(value = "/organization/")
 public class OrganizationController {
 
@@ -32,8 +32,7 @@ public class OrganizationController {
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String create(Model model, @ModelAttribute OrganizationCreateDto dto) {
-        model.addAttribute("organizationId", service.create(dto));
-        return "auth/addAdmin";
+        return "forward:/auth/addAdmin/"+service.create(dto);
     }
 
     @RequestMapping(value = "update/{id}", method = RequestMethod.GET)

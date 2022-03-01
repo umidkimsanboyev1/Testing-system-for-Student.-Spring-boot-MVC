@@ -1,42 +1,34 @@
 package uz.master.demotest.controller.project;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.project.ProjectCreateDto;
 import uz.master.demotest.dto.project.ProjectUpdateDto;
-import uz.master.demotest.entity.auth.AuthUser;
-import uz.master.demotest.entity.organization.Organization;
 import uz.master.demotest.services.organization.OrganizationService;
 import uz.master.demotest.services.project.ProjectService;
-import uz.master.demotest.services.task.TaskService;
+import uz.master.demotest.utils.SessionUser;
 
 import javax.validation.Valid;
-
-/**
- * @author Bekpulatov Shoxruh, Thu 10:35 AM. 2/24/2022
- */
 
 @Controller
 @RequestMapping("/project/")
 public class ProjectController {
 
+    private final SessionUser user;
     private final ProjectService projectService;
    private final OrganizationService organizationService;
-    public ProjectController(ProjectService projectService, OrganizationService organizationService) {
+    public ProjectController(SessionUser user, ProjectService projectService, OrganizationService organizationService) {
+        this.user = user;
         this.projectService = projectService;
         this.organizationService = organizationService;
     }
 
-    @RequestMapping("all")
-    public String task(Model model) {
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("projects", projectService.getAll());
-        model.addAttribute("organization", organizationService.get(user.getOrganization()));
+    @RequestMapping("all/{org_id}")
+    public String task(Model model,@PathVariable(name = "org_id") Long id) {
+        model.addAttribute("projects", projectService.getAll(id));
+        model.addAttribute("organization", organizationService.get(id));
         return "project/list";
     }
 
@@ -69,13 +61,13 @@ public class ProjectController {
             return "project/create";
         }
         projectService.create(dto);
-        return "redirect:/project/all";
+        return "redirect:/project/all/"+user.getOrgId();
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable Long id) {
         projectService.delete(id);
-        return "redirect:/project/all";
+        return "redirect:/project/all/"+user.getOrgId();
     }
 
     @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
@@ -89,6 +81,6 @@ public class ProjectController {
     public String update(@PathVariable(name = "id") Long id, @ModelAttribute ProjectUpdateDto dto) {
         dto.setId(id);
         projectService.update(dto);
-        return "redirect:/project/all";
+        return "redirect:/project/all/"+user.getOrgId();
     }
 }

@@ -16,4 +16,7 @@ public class AuthDto extends GenericDto {
     private String lastName;
     private AuthRole role;
     private String username;
+    private String picturePath;
+    private String phone;
+    private String email;
 }

@@ -57,7 +57,7 @@ public class TaskController {
         return "task/task";
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+
     @GetMapping("/priority/{id}/{code}")
     public String changePriority(@PathVariable(name = "id") Long id, @PathVariable(name = "code") String code) {
         taskService.updatePriority(id, code);
@@ -65,7 +65,7 @@ public class TaskController {
 
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+
     @GetMapping("/level/{id}/{code}")
     public String changeLevel(@PathVariable(name = "id") Long id, @PathVariable(name = "code") String code) {
         taskService.updateLevel(id, code);
@@ -79,7 +79,7 @@ public class TaskController {
         return "redirect:/task/" + id;
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+
     @GetMapping("/create")
     public String createTaskPage(Model model, @RequestParam String colId,@RequestParam String proId) {
         model.addAttribute("id", colId);
@@ -87,7 +87,7 @@ public class TaskController {
         return "task/create";
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+
     @PostMapping("/create/{id}")
     public String createTask(@PathVariable(name = "id") Long id,TaskCreateDto dto) {
 
@@ -115,7 +115,7 @@ public class TaskController {
         return "redirect:/task/" + id;
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+
     @GetMapping("/delete/{id}")
     public String deletePage(Model model, @PathVariable(name = "id") Long id) {
         TaskDto dto = taskService.get(id);
@@ -123,7 +123,7 @@ public class TaskController {
         return "task/delete";
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable(name = "id") Long id) {
         Long projectId = taskService.getProjectId(id);
@@ -134,7 +134,7 @@ public class TaskController {
         return "redirect:/project/" + projectId;
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+
     @GetMapping("removeMember/{taskId}/{memberId}")
     public String removeMember(@PathVariable(name = "taskId") Long taskId, @PathVariable(name = "memberId") Long memberId) {
         Long projectId = taskService.getProjectId(taskId);
@@ -145,7 +145,7 @@ public class TaskController {
         return "redirect:/task/" + taskId;
     }
 
-    @Secured({"ROLE_MANAGER","ROLE_ADMIN","ROLE_PM"})
+
     @GetMapping("addMember/{taskId}/{memberId}")
     public String addMember(@PathVariable(name = "taskId") Long taskId, @PathVariable(name = "memberId") Long memberId) {
         Long projectId = taskService.getProjectId(taskId);

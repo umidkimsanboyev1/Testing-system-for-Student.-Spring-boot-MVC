@@ -15,9 +15,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthUser extends Auditable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(unique = true, nullable = false)
     private String username;
@@ -31,7 +28,13 @@ public class AuthUser extends Auditable {
 
     private String firstName;
 
+
+    private String phone;
+
+    private String picturePath;
+
     private String lastName;
+
 
     private String email;
 
@@ -42,4 +45,6 @@ public class AuthUser extends Auditable {
     private boolean active ;
 
     private boolean blocked;
+
+
 }

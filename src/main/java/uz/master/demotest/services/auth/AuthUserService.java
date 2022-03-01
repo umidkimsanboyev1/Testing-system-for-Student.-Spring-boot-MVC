@@ -1,6 +1,7 @@
 package uz.master.demotest.services.auth;
 
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +30,13 @@ public class AuthUserService
         AuthUserRepository,
         AuthUserMapper,
         AuthUserValidator>
-        implements GenericService<AuthDto,Long>,
-        GenericCrudService<AuthUser,AuthDto, AuthUserCreateDto, AuthUserUpdateDto,Long> {
+        implements GenericService<AuthDto, Long>,
+        GenericCrudService<AuthUser, AuthDto, AuthUserCreateDto, AuthUserUpdateDto, Long> {
     private final TokenRepository tokenRepository;
     private final AuthRoleRepository roleRepository;
-    private final  SendEmail email;
+    private final SendEmail email;
     private final PasswordEncoder encoder;
+
     protected AuthUserService(AuthUserRepository repository,
                               AuthUserMapper mapper,
                               AuthUserValidator validator,
@@ -50,8 +52,8 @@ public class AuthUserService
     public Long create(AuthUserCreateDto createDto) {
         AuthUser authUser = mapper.fromCreateDto(createDto);
         authUser.setActive(true);
+        authUser.setOrganizationId(createDto.getOrganizationId());
         AuthRole byId = roleRepository.getById(createDto.getUserRole());
-        authUser.setOrganizationId(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getOrganization());
         authUser.setRole(byId);
         authUser.setPassword(encoder.encode(createDto.getPassword()));
         return repository.save(authUser).getId();
@@ -60,7 +62,7 @@ public class AuthUserService
 
     public Long createAdmin(AddAdminDto addAdminDto, Long id) {
         AuthUser authUser = mapper.fromDto(addAdminDto);
-        AuthRole byId = roleRepository.getById(1L);
+        AuthRole byId = roleRepository.getById(2L);
         authUser.setOrganizationId(id);
         authUser.setRole(byId);
         authUser.setActive(true);
@@ -73,21 +75,21 @@ public class AuthUserService
         repository.deleteById(id);
         return null;
     }
-    public Void delete(String username,String password) {
+
+    public Void delete(String username, String password) {
         Optional<AuthUser> user = repository.getAuthUsersByUsernameAndDeletedFalse(username);
-        if (user.isEmpty()||!encoder.matches(password,user.get().getPassword())) throw new NotFoundException("bad Credential");
-        repository.deleteUser(user.get().getId(),user.get().getUsername()+""+System.currentTimeMillis());
+        if (user.isEmpty() || !encoder.matches(password, user.get().getPassword()))
+            throw new NotFoundException("bad Credential");
+        repository.deleteUser(user.get().getId(), user.get().getUsername() + "" + System.currentTimeMillis());
         return null;
     }
-
 
 
     @Override
-    public Void update(AuthUserUpdateDto updateDto) {
+    public Void update(AuthUserUpdateDto dto) {
+        repository.updateUser(dto.getFirstName(),dto.getLastName(),dto.getEmail(),dto.getPhone(),dto.getUsername(),dto.getId());
         return null;
     }
-
-
 
 
     public List<AuthUser> getAll(Long orgId) {
@@ -99,34 +101,30 @@ public class AuthUserService
         return null;
     }
 
-    @Override
     public AuthDto get(Long id) {
-        AuthDto dto=new AuthDto();
-        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        dto.setId(principal.getId());
-        dto.setOrgId(principal.getOrganization());
-        dto.setFirstName(principal.getFistName());
-        dto.setLastName(principal.getLastName());
-        dto.setUsername(principal.getUsername());
-        dto.setRole(principal.getRole());
-        return dto;
+        AuthUser user = repository.findByIdAndDeletedFalse(id).orElseThrow(() -> {
+            throw new UsernameNotFoundException("user Not Found");
+        });
+
+        return mapper.toDto(user);
     }
+
 
     public AuthUser get(String username) {
         Optional<AuthUser> authUserByUsername = repository.getAuthUsersByUsernameAndDeletedFalse(username);
-        if (authUserByUsername.isEmpty()){
+        if (authUserByUsername.isEmpty()) {
             throw new NotFoundException("username not found");
         }
         return authUserByUsername.get();
     }
 
-    public void sendMail(String emailUser,String username) throws NotFoundException {
-        if(Objects.nonNull(emailUser) &&emailUser.equals(get(username).getEmail())){
-            String tokenGenerate =UUID.randomUUID().toString().replace("-","");
-            Token token=new Token();
+    public void sendMail(String emailUser, String username) throws NotFoundException {
+        if (Objects.nonNull(emailUser) && emailUser.equals(get(username).getEmail())) {
+            String tokenGenerate = UUID.randomUUID().toString().replace("-", "");
+            Token token = new Token();
             token.setPrivateToken(tokenGenerate);
             tokenRepository.save(token);
-            email.sendEmail(emailUser,tokenGenerate);
+            email.sendEmail(emailUser, tokenGenerate);
         }
 
     }
@@ -137,12 +135,11 @@ public class AuthUserService
     }
 
     // TODO: 2/26/2022 sh yerga yozib ketishim kerak validatorlarni
-    public void resetPassword(ResetPassword dto){
+    public void resetPassword(ResetPassword dto) {
         AuthUser authUser = get(dto.getUsername());
         authUser.setPassword(encoder.encode(dto.getPassword()));
         repository.save(authUser);
     }
-
 
 
 }
