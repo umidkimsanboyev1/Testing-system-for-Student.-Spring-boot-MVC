@@ -20,7 +20,7 @@
           rel="stylesheet">
 
     <style>
-        .members-body{
+        .members-body {
             width: 80%;
             height: 45px;
             overflow-y: scroll;
@@ -28,7 +28,8 @@
             border-radius: 17px;
             padding: 5px 10px;
         }
-        .members-body::-webkit-scrollbar{
+
+        .members-body::-webkit-scrollbar {
             display: none;
         }
     </style>
@@ -117,8 +118,8 @@
                              id="dropdownMenuButton11" alt="" src="/imges/useer.png">
 
                         <ul aria-labelledby="dropdownMenuButton11" class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{/auth/logout}">logout</a></li>
-                            <li><a class="dropdown-item" th:href="@{/auth/profil}">profil</a></li>
+                            <li><a class="dropdown-item" th:href="@{/auth/logout}">Logout</a></li>
+                            <li><a class="dropdown-item" th:href="@{/auth/profil}">Profile Info</a></li>
                         </ul>
                     </div>
 
@@ -132,7 +133,7 @@
 
             <div class="contents">
                 <div class="content">
-                    <div  class="box">
+                    <div class="box">
                         <p>
                             <b class="mr-3">Date added: </b>
                             <span th:text="*{createdAt}"> 12/04/2021</span>
@@ -145,19 +146,19 @@
                             <b class="mr-3">Participants: </b>
                             <span th:text="*{projectMembersCount}">12/04/2021 </span>
                         </p>
-                        <p sec:authorize = "hasRole('ADMIN')">
-                            <a class="mx-auto btn btn-success" data-bs-target="#exampleModal2" data-bs-toggle="modal"  >
+                        <p sec:authorize="hasRole('ADMIN')">
+                            <a class="mx-auto btn btn-success" data-bs-target="#exampleModal2" data-bs-toggle="modal">
                                 Add Member
                             </a>
                         </p>
                         <p>
-                            <div class="members-body" >
-                                <p th:each="member: ${projectMembers}"  th:text="${member.username}">
-                                </p>
-                            </div>
+                        <div class="members-body">
+                            <p th:each="member: ${projectMembers}" th:text="${member.username}">
+                            </p>
+                        </div>
                         </p>
                     </div>
-                    <div  class="content-box">
+                    <div class="content-box">
                         <p>
                             <b class="mr-3">Project TZ : </b>
                             <a class="btn btn-outline-info" th:href="@{*{tz}}">Download</a>
@@ -165,18 +166,21 @@
                         <p><b class="mr-3">Description : </b></p>
                         <p th:text="*{description}"></p>
                     </div>
-                    <div  class="boxs">
+                    <div class="boxs">
                         <p><b class="mr-3">All tasks : </b> <span th:text="*{getTasksCount()}"></span></p>
                         <p><b class="mr-3">Done : </b> <span th:text="*{getDoneTasksCount()}"></span></p>
                         <p><b class="mr-3">Frozen : </b> <span th:text="*{getFrozenTasksCount()}"></span></p>
                         <p>
-                            <a class="btn btn-success text-decoration-none mt-3" th:href="@{/project/column/create/{id}(id=*{id})}">&plus; Add Column</a>
+                            <a class="btn btn-success text-decoration-none mt-3"
+                               th:href="@{/project/column/create/{id}(id=*{id})}">&plus; Add Column</a>
                         </p>
                     </div>
                 </div>
 
-                <div style="overflow-x:scroll;" class="todoContainer mt-3 mb-5">
-                    <div class="todoContent-box" th:each="column : *{columns}">
+
+                <div class="todoContainer mt-3 mb-5">
+                    <div class="todoContent-box" th:each="column : *{columns}" th:name="${column.id}"
+                         th:id="${column.name}" ondrop="dropIt(event)" ondragover="allowDrop(event)">
                         <div class="todo-img">
                             <p th:text="${column.name}"></p>
                             <a th:href="@{'/task/create'+'?colId='+${column.id}+'&proId='+${project.id}}">
@@ -186,24 +190,33 @@
 
                         </div>
 
-                        <div th:each="task : ${column.taskDtos}">
-                            <div class="todo-box">
-                                <h4>
-                                    <a th:text="${task.name}" th:href="@{/task/{task_id}(task_id = ${task.id})}"></a>
-                                    <button class="medium" th:text="${task.level}">Medium</button>
-                                </h4>
-                                <p>
-                                    <span>Created :  </span>
-                                    <span th:text="${task.createdAt}"></span>
-                                </p>
+                        <div th:each="task : ${column.taskDtos}" class="todo-box" th:name="${task.id}"
+                             th:id="${task.name}" draggable="true" ondragstart="dragStart(event)">
+                            <h4>
+                                <a th:text="${task.name}" th:href="@{/task/{task_id}(task_id = ${task.id})}"></a>
+                                <button class="medium" th:text="${task.level}">Medium</button>
+                            </h4>
+                            <p>
+                                <span>Created :  </span>
+                                <span th:text="${task.createdAt}"></span>
+                            </p>
 
-                                <p>
-                                    <span>Members :  </span>
-                                    <span th:text="${task.taskMembers.size()}"></span>
-                                </p>
-                            </div>
+                            <p>
+                                <span>Members :  </span>
+                                <span th:text="${task.taskMembers.size()}"></span>
+                            </p>
                         </div>
+
                     </div>
+<!--                    <div class="todoContent-box">-->
+<!--                        <div class="todo-img">-->
+<!--                            <p>Create Column</p>-->
+<!--                            <p>-->
+<!--                                <a class="btn btn-success text-decoration-none mt-3"-->
+<!--                                   th:href="@{/project/column/create/{id}(id=*{id})}">&plus; Add Column</a>-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -223,7 +236,8 @@
                 <div class="modal-body" th:each="member : ${orgMembers}" style="display: flex;">
                     <div class="d-flex">
                         <p th:text="${member.username}" class="mr-3"></p>
-                        <a class="mt-0 ml-2" th:href="@{/project/addMember/{projectId}/{memberId}(projectId=${project.id},memberId=${member.id})}">
+                        <a class="mt-0 ml-2"
+                           th:href="@{/project/addMember/{projectId}/{memberId}(projectId=${project.id},memberId=${member.id})}">
                             <img src="/imges/plus-circle.png" alt="add-task-btn">
                         </a>
                     </div>
@@ -238,18 +252,63 @@
     </div>
 </header>
 
-<script>
+<script type="text/javascript" th:inline="javascript">
     const menu = document.querySelector(".menu-bar i")
     const main = document.querySelector("main")
     menu.addEventListener("click", () => {
         main.classList.toggle("open")
     })
+
+
+    function allowDrop(ev) {
+        ev.preventDefault();  // default is not to allow drop
+    }
+
+    function dragStart(ev) {
+        // The 'text/plain' is referring the Data Type (DOMString)
+        // of the Object being dragged.
+        // ev.target.id is the id of the Object being dragged
+        ev.dataTransfer.setData("text/plain", ev.target.id);
+    }
+
+    function dropIt(ev) {
+        ev.preventDefault();
+        let sourceId = ev.dataTransfer.getData("text/plain");
+        let sourceIdEl = document.getElementById(sourceId);
+        let sourceIdParentEl = sourceIdEl.parentElement;
+
+        let targetEl = document.getElementById(ev.target.id)
+        let targetParentEl = targetEl.parentElement;
+
+        if (targetParentEl.id !== sourceIdParentEl.id) {
+            if (targetEl.className === sourceIdEl.className) {
+                targetParentEl.appendChild(sourceIdEl);
+            } else {
+                targetEl.appendChild(sourceIdEl);
+
+                fetch('/project/update/' + targetEl.getAttribute("name") + '/' + sourceIdEl.getAttribute("name"))
+                    .then(response => response.text())
+                    .catch(err => console.log(err));
+            }
+        } else {
+            let holder = targetEl;
+            let holderText = holder.textContent;
+
+            targetEl.textContent = sourceIdEl.textContent;
+            sourceIdEl.textContent = holderText;
+            holderText = '';
+        }
+
+    }
+
+
+
 </script>
 <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
 <script src="/webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>-->
 
 </body>
 </html>

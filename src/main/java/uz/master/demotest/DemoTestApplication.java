@@ -1,5 +1,6 @@
 package uz.master.demotest;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +12,7 @@ import uz.master.demotest.repositories.AuthUserRepository;
 
 //@EnableJpaAuditing
 @SpringBootApplication
-public class DemoTestApplication /*implements CommandLineRunner*/ {
+public class DemoTestApplication/* implements CommandLineRunner*/ {
 
 
     private final AuthUserRepository authUserRepository;
@@ -45,9 +46,9 @@ public class DemoTestApplication /*implements CommandLineRunner*/ {
 
 
         AuthUser manager = new AuthUser();
-        manager.setUsername("manager");
-        manager.setPassword(passwordEncoder.encode("manager123"));
-        AuthRole managerRole = authRoleRepository.findAuthRoleByCode("MANAGER").get();
+        manager.setUsername("user");
+        manager.setPassword(passwordEncoder.encode("user123"));
+        AuthRole managerRole = authRoleRepository.findAuthRoleByCode("USER").get();
         manager.setRole(managerRole);
         authUserRepository.save(manager);
 

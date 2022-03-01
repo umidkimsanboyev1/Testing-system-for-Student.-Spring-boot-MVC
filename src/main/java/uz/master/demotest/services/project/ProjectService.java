@@ -120,4 +120,7 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
        return repository.getProjectCount(id).size();
     }
 
+    public void updateTaskColumn(Long columnId, Long taskId) {
+        repository.updateTaskColumn(columnId, taskId);
+    }
 }

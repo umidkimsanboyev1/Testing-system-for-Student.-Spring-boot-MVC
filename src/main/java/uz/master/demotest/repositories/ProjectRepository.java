@@ -53,5 +53,10 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     @Query(value = "select count(p.id) from ProjectMember p where p.projectId=:id ")
     int getCount(Long id);
+
+    @Transactional
+    @Modifying
+    @Query("update Tasks t set t.columnId = ?1 where t.id = ?2")
+    void updateTaskColumn(Long columnId, Long taskId);
 }
 
