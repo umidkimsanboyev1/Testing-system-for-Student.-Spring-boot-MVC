@@ -16,9 +16,6 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class Action extends Auditable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(nullable = false)
     private String text;

@@ -5,12 +5,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.auth.AddAdminDto;
 import uz.master.demotest.dto.auth.AuthUserCreateDto;
 import uz.master.demotest.dto.auth.AuthUserUpdateDto;
 import uz.master.demotest.dto.auth.ResetPassword;
 import uz.master.demotest.services.auth.AuthUserService;
+import uz.master.demotest.services.file.FileStorageService;
 import uz.master.demotest.utils.SessionUser;
 
 @Controller
@@ -19,9 +21,11 @@ public class AuthUserController {
 
     private final AuthUserService service;
     private final SessionUser user;
-    public AuthUserController(AuthUserService service, SessionUser user) {
+    private final FileStorageService fileStorageService;
+    public AuthUserController(AuthUserService service, SessionUser user, FileStorageService fileStorageService) {
         this.service = service;
         this.user = user;
+        this.fileStorageService = fileStorageService;
     }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
@@ -40,13 +44,13 @@ public class AuthUserController {
     public String addPage() {
         return "auth/addUser";
     }
-
-
-    @RequestMapping(value = "addAdmin/{id}", method = RequestMethod.GET)
-    public String addAdminPage(Model model,@PathVariable Long id) {
-        model.addAttribute("organizationId", id);
-        return "auth/addAdmin";
-    }
+//
+//
+//    @RequestMapping(value = "addAdmin/{id}", method = RequestMethod.GET)
+//    public String addAdminPage(Model model,@PathVariable Long id) {
+//        model.addAttribute("organizationId", id);
+//        return "auth/addAdmin";
+//    }
 
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
     public String addAdmin(@ModelAttribute AuthUserCreateDto dto) {
@@ -100,10 +104,17 @@ public class AuthUserController {
 
 
 
-    @RequestMapping("update")
+    @RequestMapping(value = "update",method = RequestMethod.POST)
     public String update(@ModelAttribute AuthUserUpdateDto dto){
         dto.setId(user.getId());
         service.update(dto);
+        return "redirect:auth/profil";
+    }
+
+
+    @RequestMapping("upload")
+    public String update(@RequestParam MultipartFile file){
+        service.savePhoto(fileStorageService.store(file),user.getId());
         return "redirect:auth/profil";
     }
 }

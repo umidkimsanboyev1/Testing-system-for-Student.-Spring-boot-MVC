@@ -32,7 +32,8 @@ public class OrganizationController {
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String create(Model model, @ModelAttribute OrganizationCreateDto dto) {
-        return "forward:/auth/addAdmin/"+service.create(dto);
+        model.addAttribute("organizationId", service.create(dto));
+        return "auth/addAdmin";
     }
 
     @RequestMapping(value = "update/{id}", method = RequestMethod.GET)

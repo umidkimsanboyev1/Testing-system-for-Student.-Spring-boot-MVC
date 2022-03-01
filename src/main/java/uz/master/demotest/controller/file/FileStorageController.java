@@ -31,4 +31,13 @@ public class FileStorageController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + loadedResource.getOriginalName() + "\"")
                 .body(loadedResource.getResource());
     }
+
+    @GetMapping("picture/{filename:.+}")
+    public ResponseEntity<?> downloadpicture(@PathVariable(name = "filename") String fileName) throws NoSuchFileException {
+        UploadsDto loadedResource = fileStorageService.loadResource(fileName);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + loadedResource.getOriginalName() + "\"")
+                .body(loadedResource.getResource());
+    }
 }
