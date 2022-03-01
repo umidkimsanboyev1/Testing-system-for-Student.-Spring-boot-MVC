@@ -23,16 +23,14 @@ public class BaseController {
 
     @RequestMapping(value = { "/","/home"})
     public String home() {
-
         UserDetails details = user.getInstance();
         String code = details.getRole().getCode();
 
-        if(code.equals("ADMIN")){
+        if(code.equals("SUPERADMIN")){
             return "redirect:organization/list";
         }else{
             return "redirect:project/all/" + details.getOrganization();
         }
-
     }
 
 

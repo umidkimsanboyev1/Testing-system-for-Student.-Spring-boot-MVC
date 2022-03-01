@@ -56,7 +56,7 @@ public class AuthUserController {
     @RequestMapping(value = "addAdmin/{id}", method = RequestMethod.POST)
     public String addAdminPage(@ModelAttribute AddAdminDto dto, @PathVariable Long id) {
         authService.createAdmin(dto, id);
-        return "redirect: /organization/list";
+        return "redirect:/organization/list";
     }
 
 

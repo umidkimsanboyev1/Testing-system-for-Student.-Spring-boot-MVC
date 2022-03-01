@@ -32,8 +32,16 @@ public class ProjectController {
         this.organizationService = organizationService;
     }
 
-    @RequestMapping("all")
-    public String task(Model model) {
+    @RequestMapping("all/{id}")
+    public String task(Model model, @PathVariable Long id) {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("projects", projectService.getAll(id));
+        model.addAttribute("organization", organizationService.get(id));
+        return "project/list";
+    }
+
+    @RequestMapping("all/")
+    public String tasks(Model model) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("projects", projectService.getAll());
         model.addAttribute("organization", organizationService.get(user.getOrganization()));

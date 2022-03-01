@@ -20,6 +20,8 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     List<Project> findAllByDeletedFalse();
 
+    List<Project> findProjectByOrgIdAndDeletedFalseOrderByIdAsc(Long id);
+
     @Transactional
     @Modifying
     @Query("update Project p set p.deleted = true where p.id = :id")

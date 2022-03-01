@@ -13,7 +13,7 @@ import uz.master.demotest.dto.organization.OrganizationUpdateDto;
 import uz.master.demotest.services.organization.OrganizationService;
 
 @Controller
-@Secured("ROLE_ADMIN")
+@Secured("ROLE_SUPERADMIN")
 @RequestMapping(value = "/organization/")
 public class OrganizationController {
 

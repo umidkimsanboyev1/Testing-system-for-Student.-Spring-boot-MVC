@@ -2,6 +2,7 @@ package uz.master.demotest.dto.organization;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 import uz.master.demotest.dto.BaseDto;
 
 import javax.validation.constraints.NotBlank;
@@ -14,8 +15,7 @@ public class OrganizationCreateDto implements BaseDto {
     @Size(min = 2, max = 30, message = "value for title must be between {min} and {max}")
     private String name;
 
-    @NotBlank(message = "Logotype not be null or Blank")
-    private String logo;
+    private MultipartFile logo;
 
     @NotBlank(message = "E-mail not be null or Blank")
     private String email;

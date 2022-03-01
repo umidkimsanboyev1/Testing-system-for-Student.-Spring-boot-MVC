@@ -2,6 +2,7 @@ package uz.master.demotest.services.organization;
 
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import uz.master.demotest.dto.organization.OrganizationDto;
 import uz.master.demotest.dto.organization.OrganizationUpdateDto;
 import uz.master.demotest.entity.organization.Organization;
@@ -9,6 +10,8 @@ import uz.master.demotest.mappers.OrganizationMapper;
 import uz.master.demotest.repositories.OrganizationRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.services.GenericCrudService;
+import uz.master.demotest.services.file.FileStorageService;
+import uz.master.demotest.utils.FileUploadUtils;
 import uz.master.demotest.validator.organization.OrganizationValidator;
 
 import java.util.List;
@@ -16,8 +19,11 @@ import java.util.List;
 @Service
 public class OrganizationService extends AbstractService<OrganizationRepository, OrganizationMapper, OrganizationValidator> implements GenericCrudService<Organization, OrganizationDto, uz.master.demotest.dto.organization.OrganizationCreateDto, OrganizationUpdateDto, Long> {
 
-    protected OrganizationService(OrganizationRepository repository, OrganizationMapper mapper, OrganizationValidator validator) {
+    private final FileStorageService fileStorageService;
+
+    protected OrganizationService(OrganizationRepository repository, OrganizationMapper mapper, OrganizationValidator validator, FileStorageService fileStorageService) {
         super(repository, mapper, validator);
+        this.fileStorageService = fileStorageService;
     }
 
 
@@ -30,7 +36,6 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
         for (Organization organization : repository.findAllByDeletedFalseOrderByIdAsc()) {
             System.out.println("organization = " + organization);
         }
-
         return mapper.toDto(repository.findAllByDeletedFalseOrderByIdAsc());
     }
 
@@ -43,9 +48,11 @@ public class OrganizationService extends AbstractService<OrganizationRepository,
 
     @Override
     public Long create(uz.master.demotest.dto.organization.OrganizationCreateDto createDto) {
+        MultipartFile logo = createDto.getLogo();
         Organization organization = mapper.fromCreateDto(createDto);
         organization.setStatus("ACTIVE");
         organization.setDeleted(false);
+        organization.setLogo(FileUploadUtils.UPLOAD_DIRECTORY + fileStorageService.store(logo));
         return repository.save(organization).getId();
     }
 
