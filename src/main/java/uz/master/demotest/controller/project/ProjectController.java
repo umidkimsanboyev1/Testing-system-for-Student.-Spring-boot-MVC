@@ -85,4 +85,9 @@ public class ProjectController {
         projectService.update(dto);
         return "redirect:/project/all/"+user.getOrgId();
     }
+
+    @RequestMapping("update/{column_id}/{task_id}")
+    public void updateColumn(@PathVariable(name = "column_id") Long columnId, @PathVariable(name = "task_id") Long taskId){
+        projectService.updateTaskColumn(columnId, taskId);
+    }
 }
