@@ -22,9 +22,15 @@ public interface AuthUserRepository extends JpaRepository<AuthUser,Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "update AuthUser a set a.firstName =:firstname,a.lastName =:lastname,a.email=:email,a.phone=:phone,a.username=:username where  a.id=:id")
-    void updateUser(@Param("firstname")String firstname,@Param("lastname")String lastname,@Param("email")String email,@Param("phone")String phone,@Param("username")String username,@Param("id")Long id);
+    @Query(value = "update AuthUser a set a.firstName = ?1,a.lastName = ?2,a.email = ?3,a.phone = ?4,a.username = ?5 ,a.picturePath = ?6 where  a.id = ?7")
+    void updateUser(String firstname,String lastname,String email,String phone,String username,String photoPath,Long id);
 
 
     Optional<AuthUser>findByIdAndDeletedFalse(Long id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update AuthUser a set a.picturePath=:store where a.id=:id")
+    void image(@Param("store") String store, @Param("id") Long id);
+
 }

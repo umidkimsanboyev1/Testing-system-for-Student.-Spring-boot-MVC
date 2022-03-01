@@ -90,7 +90,7 @@ public class AuthUserService
 
     @Override
     public Void update(AuthUserUpdateDto dto) {
-        repository.updateUser(dto.getFirstName(),dto.getLastName(),dto.getEmail(),dto.getPhone(),dto.getUsername(),dto.getId());
+        repository.updateUser(dto.getFirstName(),dto.getLastName(),dto.getEmail(),dto.getPhone(),dto.getUsername(),dto.getPhotoPath(),dto.getId());
         return null;
     }
 

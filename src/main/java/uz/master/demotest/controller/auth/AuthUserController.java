@@ -62,7 +62,7 @@ public class AuthUserController {
     @RequestMapping(value = "addAdmin/{id}", method = RequestMethod.POST)
     public String addAdminPage(@ModelAttribute AddAdminDto dto, @PathVariable Long id) {
         service.createAdmin(dto, id);
-        return "redirect: /organization/list";
+        return "redirect:/organization/list";
     }
 
 
@@ -107,14 +107,10 @@ public class AuthUserController {
     @RequestMapping(value = "update",method = RequestMethod.POST)
     public String update(@ModelAttribute AuthUserUpdateDto dto){
         dto.setId(user.getId());
+        dto.setPhotoPath(fileStorageService.store(dto.getPhoto()));
         service.update(dto);
         return "redirect:auth/profil";
     }
 
 
-    @RequestMapping("upload")
-    public String update(@RequestParam MultipartFile file){
-        service.savePhoto(fileStorageService.store(file),user.getId());
-        return "redirect:auth/profil";
-    }
 }
