@@ -127,9 +127,6 @@
         <div class="col-md-4">
             <div class="profile-img">
                 <img th:src="@{'/uploads/'+${authUser.picturePath}}" alt=""/>
-                <div class="file btn btn-lg btn-primary">
-
-                </div>
             </div>
         </div>
         <div class="col-md-6">
@@ -184,7 +181,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="file">photo</label>
-                                    <input type="file" class="form-control" id="file" placeholder="Enter your firstname"
+                                    <input type="image" class="form-control" id="file" placeholder="Enter your firstname"
                                            name="photo">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Save changes</button>
