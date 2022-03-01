@@ -1,6 +1,5 @@
 package uz.master.demotest.controller.task;
 
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +14,7 @@ import uz.master.demotest.entity.action.Action;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.services.column.ColumnService;
 import uz.master.demotest.services.comment.CommentService;
+import uz.master.demotest.services.organization.OrganizationService;
 import uz.master.demotest.services.project.ProjectService;
 import uz.master.demotest.services.task.TaskService;
 
@@ -32,12 +32,14 @@ public class TaskController {
     private final CommentService commentService;
     private final ProjectService projectService;
     private final ColumnService columnService;
+    private final OrganizationService organizationService;
 
-    public TaskController(TaskService taskService, CommentService commentService, ProjectService projectService, ColumnService columnService) {
+    public TaskController(TaskService taskService, CommentService commentService, ProjectService projectService, ColumnService columnService, OrganizationService organizationService) {
         this.taskService = taskService;
         this.commentService = commentService;
         this.projectService = projectService;
         this.columnService = columnService;
+        this.organizationService = organizationService;
     }
 
     @GetMapping("{id}")
@@ -58,6 +60,9 @@ public class TaskController {
 
         List<AuthUser> projectMembers = projectService.getMembers(columnDto.getProjectId());
         model.addAttribute("projectMembers", projectMembers);
+
+        Long orgId = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getOrganization();
+        model.addAttribute("organization", organizationService.getOrganization(orgId));
 
         return "task/task";
     }

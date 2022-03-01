@@ -1,9 +1,11 @@
 package uz.master.demotest.controller.project;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import uz.master.demotest.configs.security.UserDetails;
 import uz.master.demotest.dto.project.ProjectCreateDto;
 import uz.master.demotest.dto.project.ProjectUpdateDto;
 import uz.master.demotest.services.organization.OrganizationService;
@@ -37,6 +39,8 @@ public class ProjectController {
         model.addAttribute("project", projectService.get(id));
         model.addAttribute("projectMembers", projectService.getMembers(id));
         model.addAttribute("orgMembers", projectService.getMembersFromOrganization(id));
+        Long orgId = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getOrganization();
+        model.addAttribute("organization", organizationService.getOrganization(orgId));
         return "project/project";
     }
 
@@ -44,8 +48,6 @@ public class ProjectController {
 
     @GetMapping("addMember/{projectId}/{memberId}")
     public String addMember(@PathVariable(name = "projectId") Long projectId, @PathVariable(name = "memberId") Long memberId) {
-
-
         projectService.addMember(projectId, memberId);
         return "redirect:/project/" + projectId;
     }
