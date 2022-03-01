@@ -12,6 +12,25 @@ header {
 
 }
 
+header .logo{
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+
+
+header .logo a{
+  width: 100%;
+  height: 100%;
+}
+
+
+header .logo img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 header main {
   width: 100%;
   background: #f8f8fb;

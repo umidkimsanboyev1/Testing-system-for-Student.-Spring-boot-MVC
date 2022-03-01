@@ -39,10 +39,10 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
         this.service = service;
     }
     public static final String[] WHITE_LIST = {
-             "/auth/login","/auth/forgot","/auth/reset/**"
+             "/auth/login","/auth/forgot","/auth/reset/**", "/index/index"
     };
     public static final String[] WHITE_LIST_RESOURCES = {
-            "/css/**", "/webjars/**", "/js/**","/error"
+            "/css/**", "/webjars/**", "/js/**","/error", "/imges/**"
     };
 
     @Override
@@ -57,7 +57,7 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
                         .loginProcessingUrl("/auth/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/", false)
+                        .defaultSuccessUrl("/home", false)
                 )
                 .rememberMe(httpSecurityRememberMeConfigurer -> httpSecurityRememberMeConfigurer
                         .key("bsiudbhfsdhbf")

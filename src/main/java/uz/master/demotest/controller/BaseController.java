@@ -1,9 +1,11 @@
 package uz.master.demotest.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.master.demotest.configs.security.UserDetails;
+import uz.master.demotest.services.auth.AuthUserService;
 import uz.master.demotest.utils.SessionUser;
 import uz.master.demotest.services.project.ProjectService;
 
@@ -14,14 +16,15 @@ public class BaseController {
 
     private final SessionUser user;
     private final ProjectService service;
+    private final AuthUserService userService;
 
-    public BaseController(SessionUser user, ProjectService service) {
+    public BaseController(SessionUser user, ProjectService service, AuthUserService userService) {
         this.user = user;
         this.service = service;
+        this.userService = userService;
     }
 
-
-    @RequestMapping(value = { "/","/home"})
+    @RequestMapping(value = {"", "/", "/home"})
     public String home() {
         UserDetails details = user.getInstance();
         String code = details.getRole().getCode();
@@ -36,7 +39,9 @@ public class BaseController {
 
 
     @PostMapping(value = {"/search"})
-    public String search() {
+    public String search(Model model) {
+        UserDetails details = user.getInstance();
+        model.addAttribute("users", userService.getAll(details.getOrganization()));
         return "search";
     }
 

@@ -95,8 +95,8 @@ public class AuthUserService
     }
 
 
-    public List<AuthUser> getAll(Long orgId) {
-        return repository.findAllByOrganizationIdAndDeletedFalse(orgId);
+    public List<AuthDto> getAll(Long orgId) {
+        return mapper.toDto(repository.findAllByOrganizationIdAndDeletedFalse(orgId));
     }
 
     @Override
