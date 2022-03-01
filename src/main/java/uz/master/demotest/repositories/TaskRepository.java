@@ -10,6 +10,7 @@ import uz.master.demotest.entity.task.Task;
 import uz.master.demotest.entity.task.Task_Member;
 import uz.master.demotest.enums.ActionTexts;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
@@ -68,4 +69,10 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query(value = "insert into action (author_username,task_id,text,is_deleted) VALUES (:username,:taskId,:text,false)", nativeQuery = true)
     @Transactional
     void addAction(@Param("taskId") Long id, @Param("username") String username, @Param("text") String text);
+
+    @Query(" from Task_Member t where t.userId=:id")
+    List<Task_Member> getTaskCount(Long id);
+
+    @Query("from Action a where a.authorUsername=:username")
+    List<Action> getActionCount(String username);
 }

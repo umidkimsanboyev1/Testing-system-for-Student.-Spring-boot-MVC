@@ -82,15 +82,13 @@
 
     <aside>
         <nav>
-            <a th:href="@{search}">
-                <div class="input">
-                    <div>
-                        <i class="fas fa-search"></i>
-                    </div>
+            <div class="input">
+                <a th:href="@{/search}">
+                    <i class="fas fa-search"></i>
+                </a>
 
-                    <input type="text" placeholder="Search">
-                </div>
-            </a>
+                <input type="text" placeholder="Search">
+            </div>
 
 
             <div class="user-information">
@@ -212,11 +210,11 @@
                         <div class="status-text member-status  mt-3 mb-4">
                             <p>Members:</p>
                             <div class=" members-body" style="width: 250px!important;">
-                                <div th:each="member : ${members}" style="display: flex;align-items: center">
-                                    <div th:text="${member.username}"></div>
+                                <div th:each="mem : ${members}" style="display: flex;align-items: center">
+                                    <div th:text="${mem.getUsername()}"></div>
                                     <a class=" ml-1 btn btn-danger fs8 mt-0 pt-0"
                                        style="height: 10px;width: 40px;padding-left: 3px"
-                                       th:href="@{/task/removeMember/{taskId}/{memberId}(taskId=${dto.id},memberId=${member.id})}">Remove</a>
+                                       th:href="@{/task/removeMember/{taskId}/{memberId}(taskId=${dto.id},memberId=${mem.getId()})}">Remove</a>
                                 </div>
                             </div>
                         </div>
@@ -226,6 +224,30 @@
                            type="button">
                             Add Member
                         </a>
+
+                        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel2">Project Members </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" th:each="member : ${projectMembers}" style="display: flex">
+                                        <div th:text="${member.username}"></div>
+                                        <a class="btn btn-success mt-0 ml-2"
+                                           th:href="@{/task/addMember/{taskId}/{memberId}(taskId=${dto.id},memberId=${member.id})}">➕
+                                            Add</a>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
                     </div>

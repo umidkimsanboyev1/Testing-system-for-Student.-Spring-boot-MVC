@@ -80,16 +80,20 @@
     <aside>
         <nav>
             <div class="input">
-                <div>
+                <a th:href="@{/search}">
                     <i class="fas fa-search"></i>
-                </div>
-                <input placeholder="Search" type="text">
+                </a>
+
+                <input type="text" placeholder="Search">
             </div>
+
+
             <div class="user-information">
                 <div class="icon">
                     <img alt="" src="/imges/bell.png">
                     <i class="far fa-envelope"></i>
                 </div>
+
                 <div class="user">
                     <p>
                     <div style="border: none!important;background-color: white!important;" class="dropdown">
@@ -99,8 +103,8 @@
                              id="dropdownMenuButton11" alt="" src="/imges/useer.png">
 
                         <ul aria-labelledby="dropdownMenuButton11" class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{/auth/logout}">Logout</a></li>
-                            <li><a class="dropdown-item" th:href="@{/auth/profil}">Profile info</a></li>
+                            <li><a class="dropdown-item" th:href="@{/auth/logout}">logout</a></li>
+                            <li><a class="dropdown-item" th:href="@{/auth/profil}">profil</a></li>
                         </ul>
                     </div>
                     </p>
@@ -120,9 +124,10 @@
                 <div class="content" th:each="organization, iter : ${organizations}">
                     <div class="contents">
                         <div class="content-text">
-                            <p>Export</p>
+
                         </div>
                         <div class="box">
+                            <p>Export Data</p>
                             <p th:text="${organization.getName()}"></p>
                         </div>
                         <div style="

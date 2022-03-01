@@ -1,4 +1,4 @@
-package uz.master.demotest.controller.Organization;
+package uz.master.demotest.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,15 +14,15 @@ public class BaseController {
 
     private final SessionUser user;
     private final ProjectService service;
+
     public BaseController(SessionUser user, ProjectService service) {
         this.user = user;
         this.service = service;
     }
 
 
-    @RequestMapping(value = { "/"})
+    @RequestMapping(value = { "/","/home"})
     public String home() {
-
         UserDetails details = user.getInstance();
         String code = details.getRole().getCode();
 
@@ -31,16 +31,13 @@ public class BaseController {
         }else{
             return "redirect:project/all/" + details.getOrganization();
         }
-
     }
 
-    @RequestMapping(value = {"/contacts"})
-    public String contacts() {
-        return "contatcs";
-    }
+
 
     @PostMapping(value = {"/search"})
     public String search() {
         return "search";
     }
+
 }

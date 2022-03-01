@@ -1,17 +1,13 @@
 package uz.master.demotest;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import uz.master.demotest.entity.auth.AuthRole;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.repositories.AuthRoleRepository;
 import uz.master.demotest.repositories.AuthUserRepository;
-
-import java.util.UUID;
 
 //@EnableJpaAuditing
 @SpringBootApplication

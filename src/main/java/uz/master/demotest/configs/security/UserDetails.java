@@ -28,9 +28,10 @@ public class UserDetails implements org.springframework.security.core.userdetail
     private boolean active = true;
 
     private boolean blocked;
-    private String fistName;
+    private String firstName;
 
     private String lastName;
+    private String email;
 
     private Set<GrantedAuthority> authorities;
 
@@ -38,11 +39,12 @@ public class UserDetails implements org.springframework.security.core.userdetail
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
+        this.email = user.getEmail();
         this.role = user.getRole();
         this.organization=user.getOrganizationId();
         this.active = user.isActive();
         this.blocked = user.isBlocked();
-        this.fistName=user.getFirstName();
+        this.firstName=user.getFirstName();
         this.lastName=user.getLastName();
         processAuthorities(user);
     }

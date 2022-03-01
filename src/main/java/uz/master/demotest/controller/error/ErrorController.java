@@ -12,7 +12,20 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String renderErrorPageGet(Model model, HttpServletRequest httpRequest) {
-        model.addAttribute("code", getErrorCode(httpRequest));
+        int code = getErrorCode(httpRequest);
+        model.addAttribute("code", code);
+        switch (code) {
+            case 400:
+                return "error/400";
+            case 403:
+                return "error/403";
+            case 404:
+                return "error/404";
+            case 401:
+                return "error/401";
+            case 500:
+                return "error/500";
+        }
         return "error/error";
     }
 

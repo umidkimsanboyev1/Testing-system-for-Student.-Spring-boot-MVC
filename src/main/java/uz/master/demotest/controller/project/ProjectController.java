@@ -35,7 +35,8 @@ public class ProjectController {
     @RequestMapping("{id}")
     public String getProjectPage(Model model, @PathVariable Long id) {
         model.addAttribute("project", projectService.get(id));
-        model.addAttribute("projectMembers", projectService.getMembersFromOrganization(id));
+        model.addAttribute("projectMembers", projectService.getMembers(id));
+        model.addAttribute("orgMembers", projectService.getMembersFromOrganization(id));
         return "project/project";
     }
 
@@ -43,6 +44,7 @@ public class ProjectController {
 
     @GetMapping("addMember/{projectId}/{memberId}")
     public String addMember(@PathVariable(name = "projectId") Long projectId, @PathVariable(name = "memberId") Long memberId) {
+
 
         projectService.addMember(projectId, memberId);
         return "redirect:/project/" + projectId;

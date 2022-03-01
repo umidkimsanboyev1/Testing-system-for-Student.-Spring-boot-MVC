@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -72,15 +73,13 @@
 
     <aside>
         <nav>
-            <a th:href="@{search}">
-                <div class="input">
-                    <div>
-                        <i class="fas fa-search"></i>
-                    </div>
+            <div class="input">
+                <a th:href="@{/search}">
+                    <i class="fas fa-search"></i>
+                </a>
 
-                    <input type="text" placeholder="Search">
-                </div>
-            </a>
+                <input type="text" placeholder="Search">
+            </div>
 
 
             <div class="user-information">

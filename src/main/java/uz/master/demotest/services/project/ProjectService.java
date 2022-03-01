@@ -34,7 +34,7 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
     private final FileStorageService fileStorageService;
 
     protected ProjectService(ProjectRepository repository, ProjectMapper mapper, ProjectValidator validator,
-                             ColumnService columnService,  FileStorageService fileStorageService) {
+                             ColumnService columnService, FileStorageService fileStorageService) {
         super(repository, mapper, validator);
         this.columnService = columnService;
         this.fileStorageService = fileStorageService;
@@ -47,7 +47,7 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         project.setOrgId(principal.getOrganization());
         project.setTeamLeaderId(principal.getId());
-        project.setTz(FileUploadUtils.UPLOAD_DIRECTORY+fileStorageService.store(file));
+        project.setTz(FileUploadUtils.UPLOAD_DIRECTORY + fileStorageService.store(file));
         return repository.save(project).getId();
     }
 
@@ -97,12 +97,11 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
     }
 
     public List<AuthUser> getMembers(Long id) {
-        List<AuthUser> projectMembers = repository.getProjectMembersFromProject(id);
-        return projectMembers;
+        return repository.getProjectMembersFromProject(id);
     }
 
     public List<AuthUser> getMembersFromOrganization(Long id) {
-        List<AuthUser> projectMembers ;
+        List<AuthUser> projectMembers;
         projectMembers = repository.getProjectMembersFromOrganization(id);
 
         return projectMembers;
@@ -110,6 +109,10 @@ public class ProjectService extends AbstractService<ProjectRepository, ProjectMa
 
     public void addMember(Long projectId, Long memberId) {
         repository.addMember(projectId, memberId);
+    }
+
+    public int getProjectCount(Long id) {
+       return repository.getProjectCount(id).size();
     }
 
 }
