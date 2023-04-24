@@ -1,48 +1,29 @@
 package uz.master.demotest.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import uz.master.demotest.configs.security.UserDetails;
-import uz.master.demotest.services.auth.AuthUserService;
 import uz.master.demotest.utils.SessionUser;
-import uz.master.demotest.services.project.ProjectService;
 
 @Controller
 public class BaseController {
-
-
-
     private final SessionUser user;
-    private final ProjectService service;
-    private final AuthUserService userService;
 
-    public BaseController(SessionUser user, ProjectService service, AuthUserService userService) {
+    public BaseController(SessionUser user) {
         this.user = user;
-        this.service = service;
-        this.userService = userService;
     }
 
     @RequestMapping(value = {"", "/", "/home"})
     public String home() {
         UserDetails details = user.getInstance();
-        String code = details.getRole().getCode();
-
-        if(code.equals("SUPERADMIN")){
-            return "redirect:organization/list";
-        }else{
-            return "redirect:project/all/" + details.getOrganization();
+        String code = details.getRole().toString();
+        System.out.println(code);
+        if (code.equals("ADMIN")) {
+            return "redirect:admin/allTests";
+        } else if (code.equals("TEACHER")) {
+            return "redirect:teacher/myTests";
+        } else {
+            return "redirect:student/listTests";
         }
     }
-
-
-
-    @PostMapping(value = {"/search"})
-    public String search(Model model) {
-        UserDetails details = user.getInstance();
-        model.addAttribute("users", userService.getAll(details.getOrganization()));
-        return "search";
-    }
-
 }

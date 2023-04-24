@@ -3,9 +3,10 @@ package uz.master.demotest.entity.auth;
 
 import lombok.*;
 import uz.master.demotest.entity.Auditable;
-import uz.master.demotest.entity.organization.Organization;
+import uz.master.demotest.enums.Role;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Getter
 @Setter
@@ -22,27 +23,20 @@ public class AuthUser extends Auditable {
     @Column(nullable = false)
     private String password;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "role_id", nullable = false)
-    private AuthRole role;
+    private Role role;
 
-    private String firstName;
+    private String fullName;
 
+    private String groupName;
 
-    private String phone;
+    private Long testId;
 
-    private String picturePath;
+    private Long QuesId;
 
-    private String lastName;
+    @Column(columnDefinition = "0")
+    private Long tryingCount;
 
-
-    private String email;
-
-
-    private Long organizationId;
-
-
-    private boolean active ;
+    private boolean active;
 
     private boolean blocked;
 

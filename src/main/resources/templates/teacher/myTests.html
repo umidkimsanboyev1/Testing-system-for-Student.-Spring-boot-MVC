@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>SU test tizimi</title>
+    <link rel="stylesheet" href="/css/nicepage.css" media="screen">
+    <link rel="stylesheet" href="/css/SU-test-tizimi.css" media="screen">
+    <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
+    <meta name="generator" content="Nicepage 5.8.13, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i">
+
+
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "Site5",
+        "logo": "images/1uzbgsbe.png"
+    }</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="SU test tizimi">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta data-intl-tel-input-cdn-path="intlTelInput/">
+
+<!--    switch uchun style-->
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body data-home-page="SU-test-tizimi.html" data-home-page-title="SU test tizimi" class="u-body u-xl-mode"
+      data-lang="ru">
+<header class="u-box-shadow u-clearfix u-header u-header" id="sec-2e51">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
+            <img src="/images/1uzbgsbe.png" class="u-logo-image u-logo-image-1">
+        </a>
+        <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
+            <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+                <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+                   href="#">
+                    <svg class="u-svg-link" viewBox="0 0 24 24">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
+                    </svg>
+                    <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <rect y="1" width="16" height="2"></rect>
+                            <rect y="7" width="16" height="2"></rect>
+                            <rect y="13" width="16" height="2"></rect>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+            <div class="u-custom-menu u-nav-container">
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
+                        testlarim</a>
+                    </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/create}">Test
+                        yaratish</a>
+                    </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
+                        chiqish</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="u-custom-menu u-nav-container-collapse">
+                <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+                    <div class="u-inner-container-layout u-sidenav-overflow">
+                        <div class="u-menu-close"></div>
+                        <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
+                                testlarim</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/create}">Test
+                                yaratish</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
+                                chiqish</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+            </div>
+        </nav>
+        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-1">Biznes ta tadbirkorlik oliy maktabining
+            test tizimi </p>
+        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
+    </div>
+</header>
+<br>
+<br>
+<section class="u-align-center u-clearfix u-section-1" id="sec-8981">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="u-expanded-width u-table u-table-responsive u-table-1">
+            <table class="u-table-entity u-table-entity-1">
+                <colgroup>
+                    <col width="4.1%">
+                    <col width="34.2%">
+                    <col width="17.3%">
+                    <col width="22.6%">
+                    <col width="8.7%">
+                    <col width="13.1%">
+                </colgroup>
+                <tbody class="u-align-left u-custom-font u-font-ubuntu u-table-alt-palette-1-light-3 u-table-body u-table-valign-middle">
+                <tr style="height: 65px;">
+                    <td class="u-table-cell">#</td>
+                    <td class="u-table-cell">Test nomi</td>
+                    <td class="u-table-cell">Fani</td>
+                    <td class="u-table-cell">Savollar soni</td>
+                    <td class="u-table-cell">Savol uchun (min)</td>
+                    <td class="u-table-cell">Umumiy vaqt (min)</td>
+                    <td class="u-table-cell">Holati</td>
+                </tr>
+                <tr style="height: 65px;" th:each="test, iter :${tests}">
+                    <td th:text="${iter.count}" u-table-cell></td>
+                    <td th:text="${test.getName()}" u-table-cell></td>
+                    <td th:text="${test.getSubject()}" u-table-cell></td>
+                    <td th:text="${test.getNumberOfQuestion()}" u-table-cell></td>
+                    <td th:text="${test.getTimeForOneQues()}" u-table-cell></td>
+                    <td th:text="${test.getTimeForAllQues()}" u-table-cell></td>
+                    <td u-table-cell><label class="switch"><a th:href="@{/teacher/doAction/{id}(id=${test.getId()})}">
+                        <input type="checkbox" th:checked="${test.isActive()}">
+                        <span class="slider round"></span></a>
+                    </label></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

@@ -23,13 +23,4 @@ public class SessionUser {
 
 
 
-    public Long getOrgId() {
-        return getInstance().getOrganization();
-    }
-
-
-    public String getCode() {
-        return getInstance().getRole().getCode();
-    }
-
 }

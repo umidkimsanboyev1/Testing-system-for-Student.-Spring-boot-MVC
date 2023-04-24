@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import uz.master.demotest.entity.auth.AuthRole;
 import uz.master.demotest.entity.auth.AuthUser;
+import uz.master.demotest.enums.Role;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -21,17 +22,14 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     private String password;
 
-    private AuthRole role;
+    private Role role;
 
-    private Long organization;
 
     private boolean active = true;
 
     private boolean blocked;
-    private String firstName;
 
-    private String lastName;
-    private String email;
+    private String fullName;
 
     private Set<GrantedAuthority> authorities;
 
@@ -39,28 +37,20 @@ public class UserDetails implements org.springframework.security.core.userdetail
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.email = user.getEmail();
         this.role = user.getRole();
-        this.organization=user.getOrganizationId();
         this.active = user.isActive();
         this.blocked = user.isBlocked();
-        this.firstName=user.getFirstName();
-        this.lastName=user.getLastName();
+        this.fullName=user.getFullName();
         processAuthorities(user);
     }
 
     private void processAuthorities(AuthUser user) {
         authorities = new HashSet<>();
-        AuthRole role = user.getRole();
+        Role role = user.getRole();
 
         if (Objects.isNull(role)) return;
 
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getCode()));
-
-        if (Objects.isNull(role.getPermissions())) return;
-
-        role.getPermissions().forEach(authPermission -> authorities.add(new SimpleGrantedAuthority(authPermission.getCode())));
-
+        authorities.add(new SimpleGrantedAuthority("ROLE_"));
     }
 
     @Override

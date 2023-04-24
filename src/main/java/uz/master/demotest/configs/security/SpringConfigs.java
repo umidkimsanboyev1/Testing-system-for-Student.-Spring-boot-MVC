@@ -42,7 +42,7 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
              "/auth/login","/auth/forgot","/auth/reset/**", "/index/index"
     };
     public static final String[] WHITE_LIST_RESOURCES = {
-            "/css/**", "/webjars/**", "/js/**","/error", "/imges/**"
+            "/css/**", "/webjars/**", "/js/**","/error", "/images/**"
     };
 
     @Override
@@ -57,7 +57,7 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
                         .loginProcessingUrl("/auth/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/home", false)
+                        .defaultSuccessUrl("/", true)
                 )
                 .rememberMe(httpSecurityRememberMeConfigurer -> httpSecurityRememberMeConfigurer
                         .key("bsiudbhfsdhbf")
@@ -65,7 +65,7 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
                         .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(40))
                 ).logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer
                         .logoutUrl("/auth/logout")
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout","POST"))
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout","GET"))
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
                         .deleteCookies("JSESSIONID", "remember-me")

@@ -24,13 +24,11 @@
 <body>
 <div class="container">
     <form th:action="@{/auth/login}" th:method="POST">
-        <div class="goBack" id="link">
-            <a th:href="@{/home}">Back</a>
-
-        </div>
+        <img src="/images/1uzbgsbe.png" class="rounded mx-auto d-block" width="110px" height="110px" alt="GSBE.UZ logo" ><br>
         <div class="login-text">
-            <h3>Login</h3>
-            <p>Please login using account detail bellow.</p>
+            <br>
+            <h3>Biznes va tadbirkorlik oliy maktabining test tizimi</h3>
+            <p>Tizimga kirish uchun Identifikatsiyadan o'ting</p>
         </div>
 
         <div class="login-input" th:action="@{/auth/login}" th:method="POST">
@@ -40,21 +38,12 @@
                 <input type="password" placeholder="Password" class="InputPassword" name="password">
             </div>
 
-            <div class="forgot">
-                <a th:href="@{/auth/forgot}"><p>Forgot your password?</p>
-                </a>
-                <div>
-                    <label>Remember Me</label>
-                    <input type="checkbox" name="remember-me">
-                </div>
-
-            </div>
 
         </div>
 
         <div class="login-button">
             <button type="submit">Sign In</button>
-            <p>Don’t have an Account?Create account</p>
+
         </div>
     </form>
 </div>

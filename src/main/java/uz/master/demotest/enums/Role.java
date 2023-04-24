@@ -15,26 +15,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public enum Role {
 
-    ADMIN(Sets.newHashSet(
-            Permission.ADMIN_CREATE,
-            Permission.ADMIN_DELETE,
-            Permission.MANAGER_CREATE,
-            Permission.MANAGER_DELETE)),
-    MANAGER(Sets.newHashSet(
-            Permission.USER_CREATE,
-            Permission.USER_DELETE
-    )),
-    USER(new HashSet<>());
+    ADMIN,
+    TEACHER,
+    STUDENT;
 
 
-    private final Set<Permission> permissions;
 
-    public Set<GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = permissions.stream()
-                .map(permission -> new SimpleGrantedAuthority(permission.getValue()))
-                .collect(Collectors.toSet());
 
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
-        return authorities;
-    }
+
 }

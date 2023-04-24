@@ -20,7 +20,7 @@ public interface GenericCrudService<
         D extends GenericDto,
         CD extends BaseDto,
         UD extends GenericDto,
-        K extends Serializable> extends GenericService<D, K> {
+        K extends Serializable> {
 
     K create(CD createDto);
 

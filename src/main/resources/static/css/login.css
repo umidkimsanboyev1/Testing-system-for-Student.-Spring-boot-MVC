@@ -28,7 +28,7 @@ body {
 
 .goBack a {
   padding: 10px 20px;
-  background: #fb2e86;
+  background: #1670f6;
   border-radius: 3px;
   font-weight: bold;
   font-size: 17px;
@@ -120,7 +120,7 @@ body {
 .login-button button {
   width: 100%;
   height: 47px;
-  background: #fb2e86;
+  background: #1670f6;
   border-radius: 3px;
   font-weight: bold;
   font-size: 17px;
