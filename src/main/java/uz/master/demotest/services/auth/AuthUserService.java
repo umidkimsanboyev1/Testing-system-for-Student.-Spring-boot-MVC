@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.master.demotest.dto.auth.ResetPassword;
 import uz.master.demotest.entity.auth.AuthUser;
+import uz.master.demotest.enums.Role;
 import uz.master.demotest.exceptions.NotFoundException;
 import uz.master.demotest.repositories.AuthUserRepository;
 import uz.master.demotest.repositories.TokenRepository;
@@ -60,5 +61,13 @@ public class AuthUserService
 
     public String getUserName() {
         return repository.findById(sessionUser.getId()).get().getFullName();
+    }
+
+    public Long getSessionId() {
+        return sessionUser.getId();
+    }
+
+    public boolean hasAdminRole() {
+        return repository.getById(sessionUser.getId()).getRole().equals(Role.ADMIN);
     }
 }

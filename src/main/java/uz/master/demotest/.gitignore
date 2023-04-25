@@ -11,6 +11,9 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+.xls
+.xlsx
+
 # Package Files #
 *.jar
 *.war

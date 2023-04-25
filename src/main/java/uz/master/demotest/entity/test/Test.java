@@ -3,10 +3,7 @@ package uz.master.demotest.entity.test;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -16,7 +13,9 @@ public class Test {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String name;
+    private String file;
     private Long subjectId;
 
     // group ID for group
@@ -26,6 +25,7 @@ public class Test {
     // time for one and all question in minutes
     private Integer timeForOneQues;
     private Integer timeForAllQues;
+    private boolean completed;
 
     private boolean active;
     private boolean deleted;

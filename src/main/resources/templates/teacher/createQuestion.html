@@ -16,8 +16,7 @@
     <link id="u-page-google-font" rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
     <script type="application/ld+json">{
         "@context": "http://schema.org",
         "@type": "Organization",
@@ -30,68 +29,6 @@
     <meta property="og:type" content="website">
     <meta data-intl-tel-input-cdn-path="intlTelInput/">
 
-    <!--    switch uchun style-->
-    <style>
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 40px;
-            height: 25px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        input:checked + .slider {
-            background-color: #2196F3;
-        }
-
-        input:focus + .slider {
-            box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked + .slider:before {
-            -webkit-transform: translateX(18px);
-            -ms-transform: translateX(18px);
-            transform: translateX(18px);
-        }
-
-        /* Rounded sliders */
-        .slider.round {
-            border-radius: 25px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
-    </style>
 </head>
 <body data-home-page="SU-test-tizimi.html" data-home-page-title="SU test tizimi" class="u-body u-xl-mode"
       data-lang="ru">
@@ -122,7 +59,7 @@
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
                         testlarim</a>
                     </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/createTest}">Test
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/create}">Test
                         yaratish</a>
                     </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
@@ -138,8 +75,7 @@
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
                                 testlarim</a>
                             </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link"
-                                                      th:href="@{/teacher/createTest}">Test
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/create}">Test
                                 yaratish</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
@@ -160,60 +96,40 @@
 <br>
 <section class="u-align-center u-clearfix u-section-1" id="sec-8981">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-expanded-width u-table u-table-responsive u-table-1">
-            <table class="u-table-entity u-table-entity-1">
-                <colgroup>
-                    <col width="4.1%">
-                    <col width="34.2%">
-                    <col width="17.3%">
-                    <col width="22.6%">
-                    <col width="8.7%">
-                    <col width="13.1%">
-                </colgroup>
-                <tbody class="u-align-left u-custom-font u-font-ubuntu u-table-alt-palette-1-light-3 u-table-body u-table-valign-middle">
-                <tr style="height: 65px;">
-                    <td class="u-table-cell">#</td>
-                    <td class="u-table-cell">Test nomi</td>
-                    <td class="u-table-cell">Fani</td>
-                    <td class="u-table-cell">Savollar soni</td>
-                    <td class="u-table-cell">Savol uchun (min)</td>
-                    <td class="u-table-cell">Umumiy vaqt (min)</td>
-                    <td class="u-table-cell">Holati</td>
-                    <td class="u-table-cell">Boshqarish</td>
-                    <td class="u-table-cell"></td>
-                </tr>
-                <tr style="height: 65px;" th:each="test, iter :${tests}">
-                    <td th:text="${iter.count}" u-table-cell></td>
-                    <td th:text="${test.getName()}" u-table-cell></td>
-                    <td th:text="${test.getSubject()}" u-table-cell></td>
-                    <td th:text="${test.getNumberOfQuestion()}" u-table-cell></td>
-                    <td th:text="${test.getTimeForOneQues()}" u-table-cell></td>
-                    <td th:text="${test.getTimeForAllQues()}" u-table-cell></td>
-                    <td u-table-cell><label class="switch"><a th:href="@{/teacher/doAction/{id}(id=${test.getId()})}">
-                        <input type="checkbox" th:checked="${test.isActive()}">
-                        <span class="slider round"></span></a>
-                    </label></td>
-                    <td u-table-cell>
-                        <a role="button" class="btn btn-outline-info" th:href="@{/teacher/checkDeleteTest/{id}(id=${test.getId()})}">
-                                <img src="/images/delete.png" class="rounded mx-auto d-block" alt="..." width="15px"
-                                     height="15px">
-                        </a>
-                    </td>
-                    <td u-table-cell>
-                        <a th:href="@{/teacher/editTest/{id}(id=${test.getId()})}">
-                            <button type="button" class="btn btn-outline-info">
-                                <img src="/images/edit.png" class="rounded mx-auto d-block" alt="..." width="15px"
-                                     height="15px">
-                            </button></a></td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="u-container-style u-group u-group-1">
+            <div class="u-container-layout u-container-layout-1">
+                savol yaratish
+
+<!--                <form th:action="@{/teacher/create}" method="POST">-->
+<!--                    <div class="form-floating mb-3">-->
+<!--                        <input type="text" name="name" class="form-control" id="floatingInput"-->
+<!--                               placeholder="Ex: Oraliq Nazorat">-->
+<!--                        <label for="floatingInput">Testning nomi</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-floating">-->
+<!--                        <select class="form-select" name="subject" id="floatingSelect" aria-label="Fanni tanlang">-->
+<!--                            <span th:each="subject : ${subjects}">-->
+<!--                            <option th:value="${subject.getName()}" th:text="${subject.getName()}"></option>-->
+<!--                            </span>-->
+<!--                        </select>-->
+<!--                        <label for="floatingSelect">Fanni tanlang</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-floating mb-3">-->
+<!--                        <input type="number" name="numberOfQuestion" class="form-control" id="floatingInputNumber"-->
+<!--                               placeholder="2, 3">-->
+<!--                        <label for="floatingInputNumber">Testdagi savollar soni</label>-->
+<!--                    </div>-->
+<!--                    <div class="form-floating mb-3">-->
+<!--                        <input type="number" name="timeForOneQuestion" class="form-control" id="floatingInputNumber2"-->
+<!--                               placeholder="2, 3">-->
+<!--                        <label for="floatingInputNumber2">Har bir savol uchun vaqt (minutlarda)</label>-->
+<!--                    </div>-->
+<!--                    <button type="submit" class="btn btn-primary">Yaratishni boshlash</button>-->
+<!--                </form>-->
+            </div>
         </div>
     </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
 </body>
 </html>

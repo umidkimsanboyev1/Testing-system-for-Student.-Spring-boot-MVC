@@ -10,7 +10,6 @@ import uz.master.demotest.configs.security.UserDetails;
 @Service
 public class SessionUser {
     private Long Id;
-    private Long orgId;
     private String code;
 
     public UserDetails getInstance() {
@@ -20,6 +19,7 @@ public class SessionUser {
     public Long getId() {
         return getInstance().getId();
     }
+    public String getFullName(){return getInstance().getFullName();}
 
 
 
