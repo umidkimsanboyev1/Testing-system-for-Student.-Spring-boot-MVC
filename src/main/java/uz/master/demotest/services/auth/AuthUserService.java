@@ -4,13 +4,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.master.demotest.dto.auth.ResetPassword;
 import uz.master.demotest.entity.auth.AuthUser;
-import uz.master.demotest.enums.Role;
+import uz.master.demotest.entity.result.OverAllResult;
 import uz.master.demotest.exceptions.NotFoundException;
 import uz.master.demotest.repositories.AuthUserRepository;
+import uz.master.demotest.repositories.ResultRepository;
+import uz.master.demotest.repositories.TestRepository;
 import uz.master.demotest.repositories.TokenRepository;
 import uz.master.demotest.services.AbstractService;
+import uz.master.demotest.services.test.TestService;
 import uz.master.demotest.utils.SessionUser;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -18,18 +25,35 @@ public class AuthUserService
         extends AbstractService<
         AuthUserRepository> {
     private final TokenRepository tokenRepository;
+    private final ResultRepository resultRepository;
 
     private final PasswordEncoder encoder;
 
     private final SessionUser sessionUser;
+    private final TestRepository testRepository;
 
     protected AuthUserService(AuthUserRepository repository,
 
-                              TokenRepository tokenRepository, PasswordEncoder encoder, SessionUser sessionUser) {
+                              TokenRepository tokenRepository, ResultRepository resultRepository, PasswordEncoder encoder, SessionUser sessionUser, TestRepository testRepository) {
         super(repository);
         this.tokenRepository = tokenRepository;
+        this.resultRepository = resultRepository;
         this.encoder = encoder;
         this.sessionUser = sessionUser;
+        this.testRepository = testRepository;
+    }
+
+    public boolean testStart(Long testId) {
+        AuthUser user = repository.findById(sessionUser.getId()).get();
+        OverAllResult overAllResultTemp = new OverAllResult();
+        overAllResultTemp.setTakerUser(sessionUser.getFullName());
+        overAllResultTemp.setTakerUserId(sessionUser.getId());
+        overAllResultTemp.setTestId(testId);
+        OverAllResult overAllResult = resultRepository.findByTakerUser(user.getFullName());
+        if(resultRepository.existsByTakerUserAndTestId(user.getFullName(), testId)) return false;
+        user.setTestId(testId);
+        user.setQuesId(1);
+        return true;
     }
 
 
@@ -55,19 +79,10 @@ public class AuthUserService
     }
 
 
-    public String getUserById(Long id) {
-        return repository.getById(id).getFullName();
-    }
-
-    public String getUserName() {
-        return repository.findById(sessionUser.getId()).get().getFullName();
-    }
-
-    public Long getSessionId() {
-        return sessionUser.getId();
-    }
-
-    public boolean hasAdminRole() {
-        return repository.getById(sessionUser.getId()).getRole().equals(Role.ADMIN);
+    public Integer getSessionUserTime(Long testId) {
+        AuthUser authUser = repository.findById(sessionUser.getId()).get();
+        Integer timeForAllQues = testRepository.findById(testId).get().getTimeForAllQues();
+        authUser.setTimeLeft(timeForAllQues);
+        return timeForAllQues;
     }
 }

@@ -4,11 +4,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import uz.master.demotest.dto.test.TestCreateDto;
 import uz.master.demotest.dto.test.TestDto;
+import uz.master.demotest.dto.test.TestIntroductionDto;
 import uz.master.demotest.entity.test.Test;
 import uz.master.demotest.mappers.TestMapper;
-import uz.master.demotest.repositories.AuthUserRepository;
-import uz.master.demotest.repositories.SubjectRepository;
-import uz.master.demotest.repositories.TestRepository;
+import uz.master.demotest.repositories.*;
+import uz.master.demotest.services.ExcelService;
 import uz.master.demotest.services.FileStorageService;
 import uz.master.demotest.utils.SessionUser;
 
@@ -18,19 +18,25 @@ import java.util.List;
 @Service
 public class TestService {
 
-    private final TestRepository testRepository;
+    private final uz.master.demotest.repositories.TestRepository testRepository;
+    private final QuestionRepository questionRepository;
     private final AuthUserRepository userRepository;
     private final SubjectRepository subjectRepository;
     private final TestMapper testMapper;
+    private final ExcelService excelService;
+    private final SendQuestionRepository sendQuestionRepository;
     private final FileStorageService fileStorageService;
 
     private final SessionUser sessionUser;
 
-    public TestService(TestRepository repository, AuthUserRepository userRepository, SubjectRepository subjectRepository, TestMapper testMapper, FileStorageService fileStorageService, SessionUser sessionUser) {
+    public TestService(uz.master.demotest.repositories.TestRepository repository, QuestionRepository questionRepository, AuthUserRepository userRepository, SubjectRepository subjectRepository, TestMapper testMapper, ExcelService excelService, SendQuestionRepository sendQuestionRepository, FileStorageService fileStorageService, SessionUser sessionUser) {
         this.testRepository = repository;
+        this.questionRepository = questionRepository;
         this.userRepository = userRepository;
         this.subjectRepository = subjectRepository;
         this.testMapper = testMapper;
+        this.excelService = excelService;
+        this.sendQuestionRepository = sendQuestionRepository;
         this.fileStorageService = fileStorageService;
         this.sessionUser = sessionUser;
     }
@@ -94,14 +100,14 @@ public class TestService {
         Test test = testRepository.findById(id).get();
         test.setFile(store);
         testRepository.save(test);
-        uploadTestFromFiles(test);
+        excelService.saveTestDataFromExcel(test);
     }
 
-    private void uploadTestFromFiles(Test test) {
-        String file = test.getFile();
-        String fullPath = "/JavaProject/tets/AtomsProject/src/main/resources/files" + file;
 
-
+    public TestIntroductionDto getTestIntroduction(Long id) {
+        Test test = testRepository.findById(id).get();
+        return testMapper.toIntroductionDto(test);
     }
+
 
 }

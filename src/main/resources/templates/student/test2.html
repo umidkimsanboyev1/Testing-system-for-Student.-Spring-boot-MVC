@@ -8,6 +8,7 @@
     <title>SU test tizimi</title>
     <link rel="stylesheet" href="/css/nicepage.css" media="screen">
     <link rel="stylesheet" href="/css/SU-test-tizimi.css" media="screen">
+    <link rel="stylesheet" href="/css/introduction.css" media="screen">
     <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.8.13, nicepage.com">
@@ -86,27 +87,18 @@
         <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
     </div>
 </header>
-<section class="u-clearfix u-section-1" id="sec-1d9e">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-container-style u-group u-group-1">
-            <div class="u-container-layout u-container-layout-1">
-                <form th:action="@{/student/introduction}" method="post">
-                    <p>Quyidagi testlardan birini tanlang</p>
-                    <select name="id" class="form-select" aria-label="Default select example">
-                        <span th:each="test : ${tests}">
-                        <option  th:value="${test.getId()}" th:text="${test.getName()}"></option>
-                       </span>
-                    </select>
-                    <br>
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                        <input class="btn btn-primary" value="Keyingi" type="submit">
-                    </div>
-                </form>
+<section class="u-clearfix u-section-1" id="sec-08cb">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-expanded-width u-list u-list-1">
+            <div class="u-repeater u-repeater-1">
+
+
+
             </div>
         </div>
+        <br>
+        <br>
     </div>
 </section>
-
-
 </body>
 </html>

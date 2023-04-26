@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <title>SU test tizimi</title>
     <link rel="stylesheet" href="/css/nicepage.css" media="screen">
-    <link rel="stylesheet" href="/css/SU-test-tizimi.css" media="screen">
+    <link rel="stylesheet" href="/css/test.css" media="screen">
     <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.8.13, nicepage.com">
@@ -86,27 +86,54 @@
         <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
     </div>
 </header>
-<section class="u-clearfix u-section-1" id="sec-1d9e">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-container-style u-group u-group-1">
-            <div class="u-container-layout u-container-layout-1">
-                <form th:action="@{/student/introduction}" method="post">
-                    <p>Quyidagi testlardan birini tanlang</p>
-                    <select name="id" class="form-select" aria-label="Default select example">
-                        <span th:each="test : ${tests}">
-                        <option  th:value="${test.getId()}" th:text="${test.getName()}"></option>
-                       </span>
-                    </select>
-                    <br>
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                        <input class="btn btn-primary" value="Keyingi" type="submit">
+<section
+        class="u-border-1 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-clearfix u-section-1"
+        id="sec-985f">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-countdown u-countdown-1" data-timer-id="859b" data-type="to-time"
+             data-target-date="Thu, 27 Apr 2023 01:26:15 GMT" data-for="everyone" data-direction="down"
+             data-time-left="750m" data-count-animation="slide">
+            <div class="u-countdown-wrapper u-spacing-20">
+                <div class="u-countdown-separator u-hidden u-countdown-separator-2">:</div>
+                <div class="u-countdown-hours u-countdown-item u-spacing-10">
+                    <div class="u-countdown-counter u-countdown-counter-3">
+                        <div class="u-countdown-number">1</div>
+                        <div class="u-countdown-number">2</div>
                     </div>
-                </form>
+                    <div class="u-countdown-label u-countdown-label-3">Hours</div>
+                </div>
+                <div class="u-countdown-separator u-countdown-separator-3">:</div>
+                <div class="u-countdown-item u-countdown-minutes u-spacing-10">
+                    <div class="u-countdown-counter u-countdown-counter-4">
+                        <div class="u-countdown-number">3</div>
+                        <div class="u-countdown-number">0</div>
+                    </div>
+                    <div class="u-countdown-label u-countdown-label-4">Minutes</div>
+                </div>
+                <div class="u-countdown-separator u-countdown-separator-4">:</div>
+                <div class="u-countdown-item u-countdown-seconds u-spacing-10">
+                    <div class="u-countdown-counter u-countdown-counter-5">
+                        <div class="u-countdown-number">0</div>
+                        <div class="u-countdown-number">0</div>
+                    </div>
+                    <div class="u-countdown-label u-countdown-label-5">Seconds</div>
+                </div>
+            </div>
+            <div class="u-countdown-message u-hidden">
+                <p>Sorry, the time is up.</p>
             </div>
         </div>
+        <h4 class="u-text u-text-default u-text-1">Savol № <span th:text="${question.getGeneratedQuestionNumber()}"></span></h4>
     </div>
 </section>
-
-
+<section class="u-clearfix u-section-2" id="sec-71fc">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h5 class="u-align-justify u-text u-text-default u-text-1" th:text="${question.getQuestion()}"> </h5>
+        <a th:href=""
+           class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-1">Ortga</a>
+        <a th:href=""
+           class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-2">Keyingi</a>
+    </div>
+</section>
 </body>
 </html>

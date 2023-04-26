@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -13,18 +16,26 @@ public class QuestionsExcel {
     @ExcelRow
     private Long number;
 
-    @ExcelCellName("question")
+    @ExcelCellName("Savol")
     private String text;
 
-    @ExcelCellName("correct")
+    @ExcelCellName("To'g'ri javob")
     private String correctAnswer;
 
-    @ExcelCellName("answer2")
+    @ExcelCellName("Noto'g'ri javob")
     private String answer2;
 
-    @ExcelCellName("answer3")
+    @ExcelCellName("Noto'g'ri javob")
     private String answer3;
 
-    @ExcelCellName("answer4")
+    @ExcelCellName("Noto'g'ri javob")
     private String answer4;
+
+    private List<String> otherAnswers = new ArrayList<>();
+
+    public void toList(){
+        this.otherAnswers.add(answer2);
+        this.otherAnswers.add(answer3);
+        this.otherAnswers.add(answer4);
+    }
 }

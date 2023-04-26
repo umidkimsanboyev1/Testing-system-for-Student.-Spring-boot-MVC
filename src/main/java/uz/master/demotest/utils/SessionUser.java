@@ -20,6 +20,7 @@ public class SessionUser {
         return getInstance().getId();
     }
     public String getFullName(){return getInstance().getFullName();}
+    public Long getTestId(){return getInstance().getTestId();}
 
 
 

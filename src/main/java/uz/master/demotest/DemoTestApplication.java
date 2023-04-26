@@ -9,7 +9,9 @@ import uz.master.demotest.repositories.AuthRoleRepository;
 import uz.master.demotest.repositories.AuthUserRepository;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 //@EnableJpaAuditing
 @SpringBootApplication
@@ -29,16 +31,23 @@ public class DemoTestApplication {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(DemoTestApplication.class, args);
     }
 
-    public static void main(String[] args) {
-            File file = new File("D:/JavaProject/tets/AtomsProject/src/main/resources/files/1682425537361.xlsx");
-            List<QuestionsExcel> questions = Poiji.fromExcel(file, QuestionsExcel.class);
-        for (QuestionsExcel question : questions) {
-            System.out.println(question);
+    public static void main2(String[] args) {
+        System.out.println("boshlandi");
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        Random randomGenerator = new Random();
+        while (numbers.size() < 4) {
+
+            int random = randomGenerator .nextInt(4) + 1;
+            if (!numbers.contains(random)) {
+                numbers.add(random);
+            }
         }
+        System.out.println(numbers);
+        System.out.println("tugadi");
     }
 
 

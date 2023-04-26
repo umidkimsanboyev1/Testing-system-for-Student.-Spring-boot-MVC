@@ -7,6 +7,9 @@ import uz.master.demotest.enums.Role;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -31,10 +34,11 @@ public class AuthUser extends Auditable {
 
     private Long testId;
 
-    private Long QuesId;
+    private Integer QuesId;
 
     @Column(columnDefinition = "0")
-    private Long tryingCount;
+    private Integer tryingCount;
+    private Integer timeLeft;
 
     private boolean active;
 

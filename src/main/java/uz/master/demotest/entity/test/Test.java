@@ -17,7 +17,6 @@ public class Test {
     private String name;
     private String file;
     private Long subjectId;
-
     // group ID for group
     private Long groupId;
     private Long ownerId;
@@ -26,7 +25,6 @@ public class Test {
     private Integer timeForOneQues;
     private Integer timeForAllQues;
     private boolean completed;
-
     private boolean active;
     private boolean deleted;
 }

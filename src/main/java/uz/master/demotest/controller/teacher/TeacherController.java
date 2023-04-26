@@ -76,6 +76,7 @@ public class TeacherController {
             Long testId = testService.createTest(dto);
             testService.restoreExcelFileToTest(testId, dto.getFile());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return "redirect:/teacher/createTest?error";
         }
         return "redirect:/teacher/myTests" ;

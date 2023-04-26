@@ -8,6 +8,7 @@
     <title>SU test tizimi</title>
     <link rel="stylesheet" href="/css/nicepage.css" media="screen">
     <link rel="stylesheet" href="/css/SU-test-tizimi.css" media="screen">
+    <link rel="stylesheet" href="/css/introduction.css" media="screen">
     <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.8.13, nicepage.com">
@@ -86,27 +87,50 @@
         <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
     </div>
 </header>
-<section class="u-clearfix u-section-1" id="sec-1d9e">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-container-style u-group u-group-1">
-            <div class="u-container-layout u-container-layout-1">
-                <form th:action="@{/student/introduction}" method="post">
-                    <p>Quyidagi testlardan birini tanlang</p>
-                    <select name="id" class="form-select" aria-label="Default select example">
-                        <span th:each="test : ${tests}">
-                        <option  th:value="${test.getId()}" th:text="${test.getName()}"></option>
-                       </span>
-                    </select>
-                    <br>
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                        <input class="btn btn-primary" value="Keyingi" type="submit">
+<section class="u-clearfix u-section-1" id="sec-08cb">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-expanded-width u-list u-list-1">
+            <div class="u-repeater u-repeater-1">
+                <div class="u-border-1 u-border-grey-10 u-container-style u-list-item u-radius-9 u-repeater-item u-shape-round u-list-item-1"
+                     data-animation-out="0">
+                    <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-1">
+                        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-1"><span
+                                class="u-file-icon u-icon u-text-palette-1-base u-icon-1"><img
+                                src="/images/4034328-a5254803.png" alt=""></span>&nbsp;Testni faqat bir marotaba
+                            topshira olasiz!. Iltimos sahifani yopib yubormang! Test yuzasidan barcha savollar hamda
+                            xatoliklar yuzasidan nazoratchiga xabar bering.
+                        </p>
                     </div>
-                </form>
+                </div>
+                <div class="u-border-1 u-border-grey-10 u-container-style u-list-item u-radius-9 u-repeater-item u-shape-round u-list-item-3">
+                    <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-3">
+                        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-3"><span
+                                class="u-file-icon u-icon u-text-palette-1-base u-icon-3"><img
+                                src="/images/4034328-a5254803.png" alt=""></span>&nbsp;Testdagi savollar soni <span
+                                th:text="${test.getNumberOfQuestion()}">  </span> ta. </p>
+
+                    </div>
+                </div>
+                <div class="u-border-1 u-border-grey-10 u-container-style u-list-item u-radius-9 u-repeater-item u-shape-round u-list-item-2">
+                    <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-2">
+                        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2"><span
+                                class="u-file-icon u-icon u-text-palette-1-base u-icon-2"><img
+                                src="/images/4034328-a5254803.png" alt=""></span>&nbsp;
+                            Test uchun ajratilgan vaqt <span th:text="${test.getTimeForAllQues()}"></span> minut. Test
+                            vaqti tugashi bilan,test avtomatik yopiladi hamda natijalar hisoblanadi. </p>
+
+                    </div>
+                </div>
+
             </div>
+        </div>
+        <br>
+        <br>
+        <div class="d-grid gap-2 d-md-block">
+            <a role="button" class="btn btn-outline-primary"
+               th:href="@{/student/startTest/{id}(id=${test.getId()})}">Tanishdim, Testni boshlash</a>
         </div>
     </div>
 </section>
-
-
 </body>
 </html>

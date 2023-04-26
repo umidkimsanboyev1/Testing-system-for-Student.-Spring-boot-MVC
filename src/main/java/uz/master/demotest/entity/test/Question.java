@@ -17,6 +17,10 @@ public class Question {
     private String text;
     private Long number;
     private Long testId;
+    private String correctAnswer;
+    private String answer2;
+    private String answer3;
+    private String answer4;
 
     private String imagePath;
 }

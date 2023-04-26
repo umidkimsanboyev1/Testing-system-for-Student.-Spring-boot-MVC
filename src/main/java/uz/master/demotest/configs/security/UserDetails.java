@@ -30,6 +30,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
     private boolean blocked;
 
     private String fullName;
+    private Long testId;
 
     private Set<GrantedAuthority> authorities;
 
@@ -41,6 +42,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
         this.active = user.isActive();
         this.blocked = user.isBlocked();
         this.fullName=user.getFullName();
+        this.testId = user.getTestId();
         processAuthorities(user);
     }
 
