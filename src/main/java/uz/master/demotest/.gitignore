@@ -11,8 +11,8 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-.xls
-.xlsx
+# Ignore All (xlsx) files
+*.xlsx
 
 # Package Files #
 *.jar
