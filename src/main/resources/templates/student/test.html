@@ -91,7 +91,7 @@
         id="sec-985f">
     <div class="u-clearfix u-sheet u-sheet-1">
         <div class="u-countdown u-countdown-1" data-timer-id="859b" data-type="to-time"
-             data-target-date="Thu, 27 Apr 2023 01:26:15 GMT" data-for="everyone" data-direction="down"
+             th:data-target-date="${time}" data-for="everyone" data-direction="down"
              data-time-left="750m" data-count-animation="slide">
             <div class="u-countdown-wrapper u-spacing-20">
                 <div class="u-countdown-separator u-hidden u-countdown-separator-2">:</div>
@@ -100,7 +100,7 @@
                         <div class="u-countdown-number">1</div>
                         <div class="u-countdown-number">2</div>
                     </div>
-                    <div class="u-countdown-label u-countdown-label-3">Hours</div>
+                    <div class="u-countdown-label u-countdown-label-3">Soat</div>
                 </div>
                 <div class="u-countdown-separator u-countdown-separator-3">:</div>
                 <div class="u-countdown-item u-countdown-minutes u-spacing-10">
@@ -108,7 +108,7 @@
                         <div class="u-countdown-number">3</div>
                         <div class="u-countdown-number">0</div>
                     </div>
-                    <div class="u-countdown-label u-countdown-label-4">Minutes</div>
+                    <div class="u-countdown-label u-countdown-label-4">Minut</div>
                 </div>
                 <div class="u-countdown-separator u-countdown-separator-4">:</div>
                 <div class="u-countdown-item u-countdown-seconds u-spacing-10">
@@ -116,23 +116,51 @@
                         <div class="u-countdown-number">0</div>
                         <div class="u-countdown-number">0</div>
                     </div>
-                    <div class="u-countdown-label u-countdown-label-5">Seconds</div>
+                    <div class="u-countdown-label u-countdown-label-5">Sekund</div>
                 </div>
             </div>
             <div class="u-countdown-message u-hidden">
                 <p>Sorry, the time is up.</p>
             </div>
         </div>
-        <h4 class="u-text u-text-default u-text-1">Savol № <span th:text="${question.getGeneratedQuestionNumber()}"></span></h4>
+        <h4 th:text="${question.getGeneratedQuestionNumber()} + '-savol'" class="u-text u-text-default u-text-1"></h4>
     </div>
 </section>
 <section class="u-clearfix u-section-2" id="sec-71fc">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <h5 class="u-align-justify u-text u-text-default u-text-1" th:text="${question.getQuestion()}"> </h5>
-        <a th:href=""
-           class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-1">Ortga</a>
-        <a th:href=""
-           class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-2">Keyingi</a>
+        <h5 class="u-align-justify u-text u-text-default u-text-1" th:text="${question.getQuestion()}"></h5>
+        <br>
+        <br>
+        <div class="form-check">
+            <input th:checked="${question.isChecked1()}" class="form-check-input" type="radio" name="checked"
+                   id="flexRadioDefault1">
+            <label th:text="${question.getAnswer1()}" class="form-check-label" for="flexRadioDefault1">
+            </label>
+        </div>
+        <br>
+        <div class="form-check">
+            <input th:checked="${question.isChecked2()}" class="form-check-input" type="radio" name="checked"
+                   id="flexRadioDefault2">
+            <label th:text="${question.getAnswer2()}" class="form-check-label" for="flexRadioDefault2">
+            </label>
+        </div>
+        <br>
+        <div class="form-check">
+            <input th:checked="${question.isChecked3()}" class="form-check-input" type="radio" name="checked"
+                   id="flexRadioDefault3">
+            <label th:text="${question.getAnswer3()}" class="form-check-label" for="flexRadioDefault3">
+            </label>
+        </div>
+        <br>
+        <div class="form-check">
+            <input th:checked="${question.isChecked4()}" class="form-check-input" type="radio" name="checked"
+                   id="flexRadioDefault4">
+            <label th:text="${question.getAnswer4()}" class="form-check-label" for="flexRadioDefault4">
+            </label>
+        </div>
+        <a th:href="@{/student/question/{generatedNumber}(generatedNumber=${question.getGeneratedQuestionNumber() - 1})}" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-1">Ortga</a>
+        <a th:href="@{/student/question/{generatedNumber}(generatedNumber=${question.getGeneratedQuestionNumber() + 1})}" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-2">Keyingi</a>
+
     </div>
 </section>
 </body>

@@ -35,20 +35,26 @@ public class QuestionService {
 
     private void generateQuestionSet(Test test) {
         Long testId = test.getId();
-        for (int i = 1; i <= test.getNumberOfQuestion(); i++) {
-            SendQuestion tempSendQuestion = new SendQuestion();
-            List<Integer> randomNumbersList = getRandomNumbersListForRepo(test.getNumberOfQuestion());
+        Integer counter = 1;
+        Integer maxNumberOfTestQuestion = questionRepository.countAllByTestId(testId);
+        List<Integer> randomNumbersList = getRandomNumbersListForRepo(maxNumberOfTestQuestion);
+        SendQuestion tempSendQuestion;
             for (Integer random : randomNumbersList) {
-                Question byIdAndTestId = questionRepository.findByIdAndTestId(Long.valueOf(random), testId);
-                tempSendQuestion.setQuestion(byIdAndTestId.getText());
+                if(counter > test.getNumberOfQuestion()){
+                    break;
+                }
+                Question byIdAndTestId = questionRepository.findByNumberAndTestId(Long.valueOf(random), testId);
+                tempSendQuestion = new SendQuestion();
                 tempSendQuestion.setQuestionId(byIdAndTestId.getId());
-                tempSendQuestion.setTakerId(sessionUser.getId());
                 tempSendQuestion.setTestId(test.getId());
+                tempSendQuestion.setQuestion(byIdAndTestId.getText());
                 replaceAnswers(tempSendQuestion, byIdAndTestId);
-                tempSendQuestion.setGeneratedQuestionNumber(i);
+                tempSendQuestion.setTakerId(sessionUser.getId());
+                tempSendQuestion.setGeneratedQuestionNumber(counter);
+                sendQuestionRepository.save(tempSendQuestion);
+                counter++;
             }
-            sendQuestionRepository.save(tempSendQuestion);
-        }
+
     }
 
     private void replaceAnswers(SendQuestion tempSendQuestion, Question byIdAndTestId) {
@@ -92,7 +98,14 @@ public class QuestionService {
         return numbers;
     }
 
-    public SendQuestion getQuestionForSessionUse(Integer i) {
-        return sendQuestionRepository.findByGeneratedQuestionNumberAndTestIdAndTakerId(i, sessionUser.getTestId(), sessionUser.getId());
+    public SendQuestion getQuestionForSessionUser(Integer i) {
+        Long testId = sessionUser.getTestId();
+        Long id = sessionUser.getId();
+        SendQuestion sendQuestion = sendQuestionRepository.findSendQuestionByGeneratedQuestionNumberAndTestIdAndTakerId(i, testId, id);
+        return sendQuestion;
+    }
+
+    public boolean checkTestProgress(Integer generatedNumber) {
+        return true;
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import uz.master.demotest.dto.auth.ResetPassword;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.result.OverAllResult;
+import uz.master.demotest.entity.test.Test;
 import uz.master.demotest.exceptions.NotFoundException;
 import uz.master.demotest.repositories.AuthUserRepository;
 import uz.master.demotest.repositories.ResultRepository;
@@ -44,15 +45,20 @@ public class AuthUserService
     }
 
     public boolean testStart(Long testId) {
+        Test test = testRepository.findById(testId).get();
         AuthUser user = repository.findById(sessionUser.getId()).get();
+        if(resultRepository.existsByTakerUserAndTestId(user.getFullName(), testId)) return false;
         OverAllResult overAllResultTemp = new OverAllResult();
         overAllResultTemp.setTakerUser(sessionUser.getFullName());
         overAllResultTemp.setTakerUserId(sessionUser.getId());
         overAllResultTemp.setTestId(testId);
-        OverAllResult overAllResult = resultRepository.findByTakerUser(user.getFullName());
-        if(resultRepository.existsByTakerUserAndTestId(user.getFullName(), testId)) return false;
+        overAllResultTemp.setNumberOfAllQues(test.getTimeForAllQues());
+        overAllResultTemp.setStartedTime(new Date());
+        overAllResultTemp.setTestName(test.getName());
+        resultRepository.save(overAllResultTemp);
         user.setTestId(testId);
         user.setQuesId(1);
+        repository.save(user);
         return true;
     }
 
@@ -85,4 +91,5 @@ public class AuthUserService
         authUser.setTimeLeft(timeForAllQues);
         return timeForAllQues;
     }
+
 }

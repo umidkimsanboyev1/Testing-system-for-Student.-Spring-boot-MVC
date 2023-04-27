@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.master.demotest.dto.test.RequestTestDto;
 import uz.master.demotest.dto.test.TestIntroductionDto;
+import uz.master.demotest.entity.test.SendQuestion;
 import uz.master.demotest.services.auth.AuthUserService;
 import uz.master.demotest.services.student.StudentService;
 import uz.master.demotest.services.test.QuestionService;
@@ -39,7 +40,7 @@ public class StudentController {
     }
 
     @PostMapping(value = "/introduction")
-    public String postIntroduction(@ModelAttribute RequestTestDto dto, Model model){
+    public String postIntroduction(@ModelAttribute RequestTestDto dto, Model model) {
         TestIntroductionDto test = testService.getTestIntroduction(dto.getId());
         model.addAttribute("user", sessionUser.getFullName());
         model.addAttribute("test", test);
@@ -47,15 +48,31 @@ public class StudentController {
     }
 
     @GetMapping(value = "/startTest/{id}")
-    public String startTest(Model model, @PathVariable Long id){
+    public String startTest(Model model, @PathVariable Long id) {
         model.addAttribute("user", sessionUser.getFullName());
-        if(!authUserService.testStart(id)){
+        if (!authUserService.testStart(id)) {
             return "/error/403";
         }
         questionService.startTest(id);
 //        model.addAttribute("test", );
         model.addAttribute("time", authUserService.getSessionUserTime(id));
-        model.addAttribute("question", questionService.getQuestionForSessionUse(1));
+        model.addAttribute("question", questionService.getQuestionForSessionUser(1));
+        return "/student/test";
+    }
+
+    @GetMapping(value = "/question/{generatedNumber}")
+    public String getQuestion(@PathVariable Integer generatedNumber, Model model) {
+        SendQuestion question;
+        model.addAttribute("user", sessionUser.getFullName());
+        try{
+            if(!questionService.checkTestProgress(generatedNumber)) return "redirect:/student/question/" + generatedNumber;
+            question = questionService.getQuestionForSessionUser(generatedNumber);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            return "/error/error";
+        }
+        model.addAttribute("question", question);
         return "/student/test";
     }
 

@@ -7,6 +7,6 @@ public interface SendQuestionRepository extends JpaRepository<SendQuestion, Long
 
     boolean existsByGeneratedQuestionNumberAndTakerIdAndTestId(Integer generatedQuestionNumber, Long takerId,Long testId);
 
-    SendQuestion findByGeneratedQuestionNumberAndTestIdAndTakerId(Integer generatedQuestionNumber, Long testId, Long takerId);
+    SendQuestion findSendQuestionByGeneratedQuestionNumberAndTestIdAndTakerId(Integer generatedQuestionNumber, Long testId, Long takerId);
 
 }

@@ -13,6 +13,7 @@
 
 # Ignore All (xlsx) files
 *.xlsx
+*.xls
 
 # Package Files #
 *.jar

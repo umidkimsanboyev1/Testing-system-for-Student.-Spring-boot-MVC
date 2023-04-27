@@ -9,5 +9,6 @@ import javax.transaction.Transactional;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-    Question findByIdAndTestId(Long id, Long testId);
+    Question findByNumberAndTestId(Long id, Long testId);
+    Integer countAllByTestId(Long testId);
 }
