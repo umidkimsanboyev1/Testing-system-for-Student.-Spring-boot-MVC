@@ -48,6 +48,8 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
+                .cors().disable()
                 .authorizeRequests(expressionInterceptUrlRegistry -> expressionInterceptUrlRegistry
                         .antMatchers(WHITE_LIST).permitAll()
                         .anyRequest().authenticated())
@@ -60,9 +62,9 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
                         .defaultSuccessUrl("/", true)
                 )
                 .rememberMe(httpSecurityRememberMeConfigurer -> httpSecurityRememberMeConfigurer
-                        .key("bsiudbhfsdhbf")
+                        .key("gsbetest")
                         .rememberMeParameter("remember-me")
-                        .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(40))
+                        .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(10))
                 ).logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer
                         .logoutUrl("/auth/logout")
                         .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout","GET"))

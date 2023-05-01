@@ -2,10 +2,12 @@ package uz.master.demotest.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import uz.master.demotest.dto.auth.AddStudentDto;
+import uz.master.demotest.dto.test.OverAllResultDTO;
 import uz.master.demotest.dto.test.TestDto;
+import uz.master.demotest.entity.auth.AuthUser;
+import uz.master.demotest.services.GroupService;
 import uz.master.demotest.services.auth.AuthUserService;
 import uz.master.demotest.services.test.TestService;
 import uz.master.demotest.utils.SessionUser;
@@ -15,23 +17,50 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/admin/*")
 public class AdminController {
-    private final AuthUserService authUserService;
     private final TestService testService;
+    private final GroupService groupService;
 
     private final SessionUser sessionUser;
+    private final AuthUserService authUserService;
 
-    public AdminController(AuthUserService authUserService, TestService testService, SessionUser sessionUser) {
-        this.authUserService = authUserService;
+    public AdminController(TestService testService, GroupService groupService, SessionUser sessionUser, AuthUserService authUserService) {
         this.testService = testService;
+        this.groupService = groupService;
         this.sessionUser = sessionUser;
+        this.authUserService = authUserService;
     }
 
     @GetMapping(value = "allTests")
     public String getAllTests(Model model) {
-        List<TestDto> tests = testService.getAllTests();
-        model.addAttribute("tests", tests);
-        model.addAttribute("user", sessionUser.getFullName());
+        try {
+            List<TestDto> tests = testService.getAllTests();
+            model.addAttribute("tests", tests);
+            model.addAttribute("user", sessionUser.getFullName());
+        } catch (Exception ex) {
+            model.addAttribute("error", "Xatolik sodir bo'ldi");
+            return "/error/error";
+        }
         return "/admin/listTests";
+    }
+
+    @GetMapping(value = "/students")
+    public String getAllStudents(Model model){
+        List<AuthUser> allStudents = authUserService.getAllStudents();
+        model.addAttribute("user", sessionUser.getFullName());
+        model.addAttribute("students", allStudents);
+        return "/admin/students";
+    }
+
+    @GetMapping(value = "/addStudent")
+    public String getAddStudentPage(Model model){
+        model.addAttribute("user", sessionUser.getFullName());
+        model.addAttribute("groups", groupService.getAllGroups());
+        return "/admin/addStudent";
+    }
+
+    @PostMapping(value = "/addStudent")
+    public String addStudent(@ModelAttribute AddStudentDto dto, Model model){
+        return authUserService.addStudent(dto) ? "redirect:/admin/students" : "redirect:/admin/addStudent";
     }
 
     @GetMapping(value = "/doAction/{id}")
@@ -40,14 +69,22 @@ public class AdminController {
         return "redirect:/admin/allTests";
     }
 
-    @GetMapping(value = "/deleteTest/{id}")
-    public String delete(@PathVariable Long id) {
-        testService.delete(id);
-        return "redirect:/admin/allTests";
+    @GetMapping(value = "/doActionStudent/{id}")
+    public String doActionStudent(@PathVariable Long id) {
+        authUserService.doAction(id);
+        return "redirect:/admin/students";
     }
 
+    @GetMapping(value = "/deleteStudent/{id}")
+    public String delete(@PathVariable Long id) {
+        authUserService.delete(id);
+        return "redirect:/admin/students";
+    }
+
+
+
     @GetMapping(value = "/checkDeleteTest/{id}")
-    public String checkDeleteTest(Model model, @PathVariable Long id){
+    public String checkDeleteTest(Model model, @PathVariable Long id) {
         model.addAttribute("testName", testService.getTestById(id));
         model.addAttribute("testId", id);
         model.addAttribute("user", sessionUser.getFullName());
@@ -60,4 +97,16 @@ public class AdminController {
         return "/admin/editTest";
     }
 
+    @GetMapping(value = "/results")
+    public String getResult(Model model) {
+        model.addAttribute("user", sessionUser.getFullName());
+        try {
+            List<OverAllResultDTO> results = testService.getAllResults();
+            model.addAttribute("results", results);
+        } catch (Exception ex) {
+            model.addAttribute("error", "Ma'lumotlar topilmadi!");
+            return "/error/error";
+        }
+        return "/admin/results";
+    }
 }

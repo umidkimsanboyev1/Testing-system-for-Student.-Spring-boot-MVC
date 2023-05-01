@@ -15,6 +15,8 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long> {
 //    @Query(value = "update AuthUser a set a.deleted=true , a.username=:username where  a.id=:id")
 //    void  deleteUser(Long id,String username);
 
-    List<AuthUser> findAuthUserByRoleAndDeletedFalse(Role role);
+    List<AuthUser> findAuthUserByRoleAndDeletedFalseOrderById(Role role);
+
+    boolean existsAuthUserByUsername(String username);
 
 }

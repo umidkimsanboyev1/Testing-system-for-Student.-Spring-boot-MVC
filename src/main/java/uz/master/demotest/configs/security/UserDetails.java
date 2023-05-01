@@ -7,6 +7,7 @@ import uz.master.demotest.entity.auth.AuthRole;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.enums.Role;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,6 +24,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
     private String password;
 
     private Role role;
+    private Integer quesNumber;
 
 
     private boolean active = true;
@@ -31,6 +33,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     private String fullName;
     private Long testId;
+    private LocalDateTime time;
 
     private Set<GrantedAuthority> authorities;
 
@@ -43,6 +46,8 @@ public class UserDetails implements org.springframework.security.core.userdetail
         this.blocked = user.isBlocked();
         this.fullName=user.getFullName();
         this.testId = user.getTestId();
+        this.quesNumber = user.getQuesNumber();
+        this.time = user.getTime();
         processAuthorities(user);
     }
 

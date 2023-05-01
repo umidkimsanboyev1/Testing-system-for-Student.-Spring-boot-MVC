@@ -4,6 +4,7 @@ package uz.master.demotest.entity.test;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@ToString
 public class SendQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +23,7 @@ public class SendQuestion {
     private Long testId;
     private Integer generatedQuestionNumber;
     private String question;
+    private String correctAnswer;
     private String answer1;
     private boolean checked1;
     private String answer2;

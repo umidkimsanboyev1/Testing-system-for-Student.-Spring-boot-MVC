@@ -22,12 +22,13 @@ public class OverAllResult {
     private String testName;
     private Long testId;
     private String subject;
-    private Date startedTime;
-    private Date passedTime;
+    private String startedTime;
+    private String passedTime;
     private String takerUser;
     private Long takerUserId;
+    private boolean completed;
     private Integer numberOfAllQues;
     private Integer correctAnsweredQues;
-    private Integer efficiency;
+    private double efficiency;
 
 }

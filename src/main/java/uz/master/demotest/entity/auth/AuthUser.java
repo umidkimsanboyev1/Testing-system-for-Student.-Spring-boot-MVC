@@ -34,11 +34,11 @@ public class AuthUser extends Auditable {
 
     private Long testId;
 
-    private Integer QuesId;
+    private Integer QuesNumber;
 
     @Column(columnDefinition = "0")
     private Integer tryingCount;
-    private Integer timeLeft;
+    private LocalDateTime time;
 
     private boolean active;
 

@@ -2,9 +2,10 @@ package uz.master.demotest.services.test;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import uz.master.demotest.dto.test.TestCreateDto;
-import uz.master.demotest.dto.test.TestDto;
-import uz.master.demotest.dto.test.TestIntroductionDto;
+import uz.master.demotest.dto.test.*;
+import uz.master.demotest.entity.auth.AuthUser;
+import uz.master.demotest.entity.result.OverAllResult;
+import uz.master.demotest.entity.test.SendQuestion;
 import uz.master.demotest.entity.test.Test;
 import uz.master.demotest.mappers.TestMapper;
 import uz.master.demotest.repositories.*;
@@ -12,32 +13,35 @@ import uz.master.demotest.services.ExcelService;
 import uz.master.demotest.services.FileStorageService;
 import uz.master.demotest.utils.SessionUser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class TestService {
 
     private final uz.master.demotest.repositories.TestRepository testRepository;
-    private final QuestionRepository questionRepository;
     private final AuthUserRepository userRepository;
     private final SubjectRepository subjectRepository;
     private final TestMapper testMapper;
     private final ExcelService excelService;
     private final SendQuestionRepository sendQuestionRepository;
     private final FileStorageService fileStorageService;
+    private final OverAllResultRepository overAllResultRepository;
 
     private final SessionUser sessionUser;
 
-    public TestService(uz.master.demotest.repositories.TestRepository repository, QuestionRepository questionRepository, AuthUserRepository userRepository, SubjectRepository subjectRepository, TestMapper testMapper, ExcelService excelService, SendQuestionRepository sendQuestionRepository, FileStorageService fileStorageService, SessionUser sessionUser) {
+    public TestService(TestRepository repository, AuthUserRepository userRepository, SubjectRepository subjectRepository, TestMapper testMapper, ExcelService excelService, SendQuestionRepository sendQuestionRepository, FileStorageService fileStorageService, OverAllResultRepository overAllResultRepository, SessionUser sessionUser) {
         this.testRepository = repository;
-        this.questionRepository = questionRepository;
         this.userRepository = userRepository;
         this.subjectRepository = subjectRepository;
         this.testMapper = testMapper;
         this.excelService = excelService;
         this.sendQuestionRepository = sendQuestionRepository;
         this.fileStorageService = fileStorageService;
+        this.overAllResultRepository = overAllResultRepository;
         this.sessionUser = sessionUser;
     }
 
@@ -55,10 +59,7 @@ public class TestService {
 
     public void doAction(Long id) {
         Test test = testRepository.findById(id).get();
-        if (test.isActive())
-            test.setActive(false);
-        else
-            test.setActive(true);
+        test.setActive(!test.isActive());
         testRepository.save(test);
     }
 
@@ -110,4 +111,74 @@ public class TestService {
     }
 
 
+    public ResultDto getResult() {
+        AuthUser authUser = userRepository.findById(sessionUser.getId()).get();
+        Long testId = authUser.getTestId();
+        int correctAnswers = collectCurrentAnswersNumber(testId, authUser.getId());
+        int allQuestion = testRepository.findById(testId).get().getNumberOfQuestion();
+        double efficiency = ((double) correctAnswers / allQuestion) * 100.0;
+        setAuthUserData(authUser);
+        return getResultDto(authUser, correctAnswers, allQuestion, efficiency);
+    }
+
+    private ResultDto getResultDto(AuthUser authUser, Integer correctAnswers, Integer allQuestion, double efficiency) {
+        String patternForDateTime = "dd.MM.yyyy HH:mm:ss";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(patternForDateTime);
+        OverAllResult result = overAllResultRepository.findByTakerUser(authUser.getFullName());
+        result.setCompleted(true);
+        result.setNumberOfAllQues(allQuestion);
+        result.setTakerUserId(authUser.getId());
+        result.setEfficiency(efficiency);
+        result.setCorrectAnsweredQues(correctAnswers);
+        result.setPassedTime(LocalDateTime.now().format(formatter));
+        ResultDto dto = new ResultDto();
+        dto.setCorrectQuestion(correctAnswers);
+        dto.setAllNumberOfQuestion(allQuestion);
+        dto.setEfficiency(efficiency);
+        overAllResultRepository.save(result);
+        return dto;
+    }
+
+    private Integer collectCurrentAnswersNumber(Long testId, Long id) {
+        List<SendQuestion> sendQuestionList = sendQuestionRepository.findSendQuestionByTestIdAndTakerId(testId, id);
+        int correctAnswerCounter = 0;
+        for (SendQuestion sendQuestion : sendQuestionList) {
+            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer1()) && sendQuestion.isChecked1()) {
+                correctAnswerCounter++;
+            }
+            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer2()) && sendQuestion.isChecked2()) {
+                correctAnswerCounter++;
+            }
+            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer3()) && sendQuestion.isChecked3()) {
+                correctAnswerCounter++;
+            }
+            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer4()) && sendQuestion.isChecked4()) {
+                correctAnswerCounter++;
+            }
+        }
+        return correctAnswerCounter;
+    }
+
+    private void setAuthUserData(AuthUser authUser) {
+        authUser.setQuesNumber(null);
+        authUser.setTestId(null);
+        userRepository.save(authUser);
+    }
+
+
+    public List<OverAllResultDTO> getAllResults() {
+
+        List<Test> allTests = testRepository.findTestsByActiveTrueAndDeletedFalse();
+        List<OverAllResultDTO> results = new ArrayList<>();
+        for (Test test : allTests) {
+            Long id = test.getId();
+            OverAllResultDTO dto = new OverAllResultDTO();
+            dto.setTest(test);
+            List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdAndCompletedTrueOrderByPassedTime(id);
+            dto.setResults(overAllResultsByTestId);
+            results.add(dto);
+        }
+        return results;
+
+    }
 }

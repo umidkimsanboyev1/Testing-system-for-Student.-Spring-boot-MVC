@@ -7,6 +7,9 @@ import uz.master.demotest.repositories.AuthRoleRepository;
 import uz.master.demotest.repositories.AuthUserRepository;
 import uz.master.demotest.repositories.QuestionRepository;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 //@EnableJpaAuditing
 @SpringBootApplication
 public class DemoTestApplication {
@@ -29,5 +32,12 @@ public class DemoTestApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DemoTestApplication.class, args);
+    }
+
+    public static void main2(String[] args) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime after = LocalDateTime.now().plus(10, ChronoUnit.MINUTES);
+        System.out.println(now);
+        System.out.println(after);
     }
 }

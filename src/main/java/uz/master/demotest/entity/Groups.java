@@ -1,7 +1,6 @@
-package uz.master.demotest.entity.result;
+package uz.master.demotest.entity;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -12,16 +11,12 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
-public class ResultQuestion {
+public class Groups {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long takerId;
-    private Long questionId;
-    private Long testId;
-    private boolean correct;
-
+    private String name;
+    private boolean deleted;
 }

@@ -1,10 +1,10 @@
 package uz.master.demotest.utils;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import uz.master.demotest.configs.security.UserDetails;
+
+import java.time.LocalDateTime;
 
 
 @Service
@@ -21,6 +21,8 @@ public class SessionUser {
     }
     public String getFullName(){return getInstance().getFullName();}
     public Long getTestId(){return getInstance().getTestId();}
+    public Integer getQuesNumber(){return getInstance().getQuesNumber();}
+    public LocalDateTime getTime(){return getInstance().getTime();}
 
 
 

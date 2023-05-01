@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -39,7 +39,7 @@
       data-lang="ru">
 <header class="u-box-shadow u-clearfix u-header u-header" id="sec-2e51">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <a href="#" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
+        <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
             <img src="/images/1uzbgsbe.png" class="u-logo-image u-logo-image-1">
         </a>
         <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
@@ -169,10 +169,8 @@
                 </label>
             </div>
             <br>
-            <a th:href="@{/student/question/{generatedNumber}(generatedNumber=${question.getGeneratedQuestionNumber()} - 1)}"
-               class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-1">Ortga</a>
             <a th:href="@{/student/question/{generatedNumber}(generatedNumber=${question.getGeneratedQuestionNumber()} + 1)}"
-               class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-2">Keyingi</a>
+               class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-1">Keyingi</a>
         </form>
     </div>
 </section>

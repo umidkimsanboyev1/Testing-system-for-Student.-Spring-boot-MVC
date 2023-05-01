@@ -22,13 +22,13 @@ public class QuestionsExcel {
     @ExcelCellName("To'g'ri javob")
     private String correctAnswer;
 
-    @ExcelCellName("Noto'g'ri javob")
+    @ExcelCellName("Noto'g'ri javob1")
     private String answer2;
 
-    @ExcelCellName("Noto'g'ri javob")
+    @ExcelCellName("Noto'g'ri javob2")
     private String answer3;
 
-    @ExcelCellName("Noto'g'ri javob")
+    @ExcelCellName("Noto'g'ri javob3")
     private String answer4;
 
     private List<String> otherAnswers = new ArrayList<>();
