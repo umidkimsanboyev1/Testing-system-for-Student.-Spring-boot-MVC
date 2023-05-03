@@ -21,7 +21,7 @@
         "@context": "http://schema.org",
         "@type": "Organization",
         "name": "Site5",
-        "logo": "images/1uzbgsbe.png"
+        "logo": "/images/1uzbgsbe.png"
     }</script>
     <meta name="theme-color" content="#478ac9">
     <meta property="og:title" content="SU test tizimi">
@@ -55,13 +55,13 @@
             </div>
             <div class="u-custom-menu u-nav-container">
                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
-                        testlarim</a>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/allTests}">Barcha
+                        testlar</a>
                     </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/create}">Test
-                        yaratish</a>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link"
+                                              th:href="@{/admin/results}">Natijalar</a>
                     </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/results}">Natijalar</a>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
                     </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
                     </li>
@@ -75,13 +75,12 @@
                     <div class="u-inner-container-layout u-sidenav-overflow">
                         <div class="u-menu-close"></div>
                         <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
-                                testlarim</a>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/allTests}">Barcha
+                                testlar</a>
                             </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/create}">Test
-                                yaratish</a>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/results}">Natijalar</a>
                             </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/results}">Natijalar</a>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
                             </li>
@@ -104,13 +103,43 @@
 <section class="u-align-center u-clearfix u-section-1" id="sec-8981">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <div class="u-expanded-width u-table u-table-responsive u-table-1">
-            <p th:text="${testName} + ' nomli testni o\'chirishni tasdiqlaysizmi?'"></p>
-            <!--            <p th:text="${test.getName()} + ' nomli testni o\'chirishni tasdiqlaysizmi?'"></p>-->
-            <!--            <p th:text="'Tuzuvchi: ' + ${test.getOwnerId()}"></p>-->
-        </div>
-        <div class="d-grid gap-2 d-md-block">
-            <a class="btn btn-outline-success" role="button" th:href="@{/teacher/myTests}">Ortga</a>
-            <a class="btn btn-outline-danger" role="button" th:href="@{/teacher/deleteTest/{id}(id=${testId})}"> Tasdiqlayman!</a>
+            <form th:action="@{/admin/editStudent}" method="post">
+                <input type="hidden" th:value="${student.getId()}" name="id">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="specificSizeInputName">F.I.O</label>
+                    <div class="col-sm-10">
+                        <input th:value="${student.getFullName()}" type="text" name="fullName" class="form-control" id="specificSizeInputName"
+                               placeholder="Aliyev Ali">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="specificSizeInputName2">Username</label>
+                    <div class="col-sm-10">
+                        <input th:value="${student.getUsername()}" type="text" name="username" class="form-control" id="specificSizeInputName2"
+                               placeholder="aliyev.vali">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="specificSizeInputName3">Parol</label>
+                    <div class="col-sm-10">
+                        <input type="password" name="password1" class="form-control" id="specificSizeInputName3">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="specificSizeSelect">Guruh</label>
+                    <div class="col-sm-10">
+                        <select name="groupName" class="form-select" id="specificSizeSelect">
+                        <span th:each="group : ${groups}">
+                            <option th:value="${group.getName()}" th:text="${group.getName()}"></option>
+                        </span>
+                        </select></div>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-primary">Yuborish</button>
+                </div>
+            </form>
         </div>
     </div>
 </section>

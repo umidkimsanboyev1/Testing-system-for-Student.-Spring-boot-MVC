@@ -1,9 +1,12 @@
 package uz.master.demotest.services.test;
 
 import org.springframework.stereotype.Service;
+import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.result.OverAllResult;
 import uz.master.demotest.repositories.OverAllResultRepository;
 import uz.master.demotest.repositories.SendQuestionRepository;
+
+import java.util.List;
 
 @Service
 public class OverAllResultService {
@@ -23,4 +26,6 @@ public class OverAllResultService {
         sendQuestionRepository.removeAllByTakerIdAndTestId(takerUserId, testId);
         resultRepository.deleteById(id);
     }
+
+
 }

@@ -1,5 +1,6 @@
 package uz.master.demotest.services.test;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import uz.master.demotest.dto.test.*;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TestService {
@@ -74,10 +76,13 @@ public class TestService {
     }
 
     public Long createTest(TestCreateDto dto) {
+        if(testRepository.existsTestByName(dto.getName())){
+            throw new RuntimeException();
+        }
         Test test = testMapper.toEntity(dto);
         test.setTimeForAllQues(dto.getTimeForOneQues());
         test.setOwnerId(sessionUser.getId());
-        test.setSubjectId(subjectRepository.findSubjectByName(dto.getSubject()).getId());
+        test.setSubjectId(dto.getSubjectId());
         test.setActive(false);
         Test save = testRepository.save(test);
         System.out.println(save.getId());
@@ -128,6 +133,7 @@ public class TestService {
         result.setNumberOfAllQues(allQuestion);
         result.setTakerUserId(authUser.getId());
         result.setEfficiency(efficiency);
+        result.setGroupName(authUser.getGroupName());
         result.setCorrectAnsweredQues(correctAnswers);
         result.setPassedTime(LocalDateTime.now().format(formatter));
         ResultDto dto = new ResultDto();
@@ -142,18 +148,14 @@ public class TestService {
         List<SendQuestion> sendQuestionList = sendQuestionRepository.findSendQuestionByTestIdAndTakerId(testId, id);
         int correctAnswerCounter = 0;
         for (SendQuestion sendQuestion : sendQuestionList) {
-            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer1()) && sendQuestion.isChecked1()) {
+            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer1()) && sendQuestion.isChecked1())
                 correctAnswerCounter++;
-            }
-            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer2()) && sendQuestion.isChecked2()) {
+            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer2()) && sendQuestion.isChecked2())
                 correctAnswerCounter++;
-            }
-            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer3()) && sendQuestion.isChecked3()) {
+            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer3()) && sendQuestion.isChecked3())
                 correctAnswerCounter++;
-            }
-            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer4()) && sendQuestion.isChecked4()) {
+            if (sendQuestion.getCorrectAnswer().equals(sendQuestion.getAnswer4()) && sendQuestion.isChecked4())
                 correctAnswerCounter++;
-            }
         }
         return correctAnswerCounter;
     }
@@ -167,6 +169,12 @@ public class TestService {
 
     public List<OverAllResultDTO> getAllResults() {
         List<Test> allTests = testRepository.findTestsByActiveTrueAndDeletedFalse();
+        return getOverAllResultDTOS(allTests);
+
+    }
+
+    @NotNull
+    private List<OverAllResultDTO> getOverAllResultDTOS(List<Test> allTests) {
         List<OverAllResultDTO> results = new ArrayList<>();
         for (Test test : allTests) {
             Long id = test.getId();
@@ -177,6 +185,43 @@ public class TestService {
             results.add(dto);
         }
         return results;
+    }
 
+    public List<OverAllResultDTO> getAllResultsForTeacher() {
+        List<Test> allTests = testRepository.findTestsByActiveTrueAndDeletedFalseAndOwnerId(sessionUser.getId());
+        return getOverAllResultDTOS(allTests);
+    }
+
+
+    public List<OverAllResultDTO> getAllResultsByGroup(Long id, String groupName) {
+        List<Test> testByOwner = testRepository.findTestsByActiveTrueAndDeletedFalseAndOwnerId(id);
+        List<OverAllResultDTO> results = new ArrayList<>();
+        for (Test test : testByOwner) {
+            Long testId = test.getId();
+            OverAllResultDTO dto = new OverAllResultDTO();
+            dto.setTest(test);
+            List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdAndGroupNameOrderByPassedTime(testId, groupName);
+            dto.setResults(overAllResultsByTestId);
+            results.add(dto);
+        }
+        return results;
+    }
+
+    public Test getTest(Long id) {
+        Test test = testRepository.findById(id).get();
+        return test;
+    }
+
+    public void updateTest(Test dto) {
+        Test test = testRepository.findById(dto.getId()).get();
+        Optional<Test> byName = testRepository.findByName(dto.getName());
+        if (byName.isPresent() && !byName.get().getId().equals(test.getId())) {
+            throw new RuntimeException();
+        }
+        test.setName(dto.getName());
+        test.setSubjectId(dto.getSubjectId());
+        test.setNumberOfQuestion(dto.getNumberOfQuestion());
+        test.setTimeForOneQues(dto.getTimeForOneQues());
+        testRepository.save(test);
     }
 }

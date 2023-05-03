@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class AuthUserService extends AbstractService<AuthUserRepository> {
@@ -111,6 +112,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     public void doAction(Long id) {
         AuthUser authUser = repository.findById(id).get();
         authUser.setActive(!authUser.isActive());
+        System.out.println(authUser.isActive());
         repository.save(authUser);
     }
 
@@ -146,9 +148,6 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     }
 
     public List<AuthUser> getAllStudentsByGroup(String groupName) {
-        AuthUser authUser = getAuthUser();
-        authUser.setSelectedGroup(groupName);
-        repository.save(authUser);
         return repository.findAuthUserByRoleAndDeletedFalseAndGroupNameOrderById(Role.STUDENT, groupName);
     }
 
@@ -195,5 +194,31 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
         authUser.setPassword(newPassword);
         repository.save(authUser);
         return true;
+    }
+
+    public Long setAuthUserSelectedGroup(String groupName) {
+        AuthUser authUser = getAuthUser();
+        authUser.setSelectedGroup(groupName);
+        repository.save(authUser);
+        return authUser.getId();
+    }
+
+    public AuthUser getAuthUserById(Long id) {
+        return repository.findById(id).get();
+    }
+
+    public void updateAuthUser(AuthUser user) {
+        Optional<AuthUser> authUserByUsername = repository.findAuthUserByUsername(user.getUsername());
+        if(authUserByUsername.isPresent() && !authUserByUsername.get().getId().equals(user.getId())){
+            throw new RuntimeException();
+        }
+        AuthUser authUser = repository.findById(user.getId()).get();
+        authUser.setUsername(user.getUsername());
+        if(!Objects.isNull(user.getPassword())){
+            authUser.setPassword(encoder.passwordEncoder().encode(user.getPassword()));
+        }
+        authUser.setGroupName(user.getGroupName());
+        authUser.setFullName(user.getFullName());
+        repository.save(authUser);
     }
 }

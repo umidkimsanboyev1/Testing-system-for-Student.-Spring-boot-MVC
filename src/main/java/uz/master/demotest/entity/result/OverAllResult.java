@@ -21,7 +21,7 @@ public class OverAllResult {
     private Long id;
     private String testName;
     private Long testId;
-    private String subject;
+    private String groupName;
     private String startedTime;
     private String passedTime;
     private String takerUser;

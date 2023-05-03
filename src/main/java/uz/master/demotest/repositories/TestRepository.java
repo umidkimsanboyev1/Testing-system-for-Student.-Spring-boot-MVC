@@ -7,15 +7,25 @@ import uz.master.demotest.entity.test.Test;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 public interface TestRepository extends JpaRepository<Test, Long> {
 
     List<Test> findAllByActiveTrue();
+
     List<Test> findAllByDeletedFalseOrderById();
 
-    List<Test> findAllByDeletedFalseAndOwnerIdOrderById (Long id);
+    List<Test> findAllByDeletedFalseAndOwnerIdOrderById(Long id);
 
     List<Test> findTestsByActiveTrueAndDeletedFalse();
+
+    List<Test> findTestsByActiveTrueAndDeletedFalseAndOwnerId(Long id);
+
+
+    Optional<Test> findByName(String name);
+
+    boolean existsTestByName(String name);
+
 
     @Transactional
     @Modifying

@@ -63,7 +63,9 @@
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/createTest}">Test
                         yaratish</a>
                     </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni alishtirish</a>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/results}">Natijalar</a>
+                    </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
                     </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
                         chiqish</a>
@@ -82,7 +84,9 @@
                                                       th:href="@{/teacher/createTest}">Test
                                 yaratish</a>
                             </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni alishtirish</a>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/results}">Natijalar</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
                                 chiqish</a>
@@ -114,9 +118,9 @@
                         <label for="floatingInput">Testning nomi</label>
                     </div>
                     <div class="form-floating">
-                        <select class="form-select" name="subject" id="floatingSelect" aria-label="Fanni tanlang">
+                        <select class="form-select" name="subjectId" id="floatingSelect" aria-label="Fanni tanlang">
                             <span th:each="subject : ${subjects}">
-                            <option th:value="${subject.getName()}" th:text="${subject.getName()}"></option>
+                            <option th:value="${subject.getId()}" th:text="${subject.getName()}"></option>
                             </span>
                         </select>
                         <label for="floatingSelect">Fanni tanlang</label>

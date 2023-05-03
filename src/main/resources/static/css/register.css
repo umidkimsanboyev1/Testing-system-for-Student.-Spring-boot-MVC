@@ -35,14 +35,14 @@
 }
 
 .login-text h3 {
-  font-family: Josefin Sans;
+  font-family: "Times New Roman";
   font-size: 32px;
   line-height: 37px;
   color: #000000;
 }
 
 .login-text p {
-  font-family: Josefin Sans;
+  font-family: "Times New Roman";
   font-style: normal;
   font-weight: normal;
   font-size: 17px;
@@ -65,7 +65,7 @@
 }
 
 .login-input input::placeholder {
-  font-family: Josefin Sans;
+  font-family: "Times New Roman";
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -81,7 +81,7 @@
 }
 
 .login-input p {
-  font-family: Josefin Sans;
+  font-family: "Times New Roman";
   font-style: normal;
   font-weight: normal;
   font-size: 17px;
@@ -109,7 +109,7 @@
 }
 
 .login-button p {
-  font-family: Josefin Sans;
+  font-family: "Times New Roman";
   font-style: normal;
   font-weight: normal;
   font-size: 17px;

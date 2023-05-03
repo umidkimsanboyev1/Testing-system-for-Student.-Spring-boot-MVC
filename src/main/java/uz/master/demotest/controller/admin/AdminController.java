@@ -7,10 +7,12 @@ import uz.master.demotest.dto.auth.AddStudentDto;
 import uz.master.demotest.dto.test.OverAllResultDTO;
 import uz.master.demotest.dto.test.TestDto;
 import uz.master.demotest.entity.auth.AuthUser;
+import uz.master.demotest.entity.test.Subject;
+import uz.master.demotest.entity.test.Test;
 import uz.master.demotest.services.GroupService;
+import uz.master.demotest.services.SubjectService;
 import uz.master.demotest.services.auth.AuthUserService;
 import uz.master.demotest.services.test.OverAllResultService;
-import uz.master.demotest.services.test.QuestionService;
 import uz.master.demotest.services.test.TestService;
 import uz.master.demotest.utils.SessionUser;
 
@@ -21,19 +23,19 @@ import java.util.List;
 public class AdminController {
     private final TestService testService;
     private final GroupService groupService;
+    private final SubjectService subjectService;
 
     private final SessionUser sessionUser;
     private final AuthUserService authUserService;
     private final OverAllResultService overAllResultService;
-    private final QuestionService questionService;
 
-    public AdminController(TestService testService, GroupService groupService, SessionUser sessionUser, AuthUserService authUserService, OverAllResultService overAllResultService, QuestionService questionService) {
+    public AdminController(TestService testService, GroupService groupService, SubjectService subjectService, SessionUser sessionUser, AuthUserService authUserService, OverAllResultService overAllResultService) {
         this.testService = testService;
         this.groupService = groupService;
+        this.subjectService = subjectService;
         this.sessionUser = sessionUser;
         this.authUserService = authUserService;
         this.overAllResultService = overAllResultService;
-        this.questionService = questionService;
     }
 
     @GetMapping(value = "allTests")
@@ -61,6 +63,7 @@ public class AdminController {
 
     @GetMapping(value = "/students/{groupName}")
     public String getAllStudentsByGroup(Model model, @PathVariable String groupName) {
+        Long id = authUserService.setAuthUserSelectedGroup(groupName);
         List<AuthUser> allStudents = authUserService.getAllStudentsByGroup(groupName);
         model.addAttribute("groups", groupService.getAllGroups());
         model.addAttribute("user", sessionUser.getFullName());
@@ -133,12 +136,6 @@ public class AdminController {
         return "/admin/checkDeleteTest";
     }
 
-    @GetMapping(value = "/editTest/{id}")
-    public String edit(@PathVariable Long id, Model model) {
-        model.addAttribute("user", sessionUser.getFullName());
-        return "/admin/editTest";
-    }
-
     @GetMapping(value = "/deleteResult/{id}")
     public String deleteResult(@PathVariable Long id){
         overAllResultService.delete(id);
@@ -156,5 +153,43 @@ public class AdminController {
             return "/error/error";
         }
         return "/admin/results";
+    }
+    @GetMapping(value = "/editTest/{id}")
+    public String getEditTestPage(@PathVariable Long id, Model model) {
+        Test testById = testService.getTest(id);
+        model.addAttribute("test", testById);
+        List<Subject> subjects = subjectService.getAllSubjects();
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("user", sessionUser.getFullName());
+        return "/admin/editTest";
+    }
+
+    @PostMapping(value = "/editTest")
+    public String updateTest(@ModelAttribute Test test) {
+        try {
+            testService.updateTest(test);
+        } catch (Exception e){
+            return "redirect:/admin/editTest/" + test.getId();
+        }
+        return "redirect:/home";
+    }
+
+    @GetMapping(value = "/editStudent/{id}")
+    public String getEditStudentPage(Model model, @PathVariable Long id){
+        AuthUser authUser = authUserService.getAuthUserById(id);
+        model.addAttribute("user", sessionUser.getFullName());
+        model.addAttribute("groups", groupService.getAllGroups());
+        model.addAttribute("student", authUser);
+        return "/admin/editStudent";
+    }
+
+    @PostMapping(value = "/editStudent")
+    public String updateStudent(@ModelAttribute AuthUser user){
+        try {
+            authUserService.updateAuthUser(user);
+        } catch (Exception e){
+            return "redirect:/admin/editStudent/" + user.getId();
+        }
+        return "redirect:/home";
     }
 }

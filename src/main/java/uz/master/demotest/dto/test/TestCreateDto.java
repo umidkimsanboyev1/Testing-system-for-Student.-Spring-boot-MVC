@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class TestCreateDto {
     private MultipartFile file;
     private String name;
-    private String subject;
+    private Long subjectId;
 
     private Integer numberOfQuestion;
     // time for one and all question in minutes
