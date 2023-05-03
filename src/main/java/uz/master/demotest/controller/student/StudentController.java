@@ -8,7 +8,9 @@ import uz.master.demotest.dto.test.CheckingDto;
 import uz.master.demotest.dto.test.RequestTestDto;
 import uz.master.demotest.dto.test.ResultDto;
 import uz.master.demotest.dto.test.TestIntroductionDto;
+import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.test.SendQuestion;
+import uz.master.demotest.entity.test.Test;
 import uz.master.demotest.services.auth.AuthUserService;
 import uz.master.demotest.services.student.StudentService;
 import uz.master.demotest.services.test.QuestionService;
@@ -16,6 +18,8 @@ import uz.master.demotest.services.test.TestService;
 import uz.master.demotest.utils.SessionUser;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/student/*")
@@ -53,7 +57,13 @@ public class StudentController {
 
     @GetMapping("/listTests")
     public String getTestList(Model model) {
-        model.addAttribute("tests", studentService.getTestList());
+        AuthUser authUser = authUserService.getAuthUser();
+        List<Test> testList = studentService.getTestList(authUser);
+        if(testList.size() == 0){
+            model.addAttribute("user", sessionUser.getFullName());
+            return "/student/success";
+        }
+        model.addAttribute("tests", testList);
         model.addAttribute("user", sessionUser.getFullName());
         return "student/listTests";
     }
@@ -72,11 +82,18 @@ public class StudentController {
         questionService.startTest(testId);
         boolean check = authUserService.checkTest(testId);
         if (!check) {
-            return "/error/403";
+            model.addAttribute("error", "Uzr siz bu testni oldin ishlagansiz. Qayta topshirish uchun mutasaddilar bilan bog'laning");
+            return "/error/error";
         }
-        authUserService.saveToAuthUser(testId);
-        model.addAttribute("question", questionService.getFirstQuestion(testId, sessionUser.getId()));
-        model.addAttribute("time", sessionUser.getTime());
+        try{
+            authUserService.saveToAuthUser(testId);
+            model.addAttribute("question", questionService.getFirstQuestion(testId, sessionUser.getId()));
+            LocalDateTime userTime = authUserService.getUserTime();
+            System.out.println(userTime);
+            model.addAttribute("time", userTime);
+        } catch (Exception e){
+
+        }
         return "/student/testStart";
     }
 
@@ -86,7 +103,15 @@ public class StudentController {
         if (questionService.checkTime()) {
             return "redirect:/student/result";
         }
+        return getModel(generatedNumber, model);
+    }
+
+    @NotNull
+    private String getModel(@PathVariable Integer generatedNumber, Model model) {
         if (questionService.checkTestProgress(generatedNumber)) {
+            LocalDateTime userTime = authUserService.getUserTime();
+            System.out.println(userTime);
+            model.addAttribute("time", userTime);
             return progressServices(generatedNumber, model);
         } else {
             System.out.println(sessionUser.getQuesNumber());
@@ -94,18 +119,13 @@ public class StudentController {
         }
     }
 
-    @PostMapping(value = "/question/{generatedNumber}")
-    public String PostQuestion(@PathVariable Integer generatedNumber, Model model, @ModelAttribute CheckingDto checking) {
+    @PostMapping(value = "/question/")
+    public String PostQuestion(Model model, @ModelAttribute CheckingDto checking) {
+        Integer generatedNumber = checking.getGeneratedNumber();
         Long id = sessionUser.getId();
         questionService.mapAnswers(checking, id, generatedNumber);
         System.out.println(checking);
-        if (questionService.checkTestProgress(generatedNumber)) {
-            model.addAttribute("time", sessionUser.getTime());
-            return progressServices(generatedNumber, model);
-        } else {
-            System.out.println(sessionUser.getQuesNumber());
-            return "redirect:/student/question/" + sessionUser.getQuesNumber();
-        }
+        return getModel(generatedNumber, model);
     }
 
     private @NotNull String progressServices(Integer generatedNumber, Model model) {
@@ -113,8 +133,6 @@ public class StudentController {
         try {
             question = questionService.getQuestionForSessionUser(generatedNumber);
             authUserService.setQuesNumber(generatedNumber);
-            LocalDateTime time = sessionUser.getTime();
-            System.out.println(time);
             model.addAttribute("question", question);
             model.addAttribute("user", sessionUser.getFullName());
         } catch (Exception e) {

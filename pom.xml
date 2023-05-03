@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>uz.master</groupId>
-    <artifactId>demoTest</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>demoTest</name>
-    <description>demoTest</description>
+    <artifactId>testing</artifactId>
+    <version>1</version>
+    <name>testing</name>
+    <description>testing</description>
     <properties>
         <java.version>17</java.version>
     </properties>

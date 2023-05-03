@@ -39,7 +39,7 @@
       data-lang="ru">
 <header class="u-box-shadow u-clearfix u-header u-header" id="sec-2e51">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
+        <a th:href="@{/home}" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
             <img src="/images/1uzbgsbe.png" class="u-logo-image u-logo-image-1">
         </a>
         <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
@@ -62,6 +62,8 @@
             <div class="u-custom-menu u-nav-container">
                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
 
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni alishtirish</a>
+                    </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
                         chiqish</a>
                     </li>
@@ -72,6 +74,8 @@
                     <div class="u-inner-container-layout u-sidenav-overflow">
                         <div class="u-menu-close"></div>
                         <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni alishtirish</a>
+                            </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
                                 chiqish</a>
                             </li>

@@ -16,7 +16,10 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long> {
 //    void  deleteUser(Long id,String username);
 
     List<AuthUser> findAuthUserByRoleAndDeletedFalseOrderById(Role role);
+    List<AuthUser> findAuthUserByRoleAndDeletedFalseAndGroupNameOrderById(Role role, String groupName);
 
     boolean existsAuthUserByUsername(String username);
+
+
 
 }

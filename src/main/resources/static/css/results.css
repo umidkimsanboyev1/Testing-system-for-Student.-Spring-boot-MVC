@@ -1,16 +1,16 @@
 .u-section-1 .u-sheet-1 {
-  min-height: 715px;
+  min-height: 183px;
 }
 
 .u-section-1 .u-accordion-1 {
-  margin-bottom: 60px;
+  margin-bottom: 10px;
   margin-top: 37px;
 }
 
 .u-section-1 .u-accordion-link-1 {
   font-size: 1.25rem;
   background-image: none;
-  padding: 15px 36px;
+  padding: 9px 36px;
 }
 
 .u-section-1 .u-icon-1 {
@@ -19,7 +19,7 @@
 }
 
 .u-section-1 .u-accordion-pane-1 {
-  min-height: 573px;
+  min-height: 0;
   height: auto;
 }
 
@@ -57,7 +57,7 @@
 .u-section-1 .u-accordion-link-2 {
   font-size: 1.25rem;
   background-image: none;
-  padding: 15px 36px;
+  padding: 9px 36px;
 }
 
 .u-section-1 .u-icon-2 {
@@ -66,12 +66,12 @@
 }
 
 .u-section-1 .u-accordion-pane-2 {
-  min-height: 573px;
+  min-height: 0;
   height: auto;
 }
 
 .u-section-1 .u-container-layout-2 {
-  padding: 30px;
+  padding: 30px 30px 0;
 }
 
 @media (max-width: 1199px) {

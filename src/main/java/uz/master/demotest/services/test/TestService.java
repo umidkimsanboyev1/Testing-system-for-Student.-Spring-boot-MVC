@@ -16,7 +16,6 @@ import uz.master.demotest.utils.SessionUser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -76,7 +75,7 @@ public class TestService {
 
     public Long createTest(TestCreateDto dto) {
         Test test = testMapper.toEntity(dto);
-        test.setTimeForAllQues(dto.getTimeForOneQues() * dto.getNumberOfQuestion());
+        test.setTimeForAllQues(dto.getTimeForOneQues());
         test.setOwnerId(sessionUser.getId());
         test.setSubjectId(subjectRepository.findSubjectByName(dto.getSubject()).getId());
         test.setActive(false);
@@ -167,14 +166,13 @@ public class TestService {
 
 
     public List<OverAllResultDTO> getAllResults() {
-
         List<Test> allTests = testRepository.findTestsByActiveTrueAndDeletedFalse();
         List<OverAllResultDTO> results = new ArrayList<>();
         for (Test test : allTests) {
             Long id = test.getId();
             OverAllResultDTO dto = new OverAllResultDTO();
             dto.setTest(test);
-            List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdAndCompletedTrueOrderByPassedTime(id);
+            List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdOrderByPassedTime(id);
             dto.setResults(overAllResultsByTestId);
             results.add(dto);
         }

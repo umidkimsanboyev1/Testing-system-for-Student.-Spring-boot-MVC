@@ -33,7 +33,7 @@
       data-lang="ru">
 <header class="u-box-shadow u-clearfix u-header u-header" id="sec-2e51">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
+        <a th:href="@{/home}" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
             <img src="/images/1uzbgsbe.png" class="u-logo-image u-logo-image-1">
         </a>
         <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
@@ -63,6 +63,8 @@
                     </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
                     </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni alishtirish</a>
+                    </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
                         chiqish</a>
                     </li>
@@ -79,6 +81,8 @@
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/results}">Natijalar</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni alishtirish</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
                                 chiqish</a>
@@ -113,11 +117,11 @@
                         <input type="text" name="username" class="form-control" id="specificSizeInputName2"
                                placeholder="aliyev.vali">
                     </div>
-                </div>auth_role
+                </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="specificSizeInputName3">Parol</label>
                     <div class="col-sm-10">
-                        <input type="password" name="password1" class="form-control" id="specificSizeInputName3"
+                        <input type="password" name="password1" class="form-control" id="specificSizeInputName3">
 
                     </div>
                 </div>
@@ -138,7 +142,7 @@
                 </div>
 
                 <div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Yuborish</button>
                 </div>
             </form>
         </div>

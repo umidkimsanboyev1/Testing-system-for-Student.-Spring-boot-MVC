@@ -22,17 +22,16 @@
     <div class="login-text">
         <h3>Edit Profile</h3>
     </div>
-    <form th:action="@{/auth/profile/edit/{id}(id=${user.id})}" method="POST">
+    <form th:action="@{/auth/resetPassword/}" method="POST">
         <div class="login-input">
-            <input th:value="${user.getUsername()}" type="text" placeholder="Enter  Username" name="username">
-            <input th:value="${user.getFirstName()}" type="text" placeholder="Enter your Firstname" name="firstName">
-            <input th:value="${user.getLastName()}" type="text" placeholder="Enter your LastName" name="lastName">
-            <input th:value="${user.getEmail()}" type="email" placeholder="Enter your Email" name="email">
+            <input  type="text" placeholder="Eski parolingizni kiriting" name="oldPassword">
+            <input  type="text" placeholder="Yangi parolingizni kiriting" name="newPassword1">
+            <input  type="text" placeholder="Yangi parolingizni qaytadan kiriting" name="newPassword2">
         </div>
 
         <div class="login-button text-end">
-            <button class="btn btn-primary" type="submit">Save changes</button>
-            <a class="btn btn-success" th:href="@{/auth/profile}">Back</a>
+            <button class="btn btn-primary" type="submit">Saqlash</button>
+            <a class="btn btn-success" th:href="@{/home}">Ortga</a>
         </div>
 
     </form>

@@ -16,6 +16,7 @@ public interface TestRepository extends JpaRepository<Test, Long> {
     List<Test> findAllByDeletedFalseAndOwnerIdOrderById (Long id);
 
     List<Test> findTestsByActiveTrueAndDeletedFalse();
+
     @Transactional
     @Modifying
     @Query(value = "update Test a set a.deleted=true where  a.id=:id")

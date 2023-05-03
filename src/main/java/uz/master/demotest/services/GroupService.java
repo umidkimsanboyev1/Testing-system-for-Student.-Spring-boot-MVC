@@ -20,4 +20,5 @@ public class GroupService {
         List<Groups> allByDeletedFalse = groupRepository.findAllByDeletedFalse();
         return allByDeletedFalse;
     }
+
 }

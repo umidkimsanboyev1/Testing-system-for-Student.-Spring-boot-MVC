@@ -2,9 +2,8 @@ package uz.master.demotest.controller.auth;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import uz.master.demotest.dto.auth.ResetPassword;
 import uz.master.demotest.services.auth.AuthUserService;
 import uz.master.demotest.utils.SessionUser;
 
@@ -37,6 +36,15 @@ public class AuthUserController {
             return "redirect:/auth/login";
         }
         return "auth/reset";
+    }
 
+    @GetMapping(value = "/resetPassword")
+    public String getResetPasswordPage(){
+        return "/auth/edit";
+    }
+
+    @PostMapping(value = "/resetPassword")
+    public String resetPassword(@ModelAttribute ResetPassword dto){
+         return service.resetPassword(dto) ? "redirect:/home" : "redirect:/auth/resetPassword";
     }
 }

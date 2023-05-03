@@ -1,14 +1,17 @@
 package uz.master.demotest.services.auth;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.master.demotest.configs.encrypt.PasswordEncoderConfig;
 import uz.master.demotest.dto.auth.AddStudentDto;
+import uz.master.demotest.dto.auth.ResetPassword;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.result.OverAllResult;
 import uz.master.demotest.entity.test.Test;
 import uz.master.demotest.enums.Role;
-import uz.master.demotest.repositories.*;
+import uz.master.demotest.repositories.AuthUserRepository;
+import uz.master.demotest.repositories.OverAllResultRepository;
+import uz.master.demotest.repositories.TestRepository;
+import uz.master.demotest.repositories.TokenRepository;
 import uz.master.demotest.services.AbstractService;
 import uz.master.demotest.utils.SessionUser;
 
@@ -16,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class AuthUserService extends AbstractService<AuthUserRepository> {
@@ -36,8 +40,14 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
         this.encoder = encoder;
     }
 
+    public static DateTimeFormatter getTimeFormatter() {
+        String patternForDateTime = "dd.MM.yyyy HH:mm:ss";
+        return DateTimeFormatter.ofPattern(patternForDateTime);
+    }
+
     public boolean checkTest(Long testId) {
-        return !overAllResultRepository.existsByTakerUserAndTestIdAndCompletedFalse(sessionUser.getFullName(), testId);
+        AuthUser authUser = getAuthUser();
+        return !overAllResultRepository.existsByTakerUserAndTestId(authUser.getFullName(), testId);
     }
 
     public void saveToAuthUser(Long testId) {
@@ -65,11 +75,6 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
         return overAllResultTemp;
     }
 
-    public static DateTimeFormatter getTimeFormatter() {
-        String patternForDateTime = "dd.MM.yyyy HH:mm:ss";
-        return DateTimeFormatter.ofPattern(patternForDateTime);
-    }
-
 
 //    public AuthUser get(String username) {
 //        Optional<AuthUser> authUserByUsername = repository.getAuthUsersByUsernameAndDeletedFalse(username);
@@ -78,7 +83,6 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
 //        }
 //        return authUserByUsername.get();
 //    }
-
 
     public boolean checkToken(String token) {
         return tokenRepository.findByPrivateToken(token).isEmpty();
@@ -95,14 +99,13 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
 
 
     public void setQuesNumber(Integer generatedNumber) {
-        AuthUser authUser = repository.findById(sessionUser.getId()).get();
+        AuthUser authUser = getAuthUser();
         authUser.setQuesNumber(generatedNumber);
         repository.save(authUser);
     }
 
     public List<AuthUser> getAllStudents() {
-        List<AuthUser> allStudents = repository.findAuthUserByRoleAndDeletedFalseOrderById(Role.STUDENT);
-        return allStudents;
+        return repository.findAuthUserByRoleAndDeletedFalseOrderById(Role.STUDENT);
     }
 
     public void doAction(Long id) {
@@ -118,7 +121,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     }
 
     public boolean addStudent(AddStudentDto dto) {
-        if(!dto.getPassword1().equals(dto.getPassword2()) || repository.existsAuthUserByUsername(dto.getUsername())){
+        if (!dto.getPassword1().equals(dto.getPassword2()) || repository.existsAuthUserByUsername(dto.getUsername())) {
             return false;
         }
         AuthUser tempUser = new AuthUser();
@@ -136,5 +139,61 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
         tempUser.setGroupName(dto.groupName);
         tempUser.setPassword(encoder.passwordEncoder().encode(dto.password1));
         repository.save(tempUser);
+    }
+
+    public LocalDateTime getUserTime() {
+        return repository.findById(sessionUser.getId()).get().getTime();
+    }
+
+    public List<AuthUser> getAllStudentsByGroup(String groupName) {
+        AuthUser authUser = getAuthUser();
+        authUser.setSelectedGroup(groupName);
+        repository.save(authUser);
+        return repository.findAuthUserByRoleAndDeletedFalseAndGroupNameOrderById(Role.STUDENT, groupName);
+    }
+
+    public AuthUser getAuthUser() {
+        return repository.findById(sessionUser.getId()).get();
+    }
+
+    public boolean checkSelectedGroupName() {
+        AuthUser authUser = getAuthUser();
+        return Objects.isNull(authUser.getSelectedGroup());
+    }
+
+    public String getSelectedGroupName() {
+        return getAuthUser().getSelectedGroup();
+    }
+
+    public void setSelectedGroupName(Object o) {
+        AuthUser authUser = getAuthUser();
+        authUser.setSelectedGroup(null);
+        repository.save(authUser);
+    }
+
+    public void actionStudents(boolean b) {
+        AuthUser authUser = getAuthUser();
+        List<AuthUser> students;
+        if (Objects.isNull(authUser.getSelectedGroup())) {
+            students = repository.findAuthUserByRoleAndDeletedFalseOrderById(Role.STUDENT);
+        } else {
+            students = repository.findAuthUserByRoleAndDeletedFalseAndGroupNameOrderById(Role.STUDENT, authUser.getSelectedGroup());
+        }
+
+        students.forEach(authUser1 -> authUser1.setActive(b));
+        repository.saveAll(students);
+    }
+
+    public boolean resetPassword(ResetPassword dto) {
+        AuthUser authUser = getAuthUser();
+        String oldPassword = authUser.getPassword();
+        String rawPassword = encoder.passwordEncoder().encode(dto.getOldPassword());
+        if (!dto.getNewPassword1().equals(dto.getNewPassword2()) || encoder.passwordEncoder().matches(rawPassword, oldPassword)) {
+            return false;
+        }
+        String newPassword = encoder.passwordEncoder().encode(dto.getNewPassword1());
+        authUser.setPassword(newPassword);
+        repository.save(authUser);
+        return true;
     }
 }

@@ -17483,9 +17483,6 @@ p {
 .u-align-left {
   text-align: left;
 }
-.u-align-center {
-  text-align: center !important;
-}
 @media (min-width: 1400px) {
   .u-align-left-xxl {
     text-align: left;

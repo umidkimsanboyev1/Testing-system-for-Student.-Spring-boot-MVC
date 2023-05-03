@@ -9,4 +9,5 @@ import java.util.List;
 public interface GroupRepository  extends JpaRepository<Groups, Long> {
 
     List<Groups> findAllByDeletedFalse();
+    List<Groups> findGroupsByName(String name);
 }

@@ -25,7 +25,7 @@
 
 .goBack a {
   padding: 10px 20px;
-  background: #ffa500;
+  background: #1670f6;
   border-radius: 3px;
   font-weight: bold;
   font-size: 17px;
@@ -47,7 +47,7 @@
   font-weight: normal;
   font-size: 17px;
   line-height: 20px;
-  color: #ffa500;
+  color: #5c8ab8;
   margin: 7px 0 37px 0;
 }
 
@@ -86,7 +86,7 @@
   font-weight: normal;
   font-size: 17px;
   line-height: 20px;
-  color: #ffa500;
+  color: #1670f6;
   margin: 13px 0 23px 0;
   text-align: left;
 }

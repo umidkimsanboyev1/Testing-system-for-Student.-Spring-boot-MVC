@@ -19,11 +19,13 @@ public class BaseController {
         String code = details.getRole().toString();
         System.out.println(code);
         if (code.equals("ADMIN")) {
-            return "redirect:admin/allTests";
+            return "redirect:admin/results";
         } else if (code.equals("TEACHER")) {
             return "redirect:teacher/myTests";
         } else {
             return "redirect:student/listTests";
         }
     }
+
+
 }

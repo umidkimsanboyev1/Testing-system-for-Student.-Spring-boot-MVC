@@ -14,6 +14,6 @@ import javax.persistence.Id;
 @Data
 @ToString
 public class CheckingDto {
-
+    private Integer generatedNumber;
     private Integer checking;
 }
