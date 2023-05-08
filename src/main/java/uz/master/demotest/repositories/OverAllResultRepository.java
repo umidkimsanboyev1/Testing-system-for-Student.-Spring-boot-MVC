@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface OverAllResultRepository extends JpaRepository<OverAllResult, Long> {
 
-    OverAllResult findByTakerUser(String fullName);
+    OverAllResult findByTakerUserAndTestId(String takerUser, Long testId);
     boolean existsByTakerUserAndTestId(String takerUser, Long testId);
 
     @Transactional

@@ -171,11 +171,6 @@ public class QuestionService {
     }
 
 
-    public SendQuestion getFirstQuestion(Long testId, Long id) {
-        SendQuestion sendQuestion = sendQuestionRepository.getSendQuestionByTakerIdAndTestIdAndGeneratedQuestionNumber(id, testId, 1);
-        return sendQuestion;
-    }
-
     public boolean checkTime() {
         AuthUser authUser = authUserRepository.findById(sessionUser.getId()).get();
         LocalDateTime time = authUser.getTime();

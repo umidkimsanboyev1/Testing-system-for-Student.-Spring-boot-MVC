@@ -87,15 +87,14 @@ public class StudentController {
         }
         try{
             authUserService.saveToAuthUser(testId);
-            model.addAttribute("question", questionService.getFirstQuestion(testId, sessionUser.getId()));
             LocalDateTime userTime = authUserService.getUserTime();
             System.out.println(userTime);
-            model.addAttribute("time", userTime);
         } catch (Exception e){
 
         }
-        return "/student/testStart";
+        return "redirect:/student/question/1";
     }
+
 
 
     @GetMapping(value = "/question/{generatedNumber}")
@@ -105,6 +104,7 @@ public class StudentController {
         }
         return getModel(generatedNumber, model);
     }
+
 
     @NotNull
     private String getModel(@PathVariable Integer generatedNumber, Model model) {

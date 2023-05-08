@@ -88,18 +88,60 @@
         <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
     </div>
 </header>
+<!--<section class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-clearfix u-section-1" id="sec-93ea">-->
+<!--    <div class="u-clearfix u-sheet u-sheet-1">-->
+<!--        <div class="u-countdown u-countdown-1" data-timer-id="ebd4" data-type="to-time" th:data-target-date="${time}" data-for="everyone" data-direction="down" data-time-left="750m" data-target-number="100" data-start-time="Wed May 03 2023 12:56:42 GMT+0500 (Западная Азия (зима))" data-frequency="1s" data-after-count="none" data-redirect-url="https://test.gsbe.uz/student/endTest">-->
+<!--            <div class="u-countdown-wrapper u-spacing-20">-->
+<!--                <div class="u-countdown-item u-countdown-years u-hidden u-spacing-10">-->
+<!--                    <div class="u-countdown-counter u-countdown-counter-1"><div class="u-countdown-number">0</div><div class="u-countdown-number u-hidden">0</div></div>-->
+<!--                    <div class="u-countdown-label u-countdown-label-1">Years</div>-->
+<!--                </div>-->
+<!--                <div class="u-countdown-separator u-hidden u-countdown-separator-1">:</div>-->
+<!--                <div class="u-countdown-days u-countdown-item u-hidden u-spacing-10">-->
+<!--                    <div class="u-countdown-counter u-countdown-counter-2"><div class="u-countdown-number">0</div><div class="u-countdown-number u-hidden">6</div><div class="u-countdown-number u-hidden">0</div></div>-->
+<!--                    <div class="u-countdown-label u-countdown-label-2">Days</div>-->
+<!--                </div>-->
+<!--                <div class="u-countdown-separator u-hidden u-countdown-separator-2">:</div>-->
+<!--                <div class="u-countdown-hours u-countdown-item u-spacing-10">-->
+<!--                    <div class="u-countdown-counter u-countdown-counter-3"><div class="u-countdown-number">1</div><div class="u-countdown-number">2</div></div>-->
+<!--                    <div class="u-countdown-label u-countdown-label-3">Hours</div>-->
+<!--                </div>-->
+<!--                <div class="u-countdown-separator u-countdown-separator-3">:</div>-->
+<!--                <div class="u-countdown-item u-countdown-minutes u-spacing-10">-->
+<!--                    <div class="u-countdown-counter u-countdown-counter-4"><div class="u-countdown-number">2</div><div class="u-countdown-number">9</div></div>-->
+<!--                    <div class="u-countdown-label u-countdown-label-4">Minutes</div>-->
+<!--                </div>-->
+<!--                <div class="u-countdown-separator u-countdown-separator-4">:</div>-->
+<!--                <div class="u-countdown-item u-countdown-seconds u-spacing-10">-->
+<!--                    <div class="u-countdown-counter u-countdown-counter-5"><div class="u-countdown-number">5</div><div class="u-countdown-number">9</div></div>-->
+<!--                    <div class="u-countdown-label u-countdown-label-5">Seconds</div>-->
+<!--                </div>-->
+<!--                <div class="u-countdown-separator u-hidden u-countdown-separator-5">:</div>-->
+<!--                <div class="u-countdown-item u-countdown-numbers u-hidden u-spacing-10">-->
+<!--                    <div class="u-countdown-counter u-countdown-counter-6"><div class="u-countdown-number">0</div><div class="u-countdown-number">0</div></div>-->
+<!--                    <div class="u-countdown-label u-countdown-label-6">Items</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="u-countdown-message u-hidden">-->
+<!--                <p>Sorry, the time is up.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <a th:href="@{/student/endTest}" class="u-border-2 u-border-custom-color-1 u-btn u-btn-round u-button-style u-custom-font u-font-ubuntu u-hover-custom-color-1 u-none u-radius-13 u-btn-1">Yakunlash</a>-->
+<!--        <a th:href="@{/student/question/{generatedNumber}(generatedNumber=${question.getGeneratedQuestionNumber() + 1})}" class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2"> &nbsp;Keyingi&nbsp;<span class="u-file-icon u-icon u-text-white u-icon-1"><img src="/images/10631737-44520003.png" alt=""></span>-->
+<!--        </a>-->
+<!--        <a th:href="@{/student/question/{generatedNumber}(generatedNumber=${question.getGeneratedQuestionNumber() - 1})}" class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-3"><span class="u-file-icon u-icon u-text-white u-icon-2"><img src="/images/10631765-6bf26581.png" alt=""></span>&nbsp;ORTGA-->
+<!--        </a>-->
+<!--        <h6 th:text="'Savol № ' + ${question.getGeneratedQuestionNumber()}" class="u-custom-font u-font-ubuntu u-text u-text-1">Savol&nbsp; № 25</h6>-->
+<!--    </div>-->
+<!--</section>-->
+
 <section class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-clearfix u-section-1"
          id="sec-93ea">
     <div class="u-clearfix u-sheet u-sheet-1">
-        <a class="u-file-icon u-icon u-icon-2"
-           th:href="@{/student/question/{generatedNumber}(generatedNumber=${question.getGeneratedQuestionNumber() - 1})}"><img
-                src="/images/53059702.png" alt="">
-        <br></a>
-        <div class="u-countdown u-countdown-1" data-timer-id="ebd4" data-type="to-time"
-             th:data-target-date="${time}" data-for="everyone" data-direction="down"
-             data-time-left="750m" data-target-number="100"
+        <div class="u-countdown u-countdown-1" data-timer-id="ebd4" data-type="to-time" th:data-target-date="${time}"
+             data-for="everyone" data-direction="down" data-time-left="750m" data-target-number="100"
              data-start-time="Wed May 03 2023 12:56:42 GMT+0500 (Западная Азия (зима))" data-frequency="1s"
-             data-after-count="none" data-redirect-url="https://">
+             data-after-count="redirect" data-redirect-url="/student/result">
             <div class="u-countdown-wrapper u-spacing-20">
                 <div class="u-countdown-item u-countdown-years u-hidden u-spacing-10">
                     <div class="u-countdown-counter u-countdown-counter-1">
@@ -155,17 +197,20 @@
             </div>
         </div>
         <a th:href="@{/student/endTest/}"
-           class="u-border-2 u-border-custom-color-1 u-btn u-btn-round u-button-style u-custom-font u-font-ubuntu u-hover-custom-color-1 u-none u-radius-13 u-btn-1">Yakunlash</a>
-        <h6 class="u-custom-font u-font-ubuntu u-text u-text-1"
-            th:text="'Savol № ' + ${question.getGeneratedQuestionNumber()}"></h6>
+           class="u-border-2 u-border-custom-color-1 u-btn u-btn-round u-button-style u-custom-font u-font-ubuntu u-hover-custom-color-1 u-none u-radius-13 u-btn-1">yakunlash</a>
+        <h6 th:text="'Savol № ' + ${question.getGeneratedQuestionNumber()}"
+            class="u-custom-font u-font-ubuntu u-text u-text-1">Savol&nbsp; № 25</h6>
     </div>
 </section>
-<section class="u-clearfix u-section-2" id="sec-71fc">
+<section style="overflow-y: scroll; width: 100%; height: 650px;" class="u-clearfix u-section-2" id="sec-71fc">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1" style="top: -100px">
         <form method="post" id="dataform"
               th:action="@{/student/question/}">
             <input type="hidden" th:value="${question.getGeneratedQuestionNumber()}" name="generatedNumber">
-            <h5 style="margin-left: 0px !important;" class="u-align-justify u-text u-text-default u-text-1" th:text="${question.getQuestion()}"></h5>
+            <br>
+            <br>
+            <h5 style="margin-left: 0px !important;" class="u-align-justify u-text u-text-default u-text-1"
+                th:text="${question.getQuestion()}"></h5>
             <br>
             <br>
             <br>
@@ -210,6 +255,16 @@
         </form>
     </div>
 </section>
+<section class="u-clearfix u-section-3" id="sec-a739">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <a th:href="@{/student/question/{generatedNumber}(generatedNumber=${question.getGeneratedQuestionNumber() - 1})}"
+           class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1"><span
+                class="u-file-icon u-icon u-text-white u-icon-1"><img src="/images/10631765-6bf26581.png" alt=""></span>&nbsp;ORTGA
+        </a>
+
+    </div>
+</section>
+
 <script>
     function functionPost() {
         var ajax = new XMLHttpRequest();

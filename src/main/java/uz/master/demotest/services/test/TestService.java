@@ -122,13 +122,13 @@ public class TestService {
         int allQuestion = testRepository.findById(testId).get().getNumberOfQuestion();
         double efficiency = ((double) correctAnswers / allQuestion) * 100.0;
         setAuthUserData(authUser);
-        return getResultDto(authUser, correctAnswers, allQuestion, efficiency);
+        return getResultDto(authUser, correctAnswers, allQuestion, efficiency, testId);
     }
 
-    private ResultDto getResultDto(AuthUser authUser, Integer correctAnswers, Integer allQuestion, double efficiency) {
+    private ResultDto getResultDto(AuthUser authUser, Integer correctAnswers, Integer allQuestion, double efficiency, Long testId) {
         String patternForDateTime = "dd.MM.yyyy HH:mm:ss";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(patternForDateTime);
-        OverAllResult result = overAllResultRepository.findByTakerUser(authUser.getFullName());
+        OverAllResult result = overAllResultRepository.findByTakerUserAndTestId(authUser.getFullName(), testId);
         result.setCompleted(true);
         result.setNumberOfAllQues(allQuestion);
         result.setTakerUserId(authUser.getId());
@@ -168,7 +168,7 @@ public class TestService {
 
 
     public List<OverAllResultDTO> getAllResults() {
-        List<Test> allTests = testRepository.findTestsByActiveTrueAndDeletedFalse();
+        List<Test> allTests = testRepository.findAllByDeletedFalseOrderById();
         return getOverAllResultDTOS(allTests);
 
     }

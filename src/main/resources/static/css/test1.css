@@ -1,23 +1,9 @@
 .u-section-1 .u-sheet-1 {
-  min-height: 106px;
-}
-
-.u-section-1 .u-icon-1 {
-  width: 90px;
-  height: 90px;
-  margin: 9px 305px 0 auto;
-  padding: 7px;
-}
-
-.u-section-1 .u-icon-2 {
-  width: 90px;
-  height: 90px;
-  margin: -90px auto 0 305px;
-  padding: 7px;
+  min-height: 94px;
 }
 
 .u-section-1 .u-countdown-1 {
-  margin: -77px auto 0;
+  margin: 22px auto 0;
 }
 
 .u-section-1 .u-countdown-counter-1 {
@@ -123,12 +109,12 @@
   border-style: solid;
   font-weight: 700;
   margin: -56px 0 0 auto;
-  padding: 9px 4px 10px;
+  padding: 9px 21px 10px;
 }
 
 .u-section-1 .u-text-1 {
   font-size: 1.5rem;
-  margin: -38px 961px 40px 0;
+  margin: -38px 961px 30px 0;
 }
 
 @media (max-width: 1199px) {
@@ -138,52 +124,28 @@
 }
 
 @media (max-width: 991px) {
-  .u-section-1 .u-icon-1 {
-    margin-right: 234px;
-  }
-
-  .u-section-1 .u-icon-2 {
-    margin-left: 234px;
-  }
-
   .u-section-1 .u-text-1 {
     margin-right: 541px;
   }
 }
 
 @media (max-width: 767px) {
-  .u-section-1 .u-icon-1 {
-    margin-right: 176px;
-  }
-
-  .u-section-1 .u-icon-2 {
-    margin-left: 176px;
-  }
-
   .u-section-1 .u-text-1 {
     margin-right: 361px;
   }
 }
 
 @media (max-width: 575px) {
-  .u-section-1 .u-icon-1 {
-    margin-right: 111px;
-  }
-
-  .u-section-1 .u-icon-2 {
-    margin-left: 111px;
-  }
-
   .u-section-1 .u-text-1 {
     margin-right: 161px;
   }
 }.u-section-2 .u-sheet-1 {
-  min-height: 645px;
+  min-height: 552px;
 }
 
 .u-section-2 .u-text-1 {
   font-weight: 400;
-  margin: 79px 21px 0 108px;
+  margin: 100px 21px 0 108px;
 }
 
 .u-section-2 .u-text-2 {
@@ -231,4 +193,39 @@
     margin-right: 0;
     margin-left: 0;
   }
+}.u-section-3 .u-sheet-1 {
+  min-height: 87px;
+}
+
+.u-section-3 .u-btn-1 {
+  font-size: 0.9375rem;
+  letter-spacing: 1px;
+  border-style: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 14px auto 0 0;
+  padding: 8px 219px;
+}
+
+.u-section-3 .u-icon-1 {
+  vertical-align: -2px;
+  font-size: 1.3334em;
+  margin-right: 9px;
+}
+
+.u-section-3 .u-btn-2 {
+  font-size: 0.9375rem;
+  letter-spacing: 1px;
+  border-style: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: -48px 0 25px auto;
+  padding: 8px 222px 8px 221px;
+}
+
+.u-section-3 .u-icon-2 {
+  vertical-align: -2px;
+  font-size: 1.3334em;
+  margin-left: 9px;
+  margin-top: 0;
 }
