@@ -1,0 +1,44 @@
+ .u-section-1 {
+  background-image: none;
+}
+
+.u-section-1 .u-sheet-1 {
+  min-height: 546px;
+}
+
+.u-section-1 .u-form-1 {
+  height: 467px;
+  background-image: none;
+  box-shadow: 0px 0px 23px 0px rgba(153,153,153,1);
+  width: 458px;
+  margin: 39px auto 40px;
+}
+
+.u-section-1 .u-text-1 {
+  margin-left: 0;
+  text-transform: uppercase;
+}
+
+.u-section-1 .u-form-group-2 {
+  margin-left: 0;
+}
+
+.u-section-1 .u-input-1 {
+  box-shadow: 0px 0px 8px 0px rgba(255,255,255,1);
+}
+
+.u-section-1 .u-input-2 {
+  box-shadow: 0px 0px 8px 0px rgba(255,255,255,1);
+}
+
+.u-section-1 .u-btn-1 {
+  background-image: none;
+  box-shadow: 0px 0px 17px 0px rgba(192,192,192,1);
+  padding: 10px 71px 10px 70px;
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-form-1 {
+    width: 340px;
+  }
+}

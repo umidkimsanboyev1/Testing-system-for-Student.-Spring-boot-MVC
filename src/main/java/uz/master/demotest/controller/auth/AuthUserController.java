@@ -47,4 +47,5 @@ public class AuthUserController {
     public String resetPassword(@ModelAttribute ResetPassword dto){
          return service.resetPassword(dto) ? "redirect:/home" : "redirect:/auth/resetPassword";
     }
+
 }

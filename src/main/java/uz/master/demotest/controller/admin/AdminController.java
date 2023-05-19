@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.master.demotest.dto.auth.AddStudentDto;
 import uz.master.demotest.dto.test.OverAllResultDTO;
 import uz.master.demotest.dto.test.TestDto;
+import uz.master.demotest.entity.Groups;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.test.Subject;
 import uz.master.demotest.entity.test.Test;
@@ -136,6 +137,12 @@ public class AdminController {
         return "/admin/checkDeleteTest";
     }
 
+    @GetMapping(value = "/deleteTest/{id}")
+    public String deleteTest(@PathVariable Long id){
+        testService.delete(id);
+        return "redirect:/admin/allTests";
+    }
+
     @GetMapping(value = "/deleteResult/{id}")
     public String deleteResult(@PathVariable Long id){
         overAllResultService.delete(id);
@@ -147,11 +154,24 @@ public class AdminController {
         model.addAttribute("user", sessionUser.getFullName());
         try {
             List<OverAllResultDTO> results = testService.getAllResults();
+            List<Groups> allGroups = groupService.getAllGroups();
+            model.addAttribute("groups", allGroups);
             model.addAttribute("results", results);
         } catch (Exception ex) {
             model.addAttribute("error", "Ma'lumotlar topilmadi!");
             return "/error/error";
         }
+        return "/admin/results";
+    }
+
+    @GetMapping(value = "/results/{groupName}")
+    public String getAllResultsByGroup(Model model, @PathVariable String groupName) {
+        Long id = authUserService.setAuthUserSelectedGroup(groupName);
+        List<OverAllResultDTO> allResult = testService.getAllResultsByGroup(id, groupName);
+        List<Groups> allGroups = groupService.getAllGroups();
+        model.addAttribute("groups", allGroups);
+        model.addAttribute("user", sessionUser.getFullName());
+        model.addAttribute("results", allResult);
         return "/admin/results";
     }
     @GetMapping(value = "/editTest/{id}")

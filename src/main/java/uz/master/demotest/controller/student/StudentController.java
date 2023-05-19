@@ -4,10 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import uz.master.demotest.dto.test.CheckingDto;
-import uz.master.demotest.dto.test.RequestTestDto;
-import uz.master.demotest.dto.test.ResultDto;
-import uz.master.demotest.dto.test.TestIntroductionDto;
+import uz.master.demotest.dto.test.*;
+import uz.master.demotest.entity.Groups;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.test.SendQuestion;
 import uz.master.demotest.entity.test.Test;
@@ -50,9 +48,22 @@ public class StudentController {
     @GetMapping(value = "/result")
     public String getResults(Model model) {
         model.addAttribute("user", sessionUser.getFullName());
-        ResultDto result = testService.getResult();
+        ResultDto result = testService.getResult(sessionUser.getId());
         model.addAttribute("result", result);
         return "/student/result";
+    }
+
+    @GetMapping(value = "/results")
+    public String getResult(Model model) {
+        model.addAttribute("user", sessionUser.getFullName());
+        try {
+            List<OverAllResultDTO> results = testService.getAllMyResults(sessionUser.getId());
+            model.addAttribute("results", results);
+        } catch (Exception ex) {
+            model.addAttribute("error", "Ma'lumotlar topilmadi!");
+            return "/error/error";
+        }
+        return "/student/myResults";
     }
 
     @GetMapping("/listTests")

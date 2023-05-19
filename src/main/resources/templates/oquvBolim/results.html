@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>SU test tizimi</title>
+    <link rel="stylesheet" href="/css/nicepage.css" media="screen">
+    <link rel="stylesheet" href="/css/results.css" media="screen">
+    <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
+    <meta name="generator" content="Nicepage 5.8.13, nicepage.com">
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css} "/>
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "Site5",
+        "logo": "images/1uzbgsbe.png"
+    }</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="SU test tizimi">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta data-intl-tel-input-cdn-path="intlTelInput/">
+</head>
+<body class="u-body u-xl-mode" data-lang="ru">
+<header class="u-box-shadow u-clearfix u-header u-header" id="sec-2e51">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <a th:href="@{/home}" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
+            <img src="/images/1uzbgsbe.png" class="u-logo-image u-logo-image-1">
+        </a>
+        <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
+            <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+                <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+                   href="#">
+                    <svg class="u-svg-link" viewBox="0 0 24 24">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
+                    </svg>
+                    <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <rect y="1" width="16" height="2"></rect>
+                            <rect y="7" width="16" height="2"></rect>
+                            <rect y="13" width="16" height="2"></rect>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+            <div class="u-custom-menu u-nav-container">
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni
+                        o'zgartirish</a>
+                    </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
+                        chiqish</a>
+                    </li>
+                    qish</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="u-custom-menu u-nav-container-collapse">
+                <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+                    <div class="u-inner-container-layout u-sidenav-overflow">
+                        <div class="u-menu-close"></div>
+                        <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link"
+                                                      th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
+                                chiqish</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+            </div>
+        </nav>
+        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-1">Biznes ta tadbirkorlik oliy maktabining
+            test tizimi </p>
+        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
+    </div>
+</header>
+<section class="u-align-center u-clearfix u-section-1" id="sec-7ac4">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-accordion u-expanded-width u-spacing-12 u-accordion-1" th:each="result : ${results}">
+            <div class="u-accordion-item">
+                <a class="u-accordion-link u-active-palette-1-light-3 u-button-style u-custom-font u-font-ubuntu u-palette-1-light-3 u-text-body-color u-accordion-link-1"
+                   id="link-20ee" aria-controls="20ee" aria-selected="true">
+                    <span class="u-accordion-link-text" th:text="${result.getTest().getName()}">Test nomi</span><span
+                        class="u-accordion-link-icon u-icon u-text-black u-icon-1"><svg class="u-svg-link"
+                                                                                        preserveAspectRatio="xMidYMin slice"
+                                                                                        viewBox="0 0 16 16" style=""><use
+                        xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-7485"></use></svg><svg
+                        class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-7485"><path d="M8,10.7L1.6,5.3c-0.4-0.4-1-0.4-1.3,0c-0.4,0.4-0.4,0.9,0,1.3l7.2,6.1c0.1,0.1,0.4,0.2,0.6,0.2s0.4-0.1,0.6-0.2l7.1-6
+	c0.4-0.4,0.4-0.9,0-1.3c-0.4-0.4-1-0.4-1.3,0L8,10.7z"></path></svg></span>
+                </a>
+                <div class=" u-accordion-pane u-container-style u-shape-rectangle u-accordion-pane-1"
+                     id="20ee" aria-labelledby="link-20ee">
+                    <div class="u-container-layout u-container-layout-1">
+                        <br>
+                        <br>
+                        <div class="btn-group">
+                            <button style="margin-left: 35px; !important;"
+                                    class="btn btn-outline-success btn-sm dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                Guruh
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="fs-6"><a class="dropdown-item" th:href="@{/teacher/results/}">Barchasi</a>
+                                </li>
+                                <span th:each="group : ${groups}">
+                                    <li class="fs-6"><a th:text="${group.getName()}" class="dropdown-item"
+                                                        th:href="@{/teacher/results/{groupName}(groupName=${group.getName()})}">Action</a></li>
+                                </span>
+                            </ul>
+                        </div>
+                        <div class="u-table u-table-responsive u-table-1">
+                            <table class="u-table-entity">
+                                <colgroup>
+                                    <col width="4%">
+                                    <col width="25%">
+                                    <col width="9%">
+                                    <col width="14%">
+                                    <col width="15%">
+                                    <col width="10%">
+                                    <col width="10%">
+                                    <col width="14%">
+                                    <col width="10%">
+                                </colgroup>
+                                <tbody class="u-align-center u-custom-font u-font-ubuntu u-table-alt-palette-1-light-3 u-table-body u-table-valign-middle">
+                                <tr style="height: 95px;">
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell">№</td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell">Tinglovchining F.I.O</td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell">Guruh</td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell">Berilgan savollar</td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell">To'g'ri javob berilgan
+                                        savollar
+                                    </td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell">Samaradorlik</td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell">Boshlagan vaqti</td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell">Tugagan vaqt</td>
+                                </tr>
+                                <tr style="height: 52px;" th:each="dto, iter :${result.getResults()}">
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell" th:text="${iter.count}"></td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell"
+                                        th:text="${dto.getTakerUser()}"></td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell"
+                                        th:text="${dto.getGroupName()}"></td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell"
+                                        th:text="${dto.getNumberOfAllQues()}"></td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell"
+                                        th:text="${dto.getCorrectAnsweredQues()}"></td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell"
+                                        th:text="${dto.getEfficiency()} + ' %'"></td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell"
+                                        th:text="${dto.getStartedTime()}"></td>
+                                    <td class="u-border-2 u-border-grey-50 u-table-cell"
+                                        th:text="${dto.getPassedTime()}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</body>
+</html>

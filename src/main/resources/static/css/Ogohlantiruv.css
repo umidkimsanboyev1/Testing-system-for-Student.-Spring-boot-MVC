@@ -1,0 +1,71 @@
+.u-section-1 .u-sheet-1 {
+  min-height: 282px;
+}
+
+.u-section-1 .u-list-1 {
+  margin-bottom: 0;
+  margin-top: 17px;
+}
+
+.u-section-1 .u-repeater-1 {
+  grid-gap: 10px 10px;
+  grid-template-columns: 100%;
+  min-height: 161px;
+}
+
+.u-section-1 .u-container-layout-1 {
+  padding: 9px 10px;
+}
+
+.u-section-1 .u-icon-1 {
+  width: 28px;
+  height: 28px;
+  margin: 1px auto 0 3px;
+  padding: 0;
+}
+
+.u-section-1 .u-text-1 {
+  margin: -28px auto 0 49px;
+}
+
+.u-section-1 .u-container-layout-2 {
+  padding: 9px 10px;
+}
+
+.u-section-1 .u-icon-2 {
+  width: 28px;
+  height: 28px;
+  margin: 1px auto 0 3px;
+  padding: 0;
+}
+
+.u-section-1 .u-text-2 {
+  margin: -28px auto 0 49px;
+}
+
+.u-section-1 .u-container-layout-3 {
+  padding: 9px 10px;
+}
+
+.u-section-1 .u-icon-3 {
+  width: 28px;
+  height: 28px;
+  margin: 1px auto 0 3px;
+  padding: 0;
+}
+
+.u-section-1 .u-text-3 {
+  margin: -28px auto 0 49px;
+}
+
+.u-section-1 .u-btn-1 {
+  background-image: none;
+  margin: 31px auto 31px 11px;
+  padding: 8px 28px 8px 27px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-btn-1 {
+    margin-left: 0;
+  }
+}

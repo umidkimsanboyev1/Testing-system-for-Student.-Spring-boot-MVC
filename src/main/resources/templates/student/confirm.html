@@ -11,11 +11,9 @@
     <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.9.3, nicepage.com">
-    <link id="u-theme-google-font" rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
-    <link id="u-page-google-font" rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i">
-
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css} "/>
 
     <script type="application/ld+json">{
         "@context": "http://schema.org",
@@ -55,9 +53,11 @@
               <div class="u-custom-menu u-nav-container">
                   <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
 
+                      <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/student/results}">Mening natijalarim</a>
+                      </li>
                       <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
                       </li>
-                      <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
+                      <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logout}">Akkountdan
                           chiqish</a>
                       </li>
                   </ul>
@@ -67,9 +67,11 @@
                       <div class="u-inner-container-layout u-sidenav-overflow">
                           <div class="u-menu-close"></div>
                           <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                              <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/student/results}">Mening natijalarim</a>
+                              </li>
                               <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
                               </li>
-                              <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/logout}">Akkountdan
+                              <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logout}">Akkountdan
                                   chiqish</a>
                               </li>
                           </ul>

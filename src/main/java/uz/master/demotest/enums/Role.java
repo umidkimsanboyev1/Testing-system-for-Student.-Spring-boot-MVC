@@ -17,7 +17,8 @@ public enum Role {
 
     ADMIN,
     TEACHER,
-    STUDENT;
+    STUDENT,
+    DEKANAT;
 
 
 

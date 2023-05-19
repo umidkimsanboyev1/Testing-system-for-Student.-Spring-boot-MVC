@@ -7,22 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="/css/login.css">
-
-    <!-- google font link  -->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&display=swap"
-            rel="stylesheet">
-
-    <!-- font awesome link -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css} "/>
 </head>
 
 <body>
-<div class="container">
+<div class="container" style="width: 490px !important;
+">
     <form th:action="@{/auth/login}" th:method="POST">
         <img src="/images/1uzbgsbe.png" class="rounded mx-auto d-block" width="110px" height="110px" alt="GSBE.UZ logo" ><br>
         <div class="login-text">

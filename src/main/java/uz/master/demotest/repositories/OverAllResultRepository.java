@@ -15,6 +15,7 @@ public interface OverAllResultRepository extends JpaRepository<OverAllResult, Lo
 
     @Transactional
     List<OverAllResult> findOverAllResultsByTestIdOrderByPassedTime(Long id);
+    List<OverAllResult> findOverAllResultsByTestIdAndTakerUserIdOrderByPassedTime(Long testId, Long TakerId);
     @Transactional
     List<OverAllResult> findOverAllResultsByTestIdAndGroupNameOrderByPassedTime(Long id, String groupName);
 
