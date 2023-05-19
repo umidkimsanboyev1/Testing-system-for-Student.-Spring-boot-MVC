@@ -17,7 +17,8 @@ public class SessionListener implements HttpSessionListener {
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        String id = (String) se.getSession().getAttribute("id");
+        Object id1 = se.getSession().getAttribute("id");
+        String id = (String)id1;
         Long sessionId = Long.valueOf(id);
         testService.getResult(sessionId);
     }

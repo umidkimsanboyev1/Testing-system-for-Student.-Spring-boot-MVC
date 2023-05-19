@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>register</title>
+    <title>Parolni o'zgartirish</title>
     <link rel="stylesheet" href="/css/register.css">
     <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
@@ -22,10 +21,13 @@
             <input  type="text" placeholder="Yangi parolingizni qaytadan kiriting" name="newPassword2">
         </div>
 
-        <div class="login-button text-end">
-            <button class="btn btn-primary" type="submit">Saqlash</button>
-            <a class="btn btn-success" th:href="@{/home}">Ortga</a>
-        </div>
+        <button  class="btn btn-primary btn-sm" type="submit">O'zgartirish</button>
+        <a th:href="@{/home}" type="button" class="btn btn-secondary btn-sm">Bekor qilish</a>
+
+<!--        <div class="login-button text-end">-->
+<!--            <button class="btn btn-primary" type="submit">Saqlash</button>-->
+<!--            <a class="btn btn-success" th:href="@{/home}">Ortga</a>-->
+<!--        </div>-->
 
     </form>
 </div>

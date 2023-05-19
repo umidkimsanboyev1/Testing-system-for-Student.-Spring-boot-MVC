@@ -176,7 +176,7 @@ public class TestService {
 
     public List<OverAllResultDTO> getAllMyResults(Long takerId) {
         List<Test> allTests = testRepository.findAllByDeletedFalseOrderById();
-        return getOverAllResultDTOS(allTests, takerId);
+        return getMyOverAllResultDTOS(allTests, takerId);
 
     }
 
@@ -195,19 +195,21 @@ public class TestService {
     }
 
     @NotNull
-    private List<OverAllResultDTO> getOverAllResultDTOS(List<Test> allTests, Long takerId) {
+    private List<OverAllResultDTO> getMyOverAllResultDTOS(List<Test> allTests, Long takerId) {
         List<OverAllResultDTO> results = new ArrayList<>();
         for (Test test : allTests) {
             Long id = test.getId();
             OverAllResultDTO dto = new OverAllResultDTO();
-            dto.setTest(test);
-            List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdAndTakerUserIdOrderByPassedTime(id, takerId);
-            dto.setResults(overAllResultsByTestId);
-            results.add(dto);
+            AuthUser authUser = userRepository.findById(sessionUser.getId()).get();
+            if(overAllResultRepository.existsByTakerUserAndTestId(authUser.getFullName(), id)){
+                dto.setTest(test);
+                List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdAndTakerUserIdOrderByPassedTime(id, takerId);
+                dto.setResults(overAllResultsByTestId);
+                results.add(dto);
+            }
         }
         return results;
     }
-
     public List<OverAllResultDTO> getAllResultsForTeacher() {
         List<Test> allTests = testRepository.findTestsByActiveTrueAndDeletedFalseAndOwnerId(sessionUser.getId());
         return getOverAllResultDTOS(allTests);

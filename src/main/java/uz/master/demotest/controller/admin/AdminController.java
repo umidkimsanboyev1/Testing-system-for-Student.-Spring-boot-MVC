@@ -62,9 +62,17 @@ public class AdminController {
         return "/admin/students";
     }
 
+    @GetMapping(value = "/teachers")
+    public String getAllTeachers(Model model) {
+        List<AuthUser> allStudents = authUserService.getAllTeachers();
+        model.addAttribute("user", sessionUser.getFullName());
+        model.addAttribute("teachers", allStudents);
+        return "/admin/teachers";
+    }
+
     @GetMapping(value = "/students/{groupName}")
     public String getAllStudentsByGroup(Model model, @PathVariable String groupName) {
-        Long id = authUserService.setAuthUserSelectedGroup(groupName);
+        authUserService.setAuthUserSelectedGroup(groupName);
         List<AuthUser> allStudents = authUserService.getAllStudentsByGroup(groupName);
         model.addAttribute("groups", groupService.getAllGroups());
         model.addAttribute("user", sessionUser.getFullName());
@@ -79,10 +87,20 @@ public class AdminController {
         model.addAttribute("groups", groupService.getAllGroups());
         return "/admin/addStudent";
     }
+    @GetMapping(value = "/addTeacher")
+    public String getAddTeacherPage(Model model) {
+        model.addAttribute("user", sessionUser.getFullName());
+        return "/admin/addTeacher";
+    }
 
     @PostMapping(value = "/addStudent")
-    public String addStudent(@ModelAttribute AddStudentDto dto, Model model) {
+    public String addStudent(@ModelAttribute AddStudentDto dto) {
         return authUserService.addStudent(dto) ? "redirect:/admin/students" : "redirect:/admin/addStudent";
+    }
+
+    @PostMapping(value = "/addTeacher")
+    public String addTeacher(@ModelAttribute AddStudentDto dto) {
+        return authUserService.addTeacher(dto) ? "redirect:/admin/teachers" : "redirect:/admin/addTeacher";
     }
 
     @GetMapping(value = "/doAction/{id}")
@@ -99,6 +117,12 @@ public class AdminController {
         }
         String selectedGroupName = authUserService.getSelectedGroupName();
         return "redirect:/admin/students/" + selectedGroupName;
+    }
+
+    @GetMapping(value = "/doActionTeacher/{id}")
+    public String doActionTeacher(@PathVariable Long id) {
+        authUserService.doAction(id);
+        return "redirect:/admin/teachers/";
     }
 
     @GetMapping(value = "/blockStudents")
@@ -126,6 +150,11 @@ public class AdminController {
     public String delete(@PathVariable Long id) {
         authUserService.delete(id);
         return "redirect:/admin/students";
+    }
+    @GetMapping(value = "/deleteTeacher/{id}")
+    public String deleteTeacher(@PathVariable Long id) {
+        authUserService.delete(id);
+        return "redirect:/admin/teachers";
     }
 
 
@@ -202,6 +231,13 @@ public class AdminController {
         model.addAttribute("student", authUser);
         return "/admin/editStudent";
     }
+    @GetMapping(value = "/editTeacher/{id}")
+    public String getEditTeacherPage(Model model, @PathVariable Long id){
+        AuthUser authUser = authUserService.getAuthUserById(id);
+        model.addAttribute("user", sessionUser.getFullName());
+        model.addAttribute("student", authUser);
+        return "/admin/editTeacher";
+    }
 
     @PostMapping(value = "/editStudent")
     public String updateStudent(@ModelAttribute AuthUser user){
@@ -209,6 +245,16 @@ public class AdminController {
             authUserService.updateAuthUser(user);
         } catch (Exception e){
             return "redirect:/admin/editStudent/" + user.getId();
+        }
+        return "redirect:/home";
+    }
+
+    @PostMapping(value = "/editTeacher")
+    public String updateTeacher(@ModelAttribute AuthUser user){
+        try {
+            authUserService.updateAuthUser(user);
+        } catch (Exception e){
+            return "redirect:/admin/editTeacher/" + user.getId();
         }
         return "redirect:/home";
     }

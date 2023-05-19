@@ -127,15 +127,15 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
             return false;
         }
         AuthUser tempUser = new AuthUser();
-        MapAuthUser(dto, tempUser);
+        MapAuthUser(dto, tempUser, Role.STUDENT);
         return true;
     }
 
-    private void MapAuthUser(AddStudentDto dto, AuthUser tempUser) {
+    private void MapAuthUser(AddStudentDto dto, AuthUser tempUser, Role role) {
         tempUser.setBlocked(false);
         tempUser.setDeleted(false);
         tempUser.setActive(true);
-        tempUser.setRole(Role.STUDENT);
+        tempUser.setRole(role);
         tempUser.setFullName(dto.getFullName());
         tempUser.setUsername(dto.getUsername());
         tempUser.setGroupName(dto.groupName);
@@ -220,5 +220,18 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
         authUser.setGroupName(user.getGroupName());
         authUser.setFullName(user.getFullName());
         repository.save(authUser);
+    }
+
+    public boolean addTeacher(AddStudentDto dto) {
+        if (!dto.getPassword1().equals(dto.getPassword2()) || repository.existsAuthUserByUsername(dto.getUsername())) {
+            return false;
+        }
+        AuthUser tempUser = new AuthUser();
+        MapAuthUser(dto, tempUser, Role.TEACHER);
+        return true;
+    }
+
+    public List<AuthUser> getAllTeachers() {
+        return repository.findAuthUserByRoleAndDeletedFalseOrderById(Role.TEACHER);
     }
 }

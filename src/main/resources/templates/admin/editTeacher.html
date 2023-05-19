@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Excel file ni yuklash</title>
+    <title>O'qituvchi ma'lumotlarini tahrirlash</title>
     <link rel="stylesheet" href="/css/nicepage.css" media="screen">
     <link rel="stylesheet" href="/css/SU-test-tizimi.css" media="screen">
     <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
@@ -9,7 +9,6 @@
     <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css} "/>
-
 </head>
 <body data-home-page="SU-test-tizimi.html" data-home-page-title="SU test tizimi" class="u-body u-xl-mode"
       data-lang="ru">
@@ -37,13 +36,15 @@
             </div>
             <div class="u-custom-menu u-nav-container">
                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
-                        testlarim</a>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/allTests}">Barcha
+                        testlar</a>
                     </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/createTest}">Test
-                        yaratish</a>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link"
+                                              th:href="@{/admin/results}">Natijalar</a>
                     </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/results}">Natijalar</a>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
+                    </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
                     </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
                     </li>
@@ -57,13 +58,14 @@
                     <div class="u-inner-container-layout u-sidenav-overflow">
                         <div class="u-menu-close"></div>
                         <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
-                                testlarim</a>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/allTests}">Barcha
+                                testlar</a>
                             </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/createTest}">Test
-                                yaratish</a>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/results}">Natijalar</a>
                             </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/results}">Natijalar</a>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
                             </li>
@@ -85,21 +87,33 @@
 <br>
 <section class="u-align-center u-clearfix u-section-1" id="sec-8981">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-container-style u-group u-group-1">
-            <div class="u-container-layout u-container-layout-1">
-                <div class="shadow p-3 mb-5 bg-body-tertiary rounde">
-                    <p>ESLATMA! <br>
-                    Yuklayotgan faylingiz excel fayl bo'lishi hamda shablonga mos bo'lishi zarur. Aks holda, test yuklanmaydi. Shablon faylini <a href="#">Ushbu</a> joydan yuklab oling! </p>
-                    <p>Yuklangan fayl 5 minut ichida ko'rinadi! </p>
-                </div>
-                <form th:action="@{/teacher/uploadExcelFile/{id}(id=${id})}" method="POST" enctype="multipart/form-data">
-                    <div class="input-group shadow p-3 mb-5 bg-body-tertiary rounde">
-                        <input type="file" name="file" class="form-control" id="inputGroupFile04"
-                               aria-describedby="inputGroupFileAddon04" aria-label="Upload" value="Fayli tanlang" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                        <button type="submit" class="btn btn-outline-secondary"  id="inputGroupFileAddon04">Yuklash</button>
+        <div class="u-expanded-width u-table u-table-responsive u-table-1">
+            <form th:action="@{/admin/editStudent}" method="post">
+                <input type="hidden" th:value="${student.getId()}" name="id">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="specificSizeInputName">F.I.O</label>
+                    <div class="col-sm-10">
+                        <input th:value="${student.getFullName()}" type="text" name="fullName" class="form-control" id="specificSizeInputName"
+                               placeholder="Aliyev Ali">
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="specificSizeInputName2">Username</label>
+                    <div class="col-sm-10">
+                        <input th:value="${student.getUsername()}" type="text" name="username" class="form-control" id="specificSizeInputName2"
+                               placeholder="aliyev.vali">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="specificSizeInputName3">Parol</label>
+                    <div class="col-sm-10">
+                        <input type="password" name="password1" class="form-control" id="specificSizeInputName3">
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Yuborish</button>
+                </div>
+            </form>
         </div>
     </div>
 </section>

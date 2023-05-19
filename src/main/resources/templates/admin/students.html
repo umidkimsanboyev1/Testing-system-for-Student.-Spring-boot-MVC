@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <title>SU test tizimi</title>
+    <title>Barcha tinglovchilar</title>
     <link rel="stylesheet" href="/css/nicepage.css" media="screen">
     <link rel="stylesheet" href="/css/students.css" media="screen">
     <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
@@ -104,6 +102,8 @@
                     <li class="u-nav-item"><a class="u-button-style u-nav-link"
                                               th:href="@{/admin/results}">Natijalar</a>
                     </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
+                    </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
                     </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
@@ -123,6 +123,8 @@
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/results}">Natijalar</a>
                             </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
+                            </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
@@ -136,7 +138,7 @@
                 <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
             </div>
         </nav>
-        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-1">Biznes ta tadbirkorlik oliy maktabining
+        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-1">Biznes tadbirkorlik oliy maktabining
             test tizimi </p>
         <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
     </div>

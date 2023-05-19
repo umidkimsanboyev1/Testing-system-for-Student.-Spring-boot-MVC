@@ -56,13 +56,12 @@ public class StudentController {
     @GetMapping(value = "/results")
     public String getResult(Model model) {
         model.addAttribute("user", sessionUser.getFullName());
-        try {
             List<OverAllResultDTO> results = testService.getAllMyResults(sessionUser.getId());
+            if(results.size() == 0){
+                model.addAttribute("error", "Ma'lumotlar topilmadi!");
+                return "/error/error";
+            }
             model.addAttribute("results", results);
-        } catch (Exception ex) {
-            model.addAttribute("error", "Ma'lumotlar topilmadi!");
-            return "/error/error";
-        }
         return "/student/myResults";
     }
 
