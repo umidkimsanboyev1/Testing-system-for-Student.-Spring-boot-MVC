@@ -234,4 +234,9 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     public List<AuthUser> getAllTeachers() {
         return repository.findAuthUserByRoleAndDeletedFalseOrderById(Role.TEACHER);
     }
+
+
+    public boolean checkToRole(Role role) {
+        return getAuthUser().getRole().equals(role);
+    }
 }

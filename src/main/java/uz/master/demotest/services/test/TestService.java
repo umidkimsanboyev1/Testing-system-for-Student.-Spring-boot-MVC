@@ -17,9 +17,7 @@ import uz.master.demotest.utils.SessionUser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TestService {
@@ -187,7 +185,7 @@ public class TestService {
             Long id = test.getId();
             OverAllResultDTO dto = new OverAllResultDTO();
             dto.setTest(test);
-            List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdOrderByPassedTime(id);
+            List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdOrderByTakerUser(id);
             dto.setResults(overAllResultsByTestId);
             results.add(dto);
         }
@@ -211,7 +209,7 @@ public class TestService {
         return results;
     }
     public List<OverAllResultDTO> getAllResultsForTeacher() {
-        List<Test> allTests = testRepository.findTestsByActiveTrueAndDeletedFalseAndOwnerId(sessionUser.getId());
+        List<Test> allTests = testRepository.findTestsByDeletedFalseAndOwnerId(sessionUser.getId());
         return getOverAllResultDTOS(allTests);
     }
 
@@ -220,16 +218,16 @@ public class TestService {
         AuthUser authUser = userRepository.findById(id).get();
         List<Test> testByOwner;
         if(Role.TEACHER.equals(authUser.getRole())){
-            testByOwner = testRepository.findTestsByActiveTrueAndDeletedFalseAndOwnerId(id);
+            testByOwner = testRepository.findTestsByDeletedFalseAndOwnerId(id);
         } else {
-            testByOwner = testRepository.findTestsByActiveTrueAndDeletedFalse();
+            testByOwner = testRepository.findTestsByDeletedFalse();
         }
         List<OverAllResultDTO> results = new ArrayList<>();
         for (Test test : testByOwner) {
             Long testId = test.getId();
             OverAllResultDTO dto = new OverAllResultDTO();
             dto.setTest(test);
-            List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdAndGroupNameOrderByPassedTime(testId, groupName);
+            List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdAndGroupNameOrderByTakerUser(testId, groupName);
             dto.setResults(overAllResultsByTestId);
             results.add(dto);
         }

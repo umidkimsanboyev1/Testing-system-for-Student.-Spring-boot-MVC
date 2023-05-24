@@ -17,9 +17,9 @@ public interface TestRepository extends JpaRepository<Test, Long> {
 
     List<Test> findAllByDeletedFalseAndOwnerIdOrderById(Long id);
 
-    List<Test> findTestsByActiveTrueAndDeletedFalse();
+    List<Test> findTestsByDeletedFalse();
 
-    List<Test> findTestsByActiveTrueAndDeletedFalseAndOwnerId(Long id);
+    List<Test> findTestsByDeletedFalseAndOwnerId(Long id);
 
 
     Optional<Test> findByName(String name);

@@ -48,8 +48,10 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .csrf().disable()
                 .cors().disable()
+
                 .authorizeRequests(expressionInterceptUrlRegistry -> expressionInterceptUrlRegistry
                         .antMatchers(WHITE_LIST).permitAll()
                         .anyRequest().authenticated())
@@ -71,7 +73,9 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
                         .deleteCookies("JSESSIONID", "remember-me")
-                );
+                )
+                .exceptionHandling()
+                .accessDeniedPage("/error/403.html");
     }
 
     @Override

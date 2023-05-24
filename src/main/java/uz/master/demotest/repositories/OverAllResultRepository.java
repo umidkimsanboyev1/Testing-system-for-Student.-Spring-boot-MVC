@@ -14,10 +14,10 @@ public interface OverAllResultRepository extends JpaRepository<OverAllResult, Lo
     boolean existsByTakerUserAndTestId(String takerUser, Long testId);
 
     @Transactional
-    List<OverAllResult> findOverAllResultsByTestIdOrderByPassedTime(Long id);
+    List<OverAllResult> findOverAllResultsByTestIdOrderByTakerUser(Long id);
     List<OverAllResult> findOverAllResultsByTestIdAndTakerUserIdOrderByPassedTime(Long testId, Long TakerId);
     @Transactional
-    List<OverAllResult> findOverAllResultsByTestIdAndGroupNameOrderByPassedTime(Long id, String groupName);
+    List<OverAllResult> findOverAllResultsByTestIdAndGroupNameOrderByTakerUser(Long id, String groupName);
 
 
 }
