@@ -1,9 +1,13 @@
 package uz.master.demotest.services.auth;
 
+import com.poiji.bind.Poiji;
 import org.springframework.stereotype.Service;
 import uz.master.demotest.configs.encrypt.PasswordEncoderConfig;
 import uz.master.demotest.dto.auth.AddStudentDto;
 import uz.master.demotest.dto.auth.ResetPassword;
+import uz.master.demotest.dto.auth.StudentsCreateDto;
+import uz.master.demotest.dto.excel.QuestionsExcel;
+import uz.master.demotest.dto.excel.StudentsExcelDto;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.result.OverAllResult;
 import uz.master.demotest.entity.test.Test;
@@ -13,8 +17,10 @@ import uz.master.demotest.repositories.OverAllResultRepository;
 import uz.master.demotest.repositories.TestRepository;
 import uz.master.demotest.repositories.TokenRepository;
 import uz.master.demotest.services.AbstractService;
+import uz.master.demotest.services.FileStorageService;
 import uz.master.demotest.utils.SessionUser;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -29,16 +35,18 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     private final SessionUser sessionUser;
     private final TestRepository testRepository;
     private final PasswordEncoderConfig encoder;
+    private final FileStorageService fileStorageService;
 
     protected AuthUserService(AuthUserRepository repository,
 
-                              TokenRepository tokenRepository, OverAllResultRepository overAllResultRepository, SessionUser sessionUser, TestRepository testRepository, PasswordEncoderConfig encoder) {
+                              TokenRepository tokenRepository, OverAllResultRepository overAllResultRepository, SessionUser sessionUser, TestRepository testRepository, PasswordEncoderConfig encoder, FileStorageService fileStorageService) {
         super(repository);
         this.tokenRepository = tokenRepository;
         this.overAllResultRepository = overAllResultRepository;
         this.sessionUser = sessionUser;
         this.testRepository = testRepository;
         this.encoder = encoder;
+        this.fileStorageService = fileStorageService;
     }
 
     public static DateTimeFormatter getTimeFormatter() {
@@ -106,7 +114,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     }
 
     public List<AuthUser> getAllStudents() {
-        return repository.findAuthUserByRoleAndDeletedFalseOrderById(Role.STUDENT);
+        return repository.findAuthUserByRoleAndDeletedFalseOrderByFullName(Role.STUDENT);
     }
 
     public void doAction(Long id) {
@@ -148,7 +156,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     }
 
     public List<AuthUser> getAllStudentsByGroup(String groupName) {
-        return repository.findAuthUserByRoleAndDeletedFalseAndGroupNameOrderById(Role.STUDENT, groupName);
+        return repository.findAuthUserByRoleAndDeletedFalseAndGroupNameOrderByFullName(Role.STUDENT, groupName);
     }
 
     public AuthUser getAuthUser() {
@@ -174,9 +182,9 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
         AuthUser authUser = getAuthUser();
         List<AuthUser> students;
         if (Objects.isNull(authUser.getSelectedGroup())) {
-            students = repository.findAuthUserByRoleAndDeletedFalseOrderById(Role.STUDENT);
+            students = repository.findAuthUserByRoleAndDeletedFalseOrderByFullName(Role.STUDENT);
         } else {
-            students = repository.findAuthUserByRoleAndDeletedFalseAndGroupNameOrderById(Role.STUDENT, authUser.getSelectedGroup());
+            students = repository.findAuthUserByRoleAndDeletedFalseAndGroupNameOrderByFullName(Role.STUDENT, authUser.getSelectedGroup());
         }
 
         students.forEach(authUser1 -> authUser1.setActive(b));
@@ -232,11 +240,62 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     }
 
     public List<AuthUser> getAllTeachers() {
-        return repository.findAuthUserByRoleAndDeletedFalseOrderById(Role.TEACHER);
+        return repository.findAuthUserByRoleAndDeletedFalseOrderByFullName(Role.TEACHER);
     }
 
 
     public boolean checkToRole(Role role) {
         return getAuthUser().getRole().equals(role);
+    }
+
+    public Long setAuthUserViewedTestId(Long id) {
+        AuthUser authUser = getAuthUser();
+        authUser.setViewedTestId(id);
+        repository.save(authUser);
+        return authUser.getId();
+    }
+
+    public void createStudents(StudentsCreateDto studentCreateDto) {
+        String storedName = fileStorageService.store(studentCreateDto.getFile());
+        List<StudentsExcelDto> students = convertExcelToEntity(storedName);
+        for (StudentsExcelDto dto : students) {
+            AuthUser student = new AuthUser();
+            student.setFullName(dto.getFullName());
+            student.setPassword(encoder.passwordEncoder().encode(dto.getPassword()));
+            student.setGroupName(dto.getGroupName());
+            student.setActive(false);
+            student.setDeleted(false);
+            student.setRole(Role.STUDENT);
+            student.setBlocked(false);
+            student.setUsername(getUsernameForStudent(dto.getFullName()));
+            repository.save(student);
+        }
+    }
+
+    private String getUsernameForStudent(String fullName) {
+        String[] nomlar = fullName.split(" ");
+        String familiya = nomlar[0];
+        String ism = nomlar[1];
+        String familiyaLowerCase = familiya.toLowerCase();
+        char ismBirinchiHarf = ism.toLowerCase().charAt(0);
+        String username = familiyaLowerCase + "." + ismBirinchiHarf;
+        if(repository.existsAuthUserByUsername(username)){
+            username += ism.toLowerCase().charAt(1);
+            if(repository.existsAuthUserByUsername(username)){
+                username += ism.toLowerCase().charAt(2);
+            }
+        }
+        return username;
+    }
+
+    private List<StudentsExcelDto> convertExcelToEntity(String fileName) {
+        File file = new File("/JavaProject/tets/AtomsProject/src/main/resources/files/" + fileName);
+        List<StudentsExcelDto> students = Poiji.fromExcel(file, StudentsExcelDto.class);
+        return students;
+    }
+
+    public void deleteByGroupName(String name) {
+        List<AuthUser> allByGroupName = repository.findAllByGroupName(name);
+        repository.deleteAll(allByGroupName);
     }
 }

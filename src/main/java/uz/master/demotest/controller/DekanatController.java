@@ -36,7 +36,7 @@ public class DekanatController {
         model.addAttribute("user", sessionUser.getFullName());
         try {
             List<OverAllResultDTO> results = testService.getAllResults();
-            List<Groups> allGroups = groupService.getAllGroups();
+            List<String> allGroups = groupService.getAllGroups();
             model.addAttribute("groups", allGroups);
             model.addAttribute("results", results);
         } catch (Exception ex) {
@@ -50,7 +50,7 @@ public class DekanatController {
     public String getAllResultsByGroup(Model model, @PathVariable String groupName) {
         Long id = authUserService.setAuthUserSelectedGroup(groupName);
         List<OverAllResultDTO> allResult = testService.getAllResultsByGroup(id, groupName);
-        List<Groups> allGroups = groupService.getAllGroups();
+        List<String> allGroups = groupService.getAllGroups();
         model.addAttribute("groups", allGroups);
         model.addAttribute("user", sessionUser.getFullName());
         model.addAttribute("results", allResult);

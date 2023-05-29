@@ -15,7 +15,9 @@ public class Test {
 
     @Column(unique = true)
     private String name;
+    private String ownerName;
     private String file;
+    private String createdTime;
     private Long subjectId;
     // group ID for group
     private Long groupId;
@@ -27,4 +29,5 @@ public class Test {
     private boolean completed;
     private boolean active;
     private boolean deleted;
+
 }

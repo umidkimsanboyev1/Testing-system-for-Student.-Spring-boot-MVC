@@ -92,30 +92,30 @@
                 </p>
                 <form th:action="@{/teacher/createTest}" method="POST" enctype="multipart/form-data">
                     <div class="form-floating mb-3">
-                        <input type="text" name="name" class="form-control" id="floatingInput"
+                        <input required type="text" name="name" class="form-control" id="floatingInput"
                                placeholder="Ex: Oraliq Nazorat">
                         <label for="floatingInput">Testning nomi</label>
                     </div>
-                    <div class="form-floating">
-                        <select class="form-select" name="subjectId" id="floatingSelect" aria-label="Fanni tanlang">
-                            <span th:each="subject : ${subjects}">
-                            <option th:value="${subject.getId()}" th:text="${subject.getName()}"></option>
-                            </span>
-                        </select>
-                        <label for="floatingSelect">Fanni tanlang</label>
-                    </div>
+<!--                    <div class="form-floating">-->
+<!--                        <select class="form-select" name="subjectId" id="floatingSelect" aria-label="Fanni tanlang">-->
+<!--                            <span th:each="subject : ${subjects}">-->
+<!--                            <option th:value="${subject.getId()}" th:text="${subject.getName()}"></option>-->
+<!--                            </span>-->
+<!--                        </select>-->
+<!--                        <label for="floatingSelect">Fanni tanlang</label>-->
+<!--                    </div>-->
                     <br>
                     <div class="form-floating mb-3">
-                        <input type="number" name="numberOfQuestion" class="form-control" id="floatingInputNumber"
+                        <input required type="number" name="numberOfQuestion" class="form-control" id="floatingInputNumber"
                                placeholder="2, 3">
                         <label for="floatingInputNumber">Tinglovchiga tushishi kerak bo'lgan savollar soni</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" name="timeForOneQues" class="form-control" id="floatingInputNumber2"
+                        <input required type="number" name="timeForOneQues" class="form-control" id="floatingInputNumber2"
                                placeholder="2, 3">
-                        <label for="floatingInputNumber2">Test uchun umumiy vaqt</label>
+                        <label for="floatingInputNumber2">Test uchun umumiy vaqt (minutlarda)</label>
                     </div>
-                    <input type="file" name="file" class="form-control" id="inputGroupFile04"
+                    <input required type="file" name="file" class="form-control" id="inputGroupFile04"
                            aria-describedby="inputGroupFileAddon04" aria-label="Upload" value="Fayli tanlang"
                            accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
                     <br>

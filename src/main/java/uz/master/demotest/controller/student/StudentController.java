@@ -109,9 +109,6 @@ public class StudentController {
 
     @GetMapping(value = "/question/{generatedNumber}")
     public String getQuestion(@PathVariable Integer generatedNumber, Model model) {
-        if (questionService.checkTime()) {
-            return "redirect:/student/result";
-        }
         return getModel(generatedNumber, model);
     }
 

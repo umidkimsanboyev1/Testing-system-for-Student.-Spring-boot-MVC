@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>testni tahrirlash</title>
+    <title>Test yaratish</title>
     <link rel="stylesheet" href="/css/nicepage.css" media="screen">
     <link rel="stylesheet" href="/css/SU-test-tizimi.css" media="screen">
     <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
@@ -34,7 +34,6 @@
                     </svg>
                 </a>
             </div>
-
             <div class="u-custom-menu u-nav-container">
                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/allTests}">Barcha
@@ -94,13 +93,10 @@
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <div class="u-container-style u-group u-group-1">
             <div class="u-container-layout u-container-layout-1">
-                <form th:action="@{/admin/editTest}" method="POST">
-                    <div class="form-floating mb-3">
-                        <input type="hidden" th:value="${test.getId()}" name="id">
-                        <input type="text" name="name" class="form-control" id="floatingInput"
-                               placeholder="Ex: Oraliq Nazorat" th:value="${test.getName()}">
-                        <label for="floatingInput">Testning nomi</label>
-                    </div>
+                <p th:if="${error != null }">
+                    <span th:text="${error}"></span>
+                </p>
+                <form th:action="@{/admin/addStudentFromExcel}" method="POST" enctype="multipart/form-data">
 <!--                    <div class="form-floating">-->
 <!--                        <select class="form-select" name="subjectId" id="floatingSelect" aria-label="Fanni tanlang">-->
 <!--                            <span th:each="subject : ${subjects}">-->
@@ -109,20 +105,23 @@
 <!--                        </select>-->
 <!--                        <label for="floatingSelect">Fanni tanlang</label>-->
 <!--                    </div>-->
+<!--                    <br>-->
+<!--                    <div class="form-floating mb-3">-->
+<!--                        <input required type="number" name="numberOfQuestion" class="form-control" id="floatingInputNumber"-->
+<!--                               placeholder="2, 3">-->
+<!--                        <label for="floatingInputNumber">Tinglovchiga tushishi kerak bo'lgan savollar soni</label>-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    <div class="form-floating mb-3">-->
+<!--                        <input required type="number" name="timeForOneQues" class="form-control" id="floatingInputNumber2"-->
+<!--                               placeholder="2, 3">-->
+<!--                        <label for="floatingInputNumber2">Test uchun umumiy vaqt (minutlarda)</label>-->
+<!--                    </div>-->
+                    <input required type="file" name="file" class="form-control" id="inputGroupFile04"
+                           aria-describedby="inputGroupFileAddon04" aria-label="Upload" value="Fayli tanlang"
+                           accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
                     <br>
-                    <div class="form-floating mb-3">
-                        <input type="number" name="numberOfQuestion" class="form-control" id="floatingInputNumber" th:value="${test.getNumberOfQuestion()}"
-                               placeholder="2, 3">
-                        <label for="floatingInputNumber"  >Tinglovchiga tushishi kerak bo'lgan savollar soni</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="number" name="timeForOneQues" th:value="${test.getTimeForOneQues()}" class="form-control" id="floatingInputNumber2"
-                               placeholder="2, 3">
-                        <label for="floatingInputNumber2">Test uchun umumiy vaqt</label>
-                    </div>
                     <br>
-                    <br>
-                    <button type="submit" class="btn btn-primary">Testni yangilash</button>
+                    <button type="submit" class="btn btn-primary">Tinglovchilarni yaratish</button>
                 </form>
             </div>
         </div>

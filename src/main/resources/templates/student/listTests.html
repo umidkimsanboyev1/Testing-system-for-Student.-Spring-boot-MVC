@@ -82,7 +82,7 @@
                     <p>Quyidagi testlardan birini tanlang</p>
                     <select name="id" class="form-select" aria-label="Default select example">
                         <span th:each="test : ${tests}">
-                        <option  th:value="${test.getId()}" th:text="${test.getName()}"></option>
+                        <option  th:value="${test.getId()}" th:text="${test.getName()} + ' ( ' + ${test.getOwnerName()} + ' )'"></option>
                        </span>
                     </select>
                     <br>

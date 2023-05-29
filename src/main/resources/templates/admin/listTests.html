@@ -103,6 +103,8 @@
                     <li class="u-nav-item"><a class="u-button-style u-nav-link"
                                               th:href="@{/admin/results}">Natijalar</a>
                     </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/groups}">Guruhlar</a>
+                    </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
                     </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
@@ -123,6 +125,8 @@
                                 testlar</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/results}">Natijalar</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/groups}">Guruhlar</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
                             </li>
@@ -160,9 +164,9 @@
                 <tr style="height: 65px;">
                     <td class="u-table-cell">#</td>
                     <td class="u-table-cell">Test nomi</td>
-                    <td class="u-table-cell">Fani</td>
                     <td class="u-table-cell">Tuzuvchisi</td>
                     <td class="u-table-cell">Savollar soni</td>
+                    <td class="u-table-cell">Vaqt</td>
                     <td class="u-table-cell">Holati</td>
                     <td class="u-table-cell">Boshqarish</td>
                     <td class="u-table-cell"></td>
@@ -170,9 +174,9 @@
                 <tr style="height: 65px;" th:each="test, iter :${tests}">
                     <td th:text="${iter.count}" u-table-cell></td>
                     <td th:text="${test.getName()}" u-table-cell></td>
-                    <td th:text="${test.getSubject()}" u-table-cell></td>
                     <td th:text="${test.getOwner()}" u-table-cell></td>
                     <td th:text="${test.getNumberOfQuestion()}" u-table-cell></td>
+                    <td th:text="${test.getTimeForOneQues()}" u-table-cell></td>
                     <td u-table-cell><label class="switch"><a th:href="@{/admin/doAction/{id}(id=${test.getId()})}">
                         <input type="checkbox" th:checked="${test.isActive()}">
                         <span class="slider round"></span></a>

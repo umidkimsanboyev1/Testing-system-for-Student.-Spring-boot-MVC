@@ -102,6 +102,8 @@
                     <li class="u-nav-item"><a class="u-button-style u-nav-link"
                                               th:href="@{/admin/results}">Natijalar</a>
                     </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/groups}">Guruhlar</a>
+                    </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
                     </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
@@ -122,6 +124,8 @@
                                 testlar</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/results}">Natijalar</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/groups}">Guruhlar</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
                             </li>
@@ -158,7 +162,7 @@
             <ul class="dropdown-menu">
                 <li class="fs-6"><a class="dropdown-item" th:href="@{/admin/students/}">Barchasi</a></li>
                 <span th:each="group : ${groups}">
-                <li class="fs-6"><a th:text="${group.getName()}" class="dropdown-item" th:href="@{/admin/students/{groupName}(groupName=${group.getName()})}">Action</a></li>
+                <li class="fs-6"><a th:text="${group}" class="dropdown-item" th:href="@{/admin/students/{groupName}(groupName=${group})}">Action</a></li>
                     </span>
             </ul>
         </div>
@@ -174,6 +178,7 @@
             </ul>
         </div>
         <a class="btn btn-outline-primary btn-sm" role="button" aria-disabled="true" th:href="@{/admin/addStudent}" > + Tinglovchi qo'shish</a>
+        <a class="btn btn-outline-primary btn-sm" role="button" aria-disabled="true" th:href="@{/admin/addStudentFromExcel}" > + Tinglovchi exceldan yuklash</a>
         <div class="u-expanded-width u-table u-table-responsive u-table-1">
             <table class="u-table-entity">
                 <colgroup>

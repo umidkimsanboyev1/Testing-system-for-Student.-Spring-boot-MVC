@@ -42,6 +42,8 @@
                     <li class="u-nav-item"><a class="u-button-style u-nav-link"
                                               th:href="@{/admin/results}">Natijalar</a>
                     </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/groups}">Guruhlar</a>
+                    </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
                     </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
@@ -62,6 +64,8 @@
                                 testlar</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/results}">Natijalar</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/groups}">Guruhlar</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
                             </li>
@@ -121,7 +125,7 @@
                     <div class="col-sm-10">
                         <select name="groupName" class="form-select" id="specificSizeSelect">
                         <span th:each="group : ${groups}">
-                            <option th:value="${group.getName()}" th:text="${group.getName()}"></option>
+                            <option th:value="${group}" th:text="${group}"></option>
                         </span>
                         </select></div>
                 </div>

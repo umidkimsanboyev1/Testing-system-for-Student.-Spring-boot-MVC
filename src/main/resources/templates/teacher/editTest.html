@@ -94,14 +94,14 @@
                                placeholder="Ex: Oraliq Nazorat" th:value="${test.getName()}">
                         <label for="floatingInput">Testning nomi</label>
                     </div>
-                    <div class="form-floating">
-                        <select class="form-select" name="subjectId" id="floatingSelect" aria-label="Fanni tanlang">
-                            <span th:each="subject : ${subjects}">
-                            <option th:value="${subject.getId()}" th:text="${subject.getName()}"></option>
-                            </span>
-                        </select>
-                        <label for="floatingSelect">Fanni tanlang</label>
-                    </div>
+<!--                    <div class="form-floating">-->
+<!--                        <select class="form-select" name="subjectId" id="floatingSelect" aria-label="Fanni tanlang">-->
+<!--                            <span th:each="subject : ${subjects}">-->
+<!--                            <option th:value="${subject.getId()}" th:text="${subject.getName()}"></option>-->
+<!--                            </span>-->
+<!--                        </select>-->
+<!--                        <label for="floatingSelect">Fanni tanlang</label>-->
+<!--                    </div>-->
                     <br>
                     <div class="form-floating mb-3">
                         <input type="number" name="numberOfQuestion" class="form-control" id="floatingInputNumber" th:value="${test.getNumberOfQuestion()}"

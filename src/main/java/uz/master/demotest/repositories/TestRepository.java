@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public interface TestRepository extends JpaRepository<Test, Long> {
 
-    List<Test> findAllByActiveTrue();
+    List<Test> findAllByActiveTrueAndDeletedFalse();
 
-    List<Test> findAllByDeletedFalseOrderById();
+    List<Test> findAllByDeletedFalseOrderByIdDesc();
 
     List<Test> findAllByDeletedFalseAndOwnerIdOrderById(Long id);
 
@@ -31,4 +31,6 @@ public interface TestRepository extends JpaRepository<Test, Long> {
     @Modifying
     @Query(value = "update Test a set a.deleted=true where  a.id=:id")
     void testDeleteById(Long id);
+
+    List<Test> findAllByDeletedFalse();
 }

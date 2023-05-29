@@ -17518,9 +17518,6 @@ p {
     text-align: left;
   }
 }
-.u-align-center {
-  text-align: center;
-}
 @media (min-width: 1400px) {
   .u-align-center-xxl {
     text-align: center;

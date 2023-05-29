@@ -5,6 +5,7 @@ import lombok.*;
 import uz.master.demotest.entity.Auditable;
 import uz.master.demotest.entity.Groups;
 import uz.master.demotest.enums.Role;
+import uz.master.demotest.enums.TypeEducation;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +29,7 @@ public class AuthUser extends Auditable {
     private String password;
 
     private Role role;
+    private TypeEducation typeEducation;
 
     private String fullName;
 
@@ -36,6 +38,7 @@ public class AuthUser extends Auditable {
     private String selectedGroup;
 
     private Long testId;
+    private Long viewedTestId;
 
     private Integer QuesNumber;
 

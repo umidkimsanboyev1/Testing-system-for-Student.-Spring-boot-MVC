@@ -30,7 +30,7 @@ public class StudentService {
 
     public List<Test> getTestList(AuthUser authUser) {
         List<Test> result = new ArrayList<>();
-        List<Test> allTests = testRepository.findAllByActiveTrue();
+        List<Test> allTests = testRepository.findAllByActiveTrueAndDeletedFalse();
         for (Test test : allTests) {
             boolean b = overAllResultRepository.existsByTakerUserAndTestId(authUser.getFullName(), test.getId());
             if(!b) result.add(test);

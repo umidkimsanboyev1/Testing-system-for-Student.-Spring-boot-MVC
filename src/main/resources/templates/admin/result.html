@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>testni tahrirlash</title>
+    <title>Test yuzasidan umumiy natijalar</title>
     <link rel="stylesheet" href="/css/nicepage.css" media="screen">
-    <link rel="stylesheet" href="/css/SU-test-tizimi.css" media="screen">
+    <link rel="stylesheet" href="/css/results.css" media="screen">
     <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
     <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css} "/>
 </head>
-<body data-home-page="SU-test-tizimi.html" data-home-page-title="SU test tizimi" class="u-body u-xl-mode"
-      data-lang="ru">
+<body class="u-body u-xl-mode" data-lang="ru">
 <header class="u-box-shadow u-clearfix u-header u-header" id="sec-2e51">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <a th:href="@{/home}" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
@@ -34,7 +33,6 @@
                     </svg>
                 </a>
             </div>
-
             <div class="u-custom-menu u-nav-container">
                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/allTests}">Barcha
@@ -88,43 +86,83 @@
         <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
     </div>
 </header>
-<br>
-<br>
-<section class="u-align-center u-clearfix u-section-1" id="sec-8981">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-container-style u-group u-group-1">
-            <div class="u-container-layout u-container-layout-1">
-                <form th:action="@{/admin/editTest}" method="POST">
-                    <div class="form-floating mb-3">
-                        <input type="hidden" th:value="${test.getId()}" name="id">
-                        <input type="text" name="name" class="form-control" id="floatingInput"
-                               placeholder="Ex: Oraliq Nazorat" th:value="${test.getName()}">
-                        <label for="floatingInput">Testning nomi</label>
-                    </div>
-<!--                    <div class="form-floating">-->
-<!--                        <select class="form-select" name="subjectId" id="floatingSelect" aria-label="Fanni tanlang">-->
-<!--                            <span th:each="subject : ${subjects}">-->
-<!--                            <option th:value="${subject.getId()}" th:text="${subject.getName()}"></option>-->
-<!--                            </span>-->
-<!--                        </select>-->
-<!--                        <label for="floatingSelect">Fanni tanlang</label>-->
-<!--                    </div>-->
-                    <br>
-                    <div class="form-floating mb-3">
-                        <input type="number" name="numberOfQuestion" class="form-control" id="floatingInputNumber" th:value="${test.getNumberOfQuestion()}"
-                               placeholder="2, 3">
-                        <label for="floatingInputNumber"  >Tinglovchiga tushishi kerak bo'lgan savollar soni</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="number" name="timeForOneQues" th:value="${test.getTimeForOneQues()}" class="form-control" id="floatingInputNumber2"
-                               placeholder="2, 3">
-                        <label for="floatingInputNumber2">Test uchun umumiy vaqt</label>
-                    </div>
-                    <br>
-                    <br>
-                    <button type="submit" class="btn btn-primary">Testni yangilash</button>
-                </form>
-            </div>
+<section class="u-align-center u-clearfix u-section-1" id="sec-7ac4">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <br>
+        <br>
+        <a style="margin-left: 2% !important;" th:href="@{/admin/results}" class="btn btn-outline-success btn-sm" role="button" >Testlarga qaytish</a>
+        <div class="btn-group" style="margin-left: 0px !important;">
+            <button style="margin-left: 35px; !important;"
+                    class="btn btn-outline-success btn-sm dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                Guruh
+            </button>
+            <ul class="dropdown-menu">
+                <li class="fs-6"><a class="dropdown-item" th:href="@{/admin/result/{id}(id=${id})}">Barchasi</a>
+                </li>
+                <span th:each="group : ${groups}">
+                                    <li class="fs-6"><a th:text="${group}" class="dropdown-item"
+                                                        th:href="@{/admin/result/{id}/{group}(id=${id}, group=${group})}">Action</a></li>
+                                </span>
+            </ul>
+        </div>
+        <div class="u-table u-table-responsive u-table-1">
+            <table class="u-table-entity">
+                <colgroup>
+                    <col width="3.5%">
+                    <col width="22%">
+                    <col width="9%">
+                    <col width="9%">
+                    <col width="10%">
+                    <col width="12%">
+                    <col width="12%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="8%">
+                </colgroup>
+                <tbody class="u-align-center u-custom-font u-font-ubuntu u-table-alt-palette-1-light-3 u-table-body u-table-valign-middle">
+                <tr style="height: 95px;">
+                    <td class="u-border-1 u-table-cell">№</td>
+                    <td class="u-border-1 u-table-cell">Tinglovchining F.I.O</td>
+                    <td class="u-border-1 u-table-cell">Guruh</td>
+                    <td class="u-border-1 u-table-cell">Berilgan savollar</td>
+                    <td class="u-border-1 u-table-cell">To'g'ri javob berilgan
+                        savollar
+                    </td>
+                    <td class="u-border-1 u-table-cell">Samaradorlik</td>
+                    <td class="u-border-1 u-table-cell">Boshlagan vaqti</td>
+                    <td class="u-border-1 u-table-cell">Tugagan vaqt</td>
+                    <td class="u-border-1 u-table-cell">O'chirish</td>
+                </tr>
+                <tr style="height: 52px;" th:each="dto, iter :${allResults}">
+                    <td class="u-border-1 u-table-cell" th:text="${iter.count}"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${dto.getTakerUser()}"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${dto.getGroupName()}"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${dto.getNumberOfAllQues()}"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${dto.getCorrectAnsweredQues()}"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${dto.getEfficiency()} + ' %'"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${dto.getStartedTime()}"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${dto.getPassedTime()}"></td>
+                    <td class="u-border-1 u-table-cell">
+                        <a th:href="@{/admin/deleteResult/{id}(id=${dto.getId()})}">
+                            <button type="button" class="btn btn-outline-info">
+                                <img src="/images/delete.png" class="rounded mx-auto d-block" alt="..."
+                                     width="15px"
+                                     height="15px">
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

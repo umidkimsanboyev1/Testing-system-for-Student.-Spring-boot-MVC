@@ -89,12 +89,12 @@
             <div class="u-container-layout u-container-layout-1">
                 savol yaratish
 
-<!--                <form th:action="@{/teacher/create}" method="POST">-->
-<!--                    <div class="form-floating mb-3">-->
-<!--                        <input type="text" name="name" class="form-control" id="floatingInput"-->
-<!--                               placeholder="Ex: Oraliq Nazorat">-->
-<!--                        <label for="floatingInput">Testning nomi</label>-->
-<!--                    </div>-->
+                <form th:action="@{/teacher/create}" method="POST">
+                    <div class="form-floating mb-3">
+                        <input required type="text" name="name" class="form-control" id="floatingInput"
+                               placeholder="Ex: Oraliq Nazorat">
+                        <label for="floatingInput">Testning nomi</label>
+                    </div>
 <!--                    <div class="form-floating">-->
 <!--                        <select class="form-select" name="subject" id="floatingSelect" aria-label="Fanni tanlang">-->
 <!--                            <span th:each="subject : ${subjects}">-->
@@ -103,18 +103,18 @@
 <!--                        </select>-->
 <!--                        <label for="floatingSelect">Fanni tanlang</label>-->
 <!--                    </div>-->
-<!--                    <div class="form-floating mb-3">-->
-<!--                        <input type="number" name="numberOfQuestion" class="form-control" id="floatingInputNumber"-->
-<!--                               placeholder="2, 3">-->
-<!--                        <label for="floatingInputNumber">Testdagi savollar soni</label>-->
-<!--                    </div>-->
-<!--                    <div class="form-floating mb-3">-->
-<!--                        <input type="number" name="timeForOneQuestion" class="form-control" id="floatingInputNumber2"-->
-<!--                               placeholder="2, 3">-->
-<!--                        <label for="floatingInputNumber2">Har bir savol uchun vaqt (minutlarda)</label>-->
-<!--                    </div>-->
-<!--                    <button type="submit" class="btn btn-primary">Yaratishni boshlash</button>-->
-<!--                </form>-->
+                    <div class="form-floating mb-3">
+                        <input required type="number" name="numberOfQuestion" class="form-control" id="floatingInputNumber"
+                               placeholder="2, 3">
+                        <label for="floatingInputNumber">Testdagi savollar soni</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input required type="number" name="timeForOneQuestion" class="form-control" id="floatingInputNumber2"
+                               placeholder="2, 3">
+                        <label for="floatingInputNumber2">Har bir savol uchun vaqt (minutlarda)</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Yaratishni boshlash</button>
+                </form>
             </div>
         </div>
     </div>

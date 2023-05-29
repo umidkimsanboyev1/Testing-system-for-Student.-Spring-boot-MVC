@@ -164,7 +164,6 @@
                     <td class="u-table-cell">Test nomi</td>
                     <td class="u-table-cell">Fani</td>
                     <td class="u-table-cell">Savollar soni</td>
-                    <td class="u-table-cell">Savol uchun (min)</td>
                     <td class="u-table-cell">Umumiy vaqt (min)</td>
                     <td class="u-table-cell">Holati</td>
                     <td class="u-table-cell">Boshqarish</td>
@@ -173,10 +172,8 @@
                 <tr style="height: 65px;" th:each="test, iter :${tests}">
                     <td th:text="${iter.count}" u-table-cell></td>
                     <td th:text="${test.getName()}" u-table-cell></td>
-                    <td th:text="${test.getSubject()}" u-table-cell></td>
                     <td th:text="${test.getNumberOfQuestion()}" u-table-cell></td>
                     <td th:text="${test.getTimeForOneQues()}" u-table-cell></td>
-                    <td th:text="${test.getTimeForAllQues()}" u-table-cell></td>
                     <td u-table-cell><label class="switch"><a th:href="@{/teacher/doAction/{id}(id=${test.getId()})}">
                         <input type="checkbox" th:checked="${test.isActive()}">
                         <span class="slider round"></span></a>
