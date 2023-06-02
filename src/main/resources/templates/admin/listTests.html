@@ -154,11 +154,12 @@
             <table class="u-table-entity u-table-entity-1">
                 <colgroup>
                     <col width="4.1%">
-                    <col width="34.2%">
+                    <col width="30%">
                     <col width="17.3%">
-                    <col width="22.6%">
+                    <col width="20%">
+                    <col width="20%">
                     <col width="8.7%">
-                    <col width="13.1%">
+                    <col width="10%">
                 </colgroup>
                 <tbody class="u-align-left u-custom-font u-font-ubuntu u-table-alt-palette-1-light-3 u-table-body u-table-valign-middle">
                 <tr style="height: 65px;">
@@ -166,6 +167,7 @@
                     <td class="u-table-cell">Test nomi</td>
                     <td class="u-table-cell">Tuzuvchisi</td>
                     <td class="u-table-cell">Savollar soni</td>
+                    <td class="u-table-cell">Bazadagi savollar soni</td>
                     <td class="u-table-cell">Vaqt</td>
                     <td class="u-table-cell">Holati</td>
                     <td class="u-table-cell">Boshqarish</td>
@@ -176,6 +178,14 @@
                     <td th:text="${test.getName()}" u-table-cell></td>
                     <td th:text="${test.getOwner()}" u-table-cell></td>
                     <td th:text="${test.getNumberOfQuestion()}" u-table-cell></td>
+                    <td u-table-cell>
+                        <div th:if="${test.allQuestion == null}">
+                            <p th:text="Aniqlanmagan"></p>
+                        </div>
+                        <div th:if="${test.allQuestion != null}">
+                            <p th:text="${test.allQuestion}"></p>
+                        </div>
+                    </td>
                     <td th:text="${test.getTimeForOneQues()}" u-table-cell></td>
                     <td u-table-cell><label class="switch"><a th:href="@{/admin/doAction/{id}(id=${test.getId()})}">
                         <input type="checkbox" th:checked="${test.isActive()}">

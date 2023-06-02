@@ -2,9 +2,9 @@ package uz.master.demotest.services;
 
 import org.springframework.stereotype.Service;
 import uz.master.demotest.dto.GroupsDTO;
-import uz.master.demotest.entity.Groups;
 import uz.master.demotest.repositories.AuthUserRepository;
 import uz.master.demotest.repositories.GroupRepository;
+import uz.master.demotest.repositories.OverAllResultRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,12 @@ import java.util.List;
 public class GroupService {
 
     private final GroupRepository groupRepository;
+    private final OverAllResultRepository overAllResultRepository;
     private final AuthUserRepository authUserRepository;
 
-    public GroupService(GroupRepository groupRepository, AuthUserRepository authUserRepository) {
+    public GroupService(GroupRepository groupRepository, OverAllResultRepository overAllResultRepository, AuthUserRepository authUserRepository) {
         this.groupRepository = groupRepository;
+        this.overAllResultRepository = overAllResultRepository;
         this.authUserRepository = authUserRepository;
     }
 
@@ -38,5 +40,13 @@ public class GroupService {
             results.add(dto);
         }
         return results;
+    }
+
+    public List<String> getAllGroupsByTest(Long id) {
+//        List<String> distinctGroupNames = authUserRepository.findDistinctGroupNames();
+        List<String> distinctGroupNames = overAllResultRepository.findDistinctGroupNamesAndTestId(id);
+        distinctGroupNames.removeIf(s -> s == null);
+        distinctGroupNames.removeIf(groupName -> groupName != null && (groupName.equals("ADMIN") || groupName.equals("DEKANAT") || groupName.equals("TEACHER")));
+        return distinctGroupNames;
     }
 }

@@ -3,6 +3,7 @@ package uz.master.demotest.entity.test;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 
 @Entity
@@ -27,7 +28,9 @@ public class Test {
     private Integer timeForOneQues;
     private Integer timeForAllQues;
     private boolean completed;
+    private boolean archived;
     private boolean active;
     private boolean deleted;
-
+    @Nullable
+    private Long allQuestion;
 }

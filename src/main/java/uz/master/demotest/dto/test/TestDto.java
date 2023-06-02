@@ -11,6 +11,7 @@ public class TestDto {
 
     private String name;
     private String subject;
+    private Long allQuestion;
 
     private String owner;
 

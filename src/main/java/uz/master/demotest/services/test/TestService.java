@@ -50,6 +50,7 @@ public class TestService {
         List<TestDto> testDtos = new ArrayList<>();
         for (Test test : allTests) {
             TestDto testDto = testMapper.toDto(test);
+            testDto.setAllQuestion(test.getAllQuestion());
             testDto.setOwner(userRepository.findById(test.getOwnerId()).get().getFullName());
             testDtos.add(testDto);
         }
@@ -67,15 +68,15 @@ public class TestService {
         List<TestDto> testDtos = new ArrayList<>();
         for (Test test : allTests) {
             TestDto testDto = testMapper.toDto(test);
-            testDto.setSubject(subjectRepository.findById(test.getSubjectId()).get().getName());
             testDtos.add(testDto);
+            testDto.setAllQuestion(test.getAllQuestion());
         }
         return testDtos;
     }
 
     public Long createTest(TestCreateDto dto) {
         AuthUser authUser = userRepository.findById(sessionUser.getId()).get();
-        if(testRepository.existsTestByName(dto.getName())){
+        if(testRepository.existsTestByNameAndDeletedFalse(dto.getName())){
             throw new RuntimeException();
         }
         String patternForDateTime = "dd.MM.yyyy HH:mm:ss";
@@ -85,6 +86,7 @@ public class TestService {
         test.setOwnerId(sessionUser.getId());
         test.setCreatedTime(LocalDateTime.now().format(formatter));
         test.setActive(false);
+        test.setArchived(false);
         test.setOwnerName(authUser.getFullName());
         Test save = testRepository.save(test);
         System.out.println(save.getId());
@@ -102,12 +104,13 @@ public class TestService {
         return name;
     }
 
-    public void restoreExcelFileToTest(Long id, MultipartFile file) {
+    public boolean restoreExcelFileToTest(Long id, MultipartFile file) {
         String store = fileStorageService.store(file);
         Test test = testRepository.findById(id).get();
         test.setFile(store);
         testRepository.save(test);
-        excelService.saveTestDataFromExcel(test);
+        boolean b = excelService.saveTestDataFromExcel(test);
+        return b;
     }
 
 
@@ -255,8 +258,10 @@ public class TestService {
         if (byName.isPresent() && !byName.get().getId().equals(test.getId())) {
             throw new RuntimeException();
         }
+        if(test.getAllQuestion() != null && test.getAllQuestion() < test.getNumberOfQuestion()){
+            throw new RuntimeException();
+        }
         test.setName(dto.getName());
-        test.setSubjectId(dto.getSubjectId());
         test.setNumberOfQuestion(dto.getNumberOfQuestion());
         test.setTimeForOneQues(dto.getTimeForOneQues());
         testRepository.save(test);
@@ -285,5 +290,14 @@ public class TestService {
         }
         List<OverAllResult> results = overAllResultRepository.findOverAllResultsByTestIdAndGroupNameOrderByTakerUser(testId, groupName);
         return results;
+    }
+
+    public boolean haveTestForStudent(AuthUser authUser) {
+        if(authUser.getTestId() != null && authUser.getTime().isBefore(LocalDateTime.now())){
+            if(overAllResultRepository.existsByTakerUserAndTestId(authUser.getFullName(), authUser.getTestId())){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -11,6 +11,7 @@ import uz.master.demotest.repositories.TestRepository;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ExcelService {
@@ -35,18 +36,50 @@ public class ExcelService {
         return questions;
     }
 
-    public void saveTestDataFromExcel(Test test) {
+    public boolean saveTestDataFromExcel(Test test) {
         Long testId = test.getId();
         List<QuestionsExcel> questionsExcels = convertExcelToEntity(test.getFile());
-        for (QuestionsExcel questionsExcel : questionsExcels) {
-            Question tempQuestion = new Question();
-            tempQuestion.setTestId(testId);
-            tempQuestion.setText(questionsExcel.getText());
-            tempQuestion.setNumber(questionsExcel.getNumber());
-            tempQuestion.setCorrectAnswer(questionsExcel.getCorrectAnswer());
-            mapOtherAnswers(tempQuestion, questionsExcel);
-            questionRepository.save(tempQuestion);
+        if(checkTest(test, questionsExcels)){
+            Long count = 1L;
+            for (QuestionsExcel questionsExcel : questionsExcels) {
+                if(Objects.isNull(questionsExcel.getText()) || checkToNullAnswers(questionsExcel)){
+                    continue;
+                }
+                Question tempQuestion = new Question();
+                tempQuestion.setTestId(testId);
+                tempQuestion.setText(questionsExcel.getText());
+                tempQuestion.setNumber(count);
+                tempQuestion.setCorrectAnswer(questionsExcel.getCorrectAnswer());
+                mapOtherAnswers(tempQuestion, questionsExcel);
+                questionRepository.save(tempQuestion);
+                count++;
+            }
+           test.setAllQuestion(count - 1);
+            testRepository.save(test);
+            return true;
         }
+        return false;
+    }
+
+    private boolean checkTest(Test test, List<QuestionsExcel> questionsExcels) {
+        Long count = 1L;
+        for (QuestionsExcel questionsExcel : questionsExcels) {
+            if(Objects.isNull(questionsExcel.getText())){
+                break;
+            }
+            if(!checkToNullAnswers(questionsExcel)){
+                count++;
+            }
+
+        }
+        return count >= test.getNumberOfQuestion();
+    }
+
+    private static boolean checkToNullAnswers(QuestionsExcel questionsExcel) {
+        return questionsExcel.getCorrectAnswer() == null
+                || questionsExcel.getAnswer2() == null
+                || questionsExcel.getAnswer3() == null
+                || questionsExcel.getAnswer4() == null;
     }
 
     private void mapOtherAnswers(Question tempQuestion, QuestionsExcel questionsExcel) {

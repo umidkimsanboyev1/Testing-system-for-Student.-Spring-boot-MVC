@@ -6,7 +6,6 @@ import uz.master.demotest.configs.encrypt.PasswordEncoderConfig;
 import uz.master.demotest.dto.auth.AddStudentDto;
 import uz.master.demotest.dto.auth.ResetPassword;
 import uz.master.demotest.dto.auth.StudentsCreateDto;
-import uz.master.demotest.dto.excel.QuestionsExcel;
 import uz.master.demotest.dto.excel.StudentsExcelDto;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.result.OverAllResult;
@@ -36,10 +35,11 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     private final TestRepository testRepository;
     private final PasswordEncoderConfig encoder;
     private final FileStorageService fileStorageService;
+    private final AuthUserRepository authUserRepository;
 
     protected AuthUserService(AuthUserRepository repository,
 
-                              TokenRepository tokenRepository, OverAllResultRepository overAllResultRepository, SessionUser sessionUser, TestRepository testRepository, PasswordEncoderConfig encoder, FileStorageService fileStorageService) {
+                              TokenRepository tokenRepository, OverAllResultRepository overAllResultRepository, SessionUser sessionUser, TestRepository testRepository, PasswordEncoderConfig encoder, FileStorageService fileStorageService, AuthUserRepository authUserRepository) {
         super(repository);
         this.tokenRepository = tokenRepository;
         this.overAllResultRepository = overAllResultRepository;
@@ -47,6 +47,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
         this.testRepository = testRepository;
         this.encoder = encoder;
         this.fileStorageService = fileStorageService;
+        this.authUserRepository = authUserRepository;
     }
 
     public static DateTimeFormatter getTimeFormatter() {
@@ -81,6 +82,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
         overAllResultTemp.setNumberOfAllQues(test.getNumberOfQuestion());
         overAllResultTemp.setStartedTime(LocalDateTime.now().format(formatter));
         overAllResultTemp.setTestName(test.getName());
+        overAllResultTemp.setGroupName(authUserRepository.findById(sessionUser.getId()).get().getGroupName());
         return overAllResultTemp;
     }
 

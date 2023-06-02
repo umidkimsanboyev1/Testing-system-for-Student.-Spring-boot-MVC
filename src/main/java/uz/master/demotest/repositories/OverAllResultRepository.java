@@ -2,6 +2,7 @@ package uz.master.demotest.repositories;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import uz.master.demotest.entity.result.OverAllResult;
 
 import javax.transaction.Transactional;
@@ -12,6 +13,9 @@ public interface OverAllResultRepository extends JpaRepository<OverAllResult, Lo
 
     OverAllResult findByTakerUserAndTestId(String takerUser, Long testId);
     boolean existsByTakerUserAndTestId(String takerUser, Long testId);
+
+    @Query("SELECT DISTINCT o.groupName FROM OverAllResult o where o.testId = ?1 order by o.groupName")
+    List<String> findDistinctGroupNamesAndTestId(Long testId);
 
     @Transactional
     List<OverAllResult> findOverAllResultsByTestIdOrderByTakerUser(Long id);

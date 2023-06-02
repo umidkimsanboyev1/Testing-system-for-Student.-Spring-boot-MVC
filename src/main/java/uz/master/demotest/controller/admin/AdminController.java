@@ -310,7 +310,7 @@ public class AdminController {
         authUserService.setAuthUserViewedTestId(id);
         List<OverAllResult> allResult = testService.getOverAllResultByTestId(id);
         model.addAttribute("id", id);
-        model.addAttribute("groups", groupService.getAllGroups());
+        model.addAttribute("groups", groupService.getAllGroupsByTest(id));
         model.addAttribute("user", sessionUser.getFullName());
         model.addAttribute("allResults", allResult);
         return "/admin/result";
@@ -347,7 +347,7 @@ public class AdminController {
         authUserService.setAuthUserViewedTestId(testId);
         List<OverAllResult> allResult = testService.getOverAllResultByTestIdAndGroupName(testId, groupName);
         model.addAttribute("id", testId);
-        model.addAttribute("groups", groupService.getAllGroups());
+        model.addAttribute("groups", groupService.getAllGroupsByTest(testId));
         model.addAttribute("user", sessionUser.getFullName());
         model.addAttribute("allResults", allResult);
         return "/admin/result";

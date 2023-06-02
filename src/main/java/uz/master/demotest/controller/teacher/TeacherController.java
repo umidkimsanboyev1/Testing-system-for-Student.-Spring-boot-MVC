@@ -52,8 +52,6 @@ public class TeacherController {
             return "redirect:/home";
         }
         model.addAttribute("user", sessionUser.getFullName());
-        List<Subject> subjects = subjectService.getAllSubjects();
-        model.addAttribute("subjects", subjects);
         return "/teacher/createTest";
     }
 
@@ -64,8 +62,6 @@ public class TeacherController {
         }
         model.addAttribute("error", "Bunday nomli test mavjud yoki ma'lumotlar to'liq emas");
         model.addAttribute("user", sessionUser.getFullName());
-        List<Subject> subjects = subjectService.getAllSubjects();
-        model.addAttribute("subjects", subjects);
         return "/teacher/createTest";
     }
 
@@ -123,16 +119,23 @@ public class TeacherController {
     }
 
     @PostMapping(value = "/createTest")
-    public String createTest(@ModelAttribute TestCreateDto dto) {
+    public String createTest(@ModelAttribute TestCreateDto dto, Model model) {
         if(!authUserService.checkToRole(Role.TEACHER)){
             return "redirect:/home";
         }
+        Long testId = null;
         try {
-            Long testId = testService.createTest(dto);
-            testService.restoreExcelFileToTest(testId, dto.getFile());
+            testId = testService.createTest(dto);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return "redirect:/teacher/createTest?error";
+        }
+        boolean b = testService.restoreExcelFileToTest(testId, dto.getFile());
+        if(!b) {
+            testService.delete(testId);
+            model.addAttribute("error", "Test yaratishda hatolik \n Iltimos test faylidagi savollar soni testdagi savollar soniga mosligini hamda test fayli togri formalanganligini tekshiring!!!");
+            return "/error/error";
         }
         return "redirect:/teacher/myTests";
     }
@@ -161,7 +164,7 @@ public class TeacherController {
         Long userId = authUserService.setAuthUserSelectedGroup(null);
         List<OverAllResult> allResult = testService.getOverAllResultByTestId(id);
         model.addAttribute("id", id);
-        model.addAttribute("groups", groupService.getAllGroups());
+        model.addAttribute("groups", groupService.getAllGroupsByTest(id));
         model.addAttribute("user", sessionUser.getFullName());
         model.addAttribute("allResults", allResult);
         return "/teacher/result";
@@ -176,7 +179,7 @@ public class TeacherController {
             Long userId = authUserService.setAuthUserSelectedGroup(groupName);
             List<OverAllResult> allResult = testService.getOverAllResultByTestIdAndGroupNameForTeacher(testId, groupName);
             model.addAttribute("id", testId);
-            model.addAttribute("groups", groupService.getAllGroups());
+            model.addAttribute("groups", groupService.getAllGroupsByTest(testId));
             model.addAttribute("user", sessionUser.getFullName());
             model.addAttribute("allResults", allResult);
         } catch(Exception e){

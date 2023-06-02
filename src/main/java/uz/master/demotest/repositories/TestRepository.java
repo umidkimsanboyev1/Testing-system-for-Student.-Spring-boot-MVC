@@ -24,7 +24,7 @@ public interface TestRepository extends JpaRepository<Test, Long> {
 
     Optional<Test> findByName(String name);
 
-    boolean existsTestByName(String name);
+    boolean existsTestByNameAndDeletedFalse(String name);
 
 
     @Transactional

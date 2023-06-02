@@ -78,6 +78,16 @@ public class StudentController {
         return "student/listTests";
     }
 
+    @GetMapping("/checkToTestHave")
+    public String checkToTestHave(Model model) {
+        AuthUser authUser = authUserService.getAuthUser();
+        boolean have = testService.haveTestForStudent(authUser);
+        if(have){
+            return "redirect:/question/" + authUser.getQuesNumber();
+        }
+        return "student/listTests";
+    }
+
     @PostMapping(value = "/introduction")
     public String postIntroduction(@ModelAttribute RequestTestDto dto, Model model) {
         TestIntroductionDto test = testService.getTestIntroduction(dto.getId());
@@ -115,15 +125,11 @@ public class StudentController {
 
     @NotNull
     private String getModel(@PathVariable Integer generatedNumber, Model model) {
-        if (questionService.checkTestProgress(generatedNumber)) {
             LocalDateTime userTime = authUserService.getUserTime();
             System.out.println(userTime);
             model.addAttribute("time", userTime);
             return progressServices(generatedNumber, model);
-        } else {
-            System.out.println(sessionUser.getQuesNumber());
-            return "redirect:/student/question/" + sessionUser.getQuesNumber();
-        }
+
     }
 
     @PostMapping(value = "/question/")
