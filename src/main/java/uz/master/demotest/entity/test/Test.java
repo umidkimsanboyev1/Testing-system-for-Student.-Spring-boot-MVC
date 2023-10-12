@@ -31,6 +31,5 @@ public class Test {
     private boolean archived;
     private boolean active;
     private boolean deleted;
-    @Nullable
     private Long allQuestion;
 }

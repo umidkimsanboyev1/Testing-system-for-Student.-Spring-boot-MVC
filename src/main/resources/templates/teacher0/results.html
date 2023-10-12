@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Test yuzasidan umumiy natijalar</title>
+    <link rel="stylesheet" href="/css/nicepage.css" media="screen">
+    <link rel="stylesheet" href="/css/results.css" media="screen">
+    <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css} "/>
+</head>
+<body class="u-body u-xl-mode" data-lang="ru">
+<header class="u-box-shadow u-clearfix u-header u-header" id="sec-2e51">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <a th:href="@{/home}" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
+            <img src="/images/1uzbgsbe.png" class="u-logo-image u-logo-image-1">
+        </a>
+        <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
+            <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+                <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+                   href="#">
+                    <svg class="u-svg-link" viewBox="0 0 24 24">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
+                    </svg>
+                    <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <rect y="1" width="16" height="2"></rect>
+                            <rect y="7" width="16" height="2"></rect>
+                            <rect y="13" width="16" height="2"></rect>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+            <div class="u-custom-menu u-nav-container">
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/teacher0/myTests}">Mening
+                        testlarim</a>
+                    </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/teacher0/createTest}">Test
+                        yaratish</a>
+                    </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link"
+                                              th:href="@{/templates/teacher0/results}">Natijalar</a>
+                    </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni
+                        o'zgartirish</a>
+                    </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logout}">Akkountdan
+                        chiqish</a>
+                    </li>
+                    qish</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="u-custom-menu u-nav-container-collapse">
+                <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+                    <div class="u-inner-container-layout u-sidenav-overflow">
+                        <div class="u-menu-close"></div>
+                        <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/teacher0/myTests}">Mening
+                                testlarim</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link"
+                                                      th:href="@{/templates/teacher0/createTest}">Test
+                                yaratish</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/teacher0/results}">Natijalar</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link"
+                                                      th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logout}">Akkountdan
+                                chiqish</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+            </div>
+        </nav>
+        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-1">Biznes tadbirkorlik oliy maktabining
+            test tizimi </p>
+        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
+    </div>
+</header>
+<section class="u-align-center u-clearfix u-section-1" id="sec-7ac4">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-table u-table-responsive u-table-1" style="width: 96% !important; margin: auto !important;margin-top: 2% !important;">
+        <br>
+        <br>
+            <table  class="u-table-entity">
+                <colgroup>
+                    <col width="5%">
+                    <col width="35%">
+                    <col width="23%">
+                    <col width="14%">
+                </colgroup>
+                <tbody class="u-align-center u-custom-font u-font-ubuntu u-table-alt-palette-1-light-3 u-table-body u-table-valign-middle">
+                <tr style="height: 95px;">
+                    <td class="u-border-1 u-table-cell">№</td>
+                    <td class="u-border-1 u-table-cell">Test nomi</td>
+                    <td class="u-border-1 u-table-cell" style="text-align: center">Yaratilgan vaqt</td>
+                    <td class="u-border-1 u-table-cell" style="text-align: center">Ko'rish</td>
+                </tr>
+                <tr style="height: 52px;" th:each="test, iter :${tests}">
+                    <td class="u-border-1 u-table-cell" th:text="${iter.count}"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${test.getName()}"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${test.getCreatedTime()}" style="text-align: center"></td>
+                    <td class="u-border-1 u-table-cell" style="text-align: center">
+                        <a th:href="@{/templates/teacher0/result/{id}(id = ${test.getId()})}" style="text-decoration: none; color: #000"> Natijalar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>

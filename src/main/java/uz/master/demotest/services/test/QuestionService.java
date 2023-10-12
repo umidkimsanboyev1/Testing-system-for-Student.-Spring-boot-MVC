@@ -124,9 +124,11 @@ public class QuestionService {
     }
 
     public boolean checkToEndTest( Integer generatedNumber) {
-        Long id = sessionUser.getId();
-        AuthUser authUser = authUserRepository.findById(id).get();
-        return testRepository.findById(authUser.getTestId()).get().getNumberOfQuestion().equals(generatedNumber);
+        AuthUser authUser = authUserRepository.findById(sessionUser.getId()).get();
+        Long testId = authUser.getTestId();
+        Integer quesNumber = authUser.getQuesNumber();
+        Test test = testRepository.findById(testId).get();
+        return test.getNumberOfQuestion().equals(quesNumber);
     }
 
     public void mapAnswers(CheckingDto checking,

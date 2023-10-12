@@ -1,6 +1,7 @@
 package uz.master.demotest.services.auth;
 
 import com.poiji.bind.Poiji;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import uz.master.demotest.configs.encrypt.PasswordEncoderConfig;
 import uz.master.demotest.dto.auth.AddStudentDto;
@@ -23,6 +24,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -116,7 +118,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     }
 
     public List<AuthUser> getAllStudents() {
-        return repository.findAuthUserByRoleAndDeletedFalseOrderByFullName(Role.STUDENT);
+        return repository.findAuthUserByRoleOrderByFullName(Role.STUDENT);
     }
 
     public void doAction(Long id) {
@@ -128,8 +130,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
 
     public void delete(Long id) {
         AuthUser authUser = repository.findById(id).get();
-        authUser.setDeleted(true);
-        repository.save(authUser);
+        repository.delete(authUser);
     }
 
     public boolean addStudent(AddStudentDto dto) {
@@ -143,7 +144,6 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
 
     private void MapAuthUser(AddStudentDto dto, AuthUser tempUser, Role role) {
         tempUser.setBlocked(false);
-        tempUser.setDeleted(false);
         tempUser.setActive(true);
         tempUser.setRole(role);
         tempUser.setFullName(dto.getFullName());
@@ -158,7 +158,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     }
 
     public List<AuthUser> getAllStudentsByGroup(String groupName) {
-        return repository.findAuthUserByRoleAndDeletedFalseAndGroupNameOrderByFullName(Role.STUDENT, groupName);
+        return repository.findAuthUserByRoleAndGroupNameOrderByFullName(Role.STUDENT, groupName);
     }
 
     public AuthUser getAuthUser() {
@@ -184,9 +184,9 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
         AuthUser authUser = getAuthUser();
         List<AuthUser> students;
         if (Objects.isNull(authUser.getSelectedGroup())) {
-            students = repository.findAuthUserByRoleAndDeletedFalseOrderByFullName(Role.STUDENT);
+            students = repository.findAuthUserByRoleOrderByFullName(Role.STUDENT);
         } else {
-            students = repository.findAuthUserByRoleAndDeletedFalseAndGroupNameOrderByFullName(Role.STUDENT, authUser.getSelectedGroup());
+            students = repository.findAuthUserByRoleAndGroupNameOrderByFullName(Role.STUDENT, authUser.getSelectedGroup());
         }
 
         students.forEach(authUser1 -> authUser1.setActive(b));
@@ -242,7 +242,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
     }
 
     public List<AuthUser> getAllTeachers() {
-        return repository.findAuthUserByRoleAndDeletedFalseOrderByFullName(Role.TEACHER);
+        return repository.findAuthUserByRoleOrderByFullName(Role.TEACHER);
     }
 
 
@@ -266,7 +266,6 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
             student.setPassword(encoder.passwordEncoder().encode(dto.getPassword()));
             student.setGroupName(dto.getGroupName());
             student.setActive(false);
-            student.setDeleted(false);
             student.setRole(Role.STUDENT);
             student.setBlocked(false);
             student.setUsername(getUsernameForStudent(dto.getFullName()));
@@ -300,4 +299,31 @@ public class AuthUserService extends AbstractService<AuthUserRepository> {
         List<AuthUser> allByGroupName = repository.findAllByGroupName(name);
         repository.deleteAll(allByGroupName);
     }
+
+    public List<AuthUser> getAllAuthUsersByRoleAndBySearch(String text, Role role) {
+        List<AuthUser> authUserByRoleOrderByFullName = repository.findAuthUserByRoleOrderByFullName(role);
+        List<AuthUser> results = searchUsers(text, authUserByRoleOrderByFullName);
+        return results;
+    }
+
+    public List<AuthUser> getAllAuthUsersByRoleAndBySearch(String text, Role role, String selectedGroup) {
+        List<AuthUser> authUserByRoleOrderByFullName = repository.findAuthUserByRoleAndGroupNameOrderByFullName(role, selectedGroup);
+        List<AuthUser> results = searchUsers(text, authUserByRoleOrderByFullName);
+        return results;
+    }
+
+
+    @NotNull
+    private static List<AuthUser> searchUsers(String text, List<AuthUser> authUserByRoleOrderByFullName) {
+        List<AuthUser> results = new ArrayList<>();
+        for (AuthUser authUser : authUserByRoleOrderByFullName) {
+            String fullName = authUser.getFullName();
+            String username = authUser.getUsername();
+            if(fullName.toLowerCase().contains(text.toLowerCase()) || username.toLowerCase().contains(text.toLowerCase())){
+                results.add(authUser);
+            }
+        }
+        return results;
+    }
+
 }

@@ -1,209 +1,353 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="uz" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Mening testlarim</title>
-    <link rel="stylesheet" href="/css/nicepage.css" media="screen">
-    <link rel="stylesheet" href="/css/SU-test-tizimi.css" media="screen">
-    <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
-    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css} "/>
-
-    <!--    switch uchun style-->
-    <style>
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 40px;
-            height: 25px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        input:checked + .slider {
-            background-color: #2196F3;
-        }
-
-        input:focus + .slider {
-            box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked + .slider:before {
-            -webkit-transform: translateX(18px);
-            -ms-transform: translateX(18px);
-            transform: translateX(18px);
-        }
-
-        /* Rounded sliders */
-        .slider.round {
-            border-radius: 25px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Dashboard - Brand</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="/assets/css/Contact-Form-Clean.css">
+    <link rel="stylesheet" href="/assets/css/Dark-Mode-Switch.css">
+    <link rel="stylesheet" href="/assets/css/List-item.css">
+    <link rel="stylesheet" href="/assets/css/OnOff-Switch-with-Text.css">
+    <link rel="stylesheet" href="/assets/css/Toggle-Switch-1.css">
+    <link rel="stylesheet" href="/assets/css/Toggle-Switch.css">
 </head>
-<body data-home-page="SU-test-tizimi.html" data-home-page-title="SU test tizimi" class="u-body u-xl-mode"
-      data-lang="ru">
-<header class="u-box-shadow u-clearfix u-header u-header" id="sec-2e51">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <a th:href="@{/home}" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
-            <img src="/images/1uzbgsbe.png" class="u-logo-image u-logo-image-1">
-        </a>
-        <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
-            <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
-                <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-                   href="#">
-                    <svg class="u-svg-link" viewBox="0 0 24 24">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
+
+<body id="page-top">
+<div id="wrapper">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+         style="color: rgb(133, 135, 150);background: #506ab5;width: 307px;text-align: center;">
+        <div class="container-fluid d-flex flex-column p-0">
+            <hr class="sidebar-divider my-0">
+            <a href="#"><img style="height: 87px;margin: 0 0 0 -2%;" src="/assets/img/Last%20UZ%20White.png"></a>
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <li class="nav-item"><a class="nav-link active" th:href="@{/teacher/myTests}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"
+                         fill="currentColor" class="bi bi-list-nested" style="margin: 0 8% 0 0;">
+                        <path fill-rule="evenodd"
+                              d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z"></path>
                     </svg>
-                    <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px"
-                         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-                        <g>
-                            <rect y="1" width="16" height="2"></rect>
-                            <rect y="7" width="16" height="2"></rect>
-                            <rect y="13" width="16" height="2"></rect>
-                        </g>
+                    <span>Barcha testlar</span></a></li>
+                <li class="nav-item"></li>
+                <li class="nav-item"><a class="nav-link " th:href="@{/teacher/results}"><i
+                        class="fas fa-table"
+                        style="margin: 0 8% 0 0;"></i><span>Natijalar</span></a>
+                    <a class="nav-link" th:href="@{/teacher/createTest}"><i class="fas fa fa-plus"
+                                                                            style="margin: 0 8% 0 0;"></i><span>Test yaratish</span></a>
+                    <a class="nav-link" th:href="@{/teacher/profile}"><i class="material-icons" style="margin: 0 8% 0 0;">account_circle</i><span>Profile</span></a>
+                </li>
+                <li class="nav-item"></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/auth/logout}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
+                         style="margin: 0 8% 0 0;">
+                        <path d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
                     </svg>
-                </a>
+                    <span>Akkountdan chiqish</span></a></li>
+            </ul>
+            <div class="text-center d-none d-md-inline">
+                <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"
+                        style="background: rgb(156,192,248);color: rgb(0,0,0);"></button>
             </div>
-            <div class="u-custom-menu u-nav-container">
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
-                        testlarim</a>
-                    </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/createTest}">Test
-                        yaratish</a>
-                    </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/results}">Natijalar</a>
-                    </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
-                    </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logout}">Akkountdan
-                        chiqish</a>
-                    </li>
+        </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content"
+             style="background: #ffffff;padding: 0px;text-align: center;border-color: #eaf8ff;border-right-color: rgb(40,183,255);">
+            <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top"
+                 style="background: #971837;color: #971837;">
+                <div class="container-fluid">
+                    <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i
+                            class="fas fa-bars"></i></button>
+                    <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search"
+                          th:action="@{/search/teacher/test/}">
+                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
+                                                        name="text"
+                                                        placeholder="Qidirish">
+                            <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
+                    <ul class="navbar-nav flex-nowrap ms-auto">
+                        <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
+                                                                            aria-expanded="false"
+                                                                            data-bs-toggle="dropdown" href="#"><i
+                                class="fas fa-search"></i></a>
+                            <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"
+                                 aria-labelledby="searchDropdown">
+                                <form class="me-auto navbar-search w-100">
+                                    <div class="input-group"><input class="bg-light form-control border-0 small"
+                                                                    type="text" placeholder="Search for ...">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary py-0" type="button"><i
+                                                    class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid" style="width: 100%;">
+                <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
+            </div>
+            <div style="margin: auto;width: 96%;">
+                <ul class="nav nav-tabs" role="tablist" style="width: 100%;margin-top: -1%;">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab"
+                                                                href="#tab-1"
+                                                                style="background: #506ab5;font-family: Alef, sans-serif;color: #ffffff;">Joriy
+                        testlar</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab"
+                                                                href="#tab-2"
+                                                                style="font-family: Alef, sans-serif;color: var(--bs-white);background: #91a2d3;">Arhivlangan
+                        testlar</a></li>
                 </ul>
-            </div>
-            <div class="u-custom-menu u-nav-container-collapse">
-                <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-                    <div class="u-inner-container-layout u-sidenav-overflow">
-                        <div class="u-menu-close"></div>
-                        <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
-                                testlarim</a>
-                            </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link"
-                                                      th:href="@{/teacher/createTest}">Test
-                                yaratish</a>
-                            </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/results}">Natijalar</a>
-                            </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
-                            </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logout}">Akkountdan
-                                chiqish</a>
-                            </li>
-                        </ul>
+                <div class="tab-content" style="background: #ffffff;">
+                    <div class="tab-pane active" role="tabpanel" id="tab-1"
+                         style="color: rgb(32,36,69);background: #ffffff;">
+                        <div class="container"
+                             style="margin: 0px;padding: 4px;color: rgb(17,33,153);background: #ffffff;width: 100%;">
+                            <div class="row">
+                                <div class="col-md-12" style="padding: 0;">
+                                    <div class="table-responsive"
+                                         style="margin: 0px;padding: 12px;background: #ffffff;width: 100%;font-family: Alef, sans-serif;">
+                                        <div th:if="${error != null}">
+                                            <h1 style="width: 96%;margin: auto;margin-left: 2%;font-size: 23px;"
+                                                th:text="${error}">Korporativ
+                                                moliya va menejment</h1><br>
+                                        </div>
+                                        <table class="table">
+                                            <thead>
+                                            <tr style="border-style: solid;border-color: rgb(0,0,0);">
+                                                <th style="width: 58px;text-align: center;color: var(--bs-blue);background: #ffffff;border-right-width: 0px;">
+                                                    №
+                                                </th>
+                                                <th style="width: 248px;color: var(--bs-blue);border-right-width: 0px;">
+                                                    Test nomi
+                                                </th>
+                                                <th style="color: var(--bs-blue);width: 114px;border-right-width: 0px;">
+                                                    Savollar soni
+                                                </th>
+                                                <th style="color: var(--bs-blue);width: 114px;border-right-width: 0px;">
+                                                    Bazadagi savollar soni
+                                                </th>
+                                                <th style="color: var(--bs-blue);width: 100px;border-right-width: 0px;">
+                                                    Vaqt (min)
+                                                </th>
+                                                <th style="color: var(--bs-blue);width: 48px;border-right-width: 0px;">
+                                                    Holat
+                                                </th>
+                                                <th style="color: var(--bs-blue);width: 63px;border-right-width: 0px;">
+                                                    Tahrirlash
+                                                </th>
+                                                <th style="color: var(--bs-blue);width: 63px;border-right-width: 0px;">
+                                                    O'chirish
+                                                </th>
+                                                <th style="color: var(--bs-blue);width: 73px;border-right-width: 0px;border-right-color: var(--bs-blue);">
+                                                    Arhivlash
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="test, iter :${tests}">
+                                                <td th:text="${(currentPage - 1) * 10} + ${iter.count}">1</td>
+                                                <td th:text="${test.getName()}">Loyiha boshqaruvi</td>
+                                                <td th:text="${test.getNumberOfQuestion()}" style="text-align: center;">
+                                                    50
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    <div th:if="${test.allQuestion == null}">
+                                                        <p th:text="Aniqlanmagan"></p>
+                                                    </div>
+                                                    <div th:if="${test.allQuestion != null}">
+                                                        <p th:text="${test.allQuestion}"></p>
+                                                    </div>
+                                                </td>
+                                                <td style="text-align: center;" th:text="${test.getTimeForOneQues()}">
+                                                    80
+                                                </td>
+                                                <td style="padding: 1% 0 0 0;text-align: center;"><label class="switch">
+                                                    <!--                                                    <a th:href="@{/teacher/doAction/{id}(id=${test.getId()})}">-->
+                                                    <input type="checkbox" th:id="'checkbox' + ${iter.current}"
+                                                           th:name="${test.getId()}" th:checked="${test.isActive()}">
+                                                    <span class="slider round"></span>
+                                                    <!--                                                    </a>-->
+                                                </label></td>
+                                                <td><a th:href="@{/teacher/editTest/{id}(id=${test.getId()})}"><i
+                                                        class="fas fa-edit"
+                                                        style="margin: auto;width: 33px;height: 27px;text-align: center;font-size: 19px;"></i></a>
+                                                </td>
+                                                <td style="text-align: center;margin: auto;"><a
+                                                        th:href="@{/teacher/checkDeleteTest/{id}(id=${test.getId()})}"
+                                                        style="font-size: 19px;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                         viewBox="0 0 16 16" fill="currentColor" class="bi bi-trash"
+                                                         style="height: 19px;width: 19px;font-size: 19px;">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                                        <path fill-rule="evenodd"
+                                                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                                    </svg>
+                                                </a></td>
+                                                <td><a th:href="@{/teacher/archive/{id}(id=${test.getId()})}"><i
+                                                        class="fas fa-file-archive" href="#"
+                                                        style="width: 29px;height: 25px;font-size: 19px;margin: auto;"></i></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <nav style="width: 96%;margin: auto;text-align: center;">
+                                            <ul class="pagination">
+                                                <div th:each="integer, iter :${page}">
+                                                    <li class="page-item"><a
+                                                            th:style="${currentPage == iter.current} ? 'background: #506ab5; color: #fff;' : ''"
+                                                            class="page-link"
+                                                            th:href="@{/teacher/myTests/{page}(page = ${iter.count})}"
+                                                            th:text="${iter.current}">1</a></li>
+                                                </div>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="tab-2">
+                        <div class="container"
+                             style="margin: 0px;padding: 4px;color: rgb(17,33,153);background: #ffffff;width: 100%;">
+                            <div class="row">
+                                <div class="col-md-12" style="padding: 0;">
+                                    <div class="table-responsive">
+<!--                                         style="margin: 0px;padding: 12px;background: #ffffff;width: 100%;font-family: Alef, sans-serif;">-->
+<!--                                        <table class="table">-->
+<!--                                            <thead>-->
+<!--                                            <tr style="border-style: solid;border-color: rgb(0,0,0);">-->
+<!--                                                <th style="width: 15px;text-align: center;color: var(&#45;&#45;bs-blue);background: #ffffff;border-right-width: 0px;">-->
+<!--                                                    №-->
+<!--                                                </th>-->
+<!--                                                <th style="width: 109px;color: var(&#45;&#45;bs-blue);border-right-width: 0px;">-->
+<!--                                                    Test nomi-->
+<!--                                                </th>-->
+<!--                                                <th style="width: 93px;color: var(&#45;&#45;bs-blue);border-right-width: 0px;">-->
+<!--                                                    Test Tuzuvchi-->
+<!--                                                </th>-->
+<!--                                                <th style="color: var(&#45;&#45;bs-blue);width: 24px;border-right-width: 0px;">-->
+<!--                                                    Savollar soni-->
+<!--                                                </th>-->
+<!--                                                <th style="color: var(&#45;&#45;bs-blue);width: 37px;border-right-width: 0px;">-->
+<!--                                                    Bazadagi savollar soni-->
+<!--                                                </th>-->
+<!--                                                <th style="color: var(&#45;&#45;bs-blue);width: 51px;border-right-width: 0px;">-->
+<!--                                                    Vaqt (min)-->
+<!--                                                </th>-->
+<!--                                                <th style="color: var(&#45;&#45;bs-blue);width: 18px;border-right-width: 0px;">-->
+<!--                                                    O'chirish-->
+<!--                                                </th>-->
+<!--                                                <th style="color: var(&#45;&#45;bs-blue);width: 57px;border-right-width: 0px;border-right-color: var(&#45;&#45;bs-blue);">-->
+<!--                                                    Arhivdan chiqarish-->
+<!--                                                </th>-->
+<!--                                            </tr>-->
+<!--                                            </thead>-->
+<!--                                            <tbody>-->
+<!--                                            <tr th:each="test, iter :${archived}">-->
+<!--                                                <td th:text="${(currentPage - 1) * 10} + ${iter.count}">1</td>-->
+<!--                                                <td th:text="${test.getName()}">Loyiha boshqaruvi</td>-->
+<!--                                                <td th:text="${test.getOwnerName()}">Kimsanboyev Umidjon</td>-->
+<!--                                                <td th:text="${test.getNumberOfQuestion()}" style="text-align: center;">-->
+<!--                                                    50-->
+<!--                                                </td>-->
+<!--                                                <td th:text="${test.getAllQuestion()}" style="text-align: center;">50-->
+<!--                                                </td>-->
+<!--                                                <td th:text="${test.getTimeForOneQues()}" style="text-align: center;">-->
+<!--                                                    80-->
+<!--                                                </td>-->
+<!--                                                <td style="text-align: center;margin: auto;"><a-->
+<!--                                                        th:href="@{/teacher/checkDeleteTest/{id}(id=${test.getId()})}"-->
+<!--                                                        style="font-size: 19px;">-->
+<!--                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"-->
+<!--                                                         viewBox="0 0 16 16" fill="currentColor" class="bi bi-trash"-->
+<!--                                                         style="height: 19px;width: 19px;font-size: 19px;">-->
+<!--                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>-->
+<!--                                                        <path fill-rule="evenodd"-->
+<!--                                                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>-->
+<!--                                                    </svg>-->
+<!--                                                </a></td>-->
+<!--                                                <td><a th:href="@{/teacher/unArchive/{id}(id=${test.getId()})}"><i-->
+<!--                                                        class="fas fa-file-upload" href="#"-->
+<!--                                                        style="width: 29px;height: 25px;font-size: 19px;margin: auto;"></i></a>-->
+<!--                                                </td>-->
+<!--                                            </tr>-->
+<!--                                            <tr></tr>-->
+<!--                                            </tbody>-->
+<!--                                        </table>-->
+                                    </div>
+                                </div>
+                                <nav style="width: 96%;margin: auto;text-align: center;">
+                                    <ul class="pagination">
+                                        <div th:each="integer, iter :${archivedPage}">
+                                            <li class="page-item"><a
+                                                    th:style="${currentPage == iter.current} ? 'background: #506ab5; color: #fff;' : ''"
+                                                    class="page-link"
+                                                    th:href="@{/teacher/allTests/{page}(page = ${iter.count})}"
+                                                    th:text="${iter.current}">1</a></li>
+                                        </div>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
             </div>
-        </nav>
-        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-1">Biznes tadbirkorlik oliy maktabining
-            test tizimi </p>
-        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
-    </div>
-</header>
-<br>
-<br>
-<section class="u-align-center u-clearfix u-section-1" id="sec-8981">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-expanded-width u-table u-table-responsive u-table-1">
-            <table class="u-table-entity u-table-entity-1">
-                <colgroup>
-                    <col width="4.1%">
-                    <col width="34.2%">
-                    <col width="17.3%">
-                    <col width="17.3%">
-                    <col width="22.6%">
-                    <col width="8.7%">
-                    <col width="13.1%">
-                </colgroup>
-                <tbody class="u-align-left u-custom-font u-font-ubuntu u-table-alt-palette-1-light-3 u-table-body u-table-valign-middle">
-                <tr style="height: 65px;">
-                    <td class="u-table-cell">#</td>
-                    <td class="u-table-cell">Test nomi</td>
-                    <td class="u-table-cell">Savollar soni</td>
-                    <td class="u-table-cell">Bazadagi savollar soni</td>
-                    <td class="u-table-cell">Umumiy vaqt (min)</td>
-                    <td class="u-table-cell">Holati</td>
-                    <td class="u-table-cell">Boshqarish</td>
-                    <td class="u-table-cell"></td>
-                </tr>
-                <tr style="height: 65px;" th:each="test, iter :${tests}">
-                    <td th:text="${iter.count}" u-table-cell></td>
-                    <td th:text="${test.getName()}" u-table-cell></td>
-                    <td th:text="${test.getNumberOfQuestion()}" u-table-cell></td>
-                    <td u-table-cell>
-                            <div th:if="${test.allQuestion == null}">
-                                <p th:text="Aniqlanmagan"></p>
-                            </div>
-                            <div th:if="${test.allQuestion != null}">
-                                <p th:text="${test.allQuestion}"></p>
-                            </div>
-                    </td>
-                    <td th:text="${test.getTimeForOneQues()}" u-table-cell></td>
-                    <td u-table-cell><label class="switch"><a th:href="@{/teacher/doAction/{id}(id=${test.getId()})}">
-                        <input type="checkbox" th:checked="${test.isActive()}">
-                        <span class="slider round"></span></a>
-                    </label></td>
-                    <td u-table-cell>
-                        <a role="button" class="btn btn-outline-info" th:href="@{/teacher/checkDeleteTest/{id}(id=${test.getId()})}">
-                                <img src="/images/delete.png" class="rounded mx-auto d-block" alt="..." width="15px"
-                                     height="15px">
-                        </a>
-                    </td>
-                    <td u-table-cell>
-                        <a th:href="@{/teacher/editTest/{id}(id=${test.getId()})}">
-                            <button type="button" class="btn btn-outline-info">
-                                <img src="/images/edit.png" class="rounded mx-auto d-block" alt="..." width="15px"
-                                     height="15px">
-                            </button></a></td>
-                </tr>
-                </tbody>
-            </table>
         </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>SU Testing System © 2023</span></div>
+            </div>
+        </footer>
     </div>
-</section>
+    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/js/theme.js"></script>
+<script th:inline="javascript">
+    // Checkboxlarni tanlash
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    // Har bir checkbox uchun hodisani eslash
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            doAction(this.name);
+        });
+    });
+
+    // doAction() funksiyasi
+    function doAction(name) {
+        var xhr = new XMLHttpRequest();
+        var url = '/teacher/doAction/' + name;
+
+        xhr.open('GET', url, true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = xhr.responseText;
+                console.log(response);
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Checkbox o'zgarishlarini qabul qilish
+    function handleCheckboxChange(checkbox) {
+        doAction(checkbox.name);
+    }
+
+</script>
 </body>
+
 </html>

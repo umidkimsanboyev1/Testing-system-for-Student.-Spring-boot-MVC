@@ -9,16 +9,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AuthUserRepository extends JpaRepository<AuthUser, Long> {
-    Optional<AuthUser> getAuthUsersByUsernameAndDeletedFalse(String username);
+    Optional<AuthUser> getAuthUsersByUsername(String username);
 
 //    @Transactional
 //    @Modifying
 //    @Query(value = "update AuthUser a set a.deleted=true , a.username=:username where  a.id=:id")
 //    void  deleteUser(Long id,String username);
 
-    List<AuthUser> findAuthUserByRoleAndDeletedFalseOrderByFullName(Role role);
-    List<AuthUser> findAuthUserByRoleAndDeletedFalseAndGroupNameOrderByFullName(Role role, String groupName);
-
+    List<AuthUser> findAuthUserByRoleOrderByFullName(Role role);
+    List<AuthUser> findAuthUserByRoleAndGroupNameOrderByFullName(Role role, String groupName);
     @Query("SELECT DISTINCT groupName FROM AuthUser order by groupName")
     List<String> findDistinctGroupNames();
 

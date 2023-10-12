@@ -23,7 +23,7 @@ public class BaseController {
         String code = details.getRole().toString();
         System.out.println(code);
         if (code.equals("ADMIN")) {
-            return "redirect:/admin/results";
+            return "redirect:/admin/results/1";
         } else if (code.equals("TEACHER")) {
             return "redirect:/teacher/myTests";
         } else if(code.equals("DEKANAT")){

@@ -5,12 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.master.demotest.dto.auth.AddStudentDto;
 import uz.master.demotest.dto.auth.StudentsCreateDto;
-import uz.master.demotest.dto.test.OverAllResultDTO;
+import uz.master.demotest.dto.test.TestActionDTO;
 import uz.master.demotest.dto.test.TestDto;
-import uz.master.demotest.entity.Groups;
 import uz.master.demotest.entity.auth.AuthUser;
 import uz.master.demotest.entity.result.OverAllResult;
-import uz.master.demotest.entity.test.Subject;
 import uz.master.demotest.entity.test.Test;
 import uz.master.demotest.enums.Role;
 import uz.master.demotest.services.GroupService;
@@ -43,15 +41,36 @@ public class AdminController {
     }
 
     @GetMapping(value = "allTests")
-    public String getAllTests(Model model) {
+    public String getFirstPageAllTests(){
+        return "redirect:/admin/allTests/1";
+    }
+
+//    @PostMapping(value = "testManage")
+//    public String doActionForTest(@ModelAttribute TestActionDTO dto){
+//        testService.doAction(dto);
+//        return "redirect:/admin/allTests/1";
+//    }
+
+
+    @GetMapping(value = "results")
+    public String getFirstPageAllResults(){
+        return "redirect:/admin/results/1";
+    }
+    @GetMapping(value = "allTests/{page}")
+    public String getAllTests(Model model, @PathVariable int page) {
         if(!authUserService.checkToRole(Role.ADMIN)){
             return "redirect:/home";
         }
         try {
-            List<TestDto> tests = testService.getAllTests();
-            model.addAttribute("tests", tests);
-            model.addAttribute("user", sessionUser.getFullName());
+            List<Test> testsNotArchived = testService.getAllTests(page, false, true);
+            List<Test> testsArchived = testService.getAllTests(page, true, true);
+            model.addAttribute("tests", testsNotArchived);
+            model.addAttribute("archived", testsArchived);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("page", testService.getAllTestPageNumber(false, true));
+            model.addAttribute("archivedPage", testService.getAllTestPageNumber(true, true));
         } catch (Exception ex) {
+            System.out.println(ex);
             model.addAttribute("error", "Xatolik sodir bo'ldi");
             return "/error/error";
         }
@@ -271,15 +290,17 @@ public class AdminController {
         return "redirect:/admin/result/" + viewedTestId;
     }
 
-    @GetMapping(value = "/results")
-    public String getResult(Model model) {
+    @GetMapping(value = "/results/{page}")
+    public String getResult(Model model, @PathVariable int page) {
         if(!authUserService.checkToRole(Role.ADMIN)){
             return "redirect:/home";
         }
         model.addAttribute("user", sessionUser.getFullName());
         try {
-            List<Test> tests = testService.getAllTest();
+            List<Test> tests = testService.getAllTestForResult(page);
             model.addAttribute("tests", tests);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("page", testService.getAllTestPageNumberForResult());
         } catch (Exception ex) {
             model.addAttribute("error", "Ma'lumotlar topilmadi!");
             return "/error/error";
@@ -309,7 +330,9 @@ public class AdminController {
         authUserService.setAuthUserSelectedGroup(null);
         authUserService.setAuthUserViewedTestId(id);
         List<OverAllResult> allResult = testService.getOverAllResultByTestId(id);
+        Test test = testService.getTest(id);
         model.addAttribute("id", id);
+        model.addAttribute("test", test);
         model.addAttribute("groups", groupService.getAllGroupsByTest(id));
         model.addAttribute("user", sessionUser.getFullName());
         model.addAttribute("allResults", allResult);
@@ -338,6 +361,10 @@ public class AdminController {
 
     }
 
+    @GetMapping(value = "/profile")
+    public String getProfilePage(){
+        return "/admin/profile";
+    }
     @GetMapping(value = "/result/{testId}/{groupName}")
     public String getAllStudentsByGroup(Model model, @PathVariable String groupName, @PathVariable Long testId) {
         if(!authUserService.checkToRole(Role.ADMIN)){
@@ -345,8 +372,10 @@ public class AdminController {
         }
         authUserService.setAuthUserSelectedGroup(groupName);
         authUserService.setAuthUserViewedTestId(testId);
+        Test test = testService.getTest(testId);
         List<OverAllResult> allResult = testService.getOverAllResultByTestIdAndGroupName(testId, groupName);
         model.addAttribute("id", testId);
+        model.addAttribute("test", test);
         model.addAttribute("groups", groupService.getAllGroupsByTest(testId));
         model.addAttribute("user", sessionUser.getFullName());
         model.addAttribute("allResults", allResult);
@@ -359,10 +388,28 @@ public class AdminController {
         if(!authUserService.checkToRole(Role.ADMIN)){
             return "redirect:/home";
         }
-        Test testById = testService.getTest(id);
+        Test testById;
+        try{
+            testById = testService.getTest(id);
+        } catch(Exception ex){
+            model.addAttribute("error", ex.getMessage());
+            return "/error/error";
+        }
         model.addAttribute("test", testById);
         model.addAttribute("user", sessionUser.getFullName());
         return "/admin/editTest";
+    }
+
+    @GetMapping(value = "/archive/{id}")
+    public String archiveTest(@PathVariable Long id){
+        testService.archiveTest(id, true);
+       return "redirect:/admin/allTests";
+    }
+
+    @GetMapping(value = "/unArchive/{id}")
+    public String unArchiveTest(@PathVariable Long id){
+        testService.archiveTest(id, false);
+       return "redirect:/admin/allTests";
     }
 
     @PostMapping(value = "/editTest")
@@ -410,7 +457,7 @@ public class AdminController {
         } catch (Exception e){
             return "redirect:/admin/editStudent/" + user.getId();
         }
-        return "redirect:/home";
+        return "redirect:/admin/students";
     }
 
     @PostMapping(value = "/editTeacher")
@@ -423,6 +470,6 @@ public class AdminController {
         } catch (Exception e){
             return "redirect:/admin/editTeacher/" + user.getId();
         }
-        return "redirect:/home";
+        return "redirect:/admin/teacher";
     }
 }

@@ -7,8 +7,7 @@ import uz.master.demotest.entity.Groups;
 import uz.master.demotest.enums.Role;
 import uz.master.demotest.enums.TypeEducation;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +19,12 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthUser extends Auditable {
+public class AuthUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    protected Long id;
 
     @Column(unique = true, nullable = false)
     private String username;

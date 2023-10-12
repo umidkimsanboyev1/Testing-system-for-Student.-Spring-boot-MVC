@@ -1,213 +1,188 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="uz">
+
 <head>
-    <title>Barcha o'qituvchilar</title>
-    <link rel="stylesheet" href="/css/nicepage.css" media="screen">
-    <link rel="stylesheet" href="/css/students.css" media="screen">
-    <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
-    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css} "/>
-    <style>
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 40px;
-            height: 25px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        input:checked + .slider {
-            background-color: #2196F3;
-        }
-
-        input:focus + .slider {
-            box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked + .slider:before {
-            -webkit-transform: translateX(18px);
-            -ms-transform: translateX(18px);
-            transform: translateX(18px);
-        }
-
-        /* Rounded sliders */
-        .slider.round {
-            border-radius: 25px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Dashboard - Brand</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="/assets/css/Contact-Form-Clean.css">
+    <link rel="stylesheet" href="/assets/css/Dark-Mode-Switch.css">
+    <link rel="stylesheet" href="/assets/css/List-item.css">
+    <link rel="stylesheet" href="/assets/css/OnOff-Switch-with-Text.css">
+    <link rel="stylesheet" href="/assets/css/Toggle-Switch-1.css">
+    <link rel="stylesheet" href="/assets/css/Toggle-Switch.css">
 </head>
-<body class="u-body u-xl-mode" data-lang="ru">
-<header class="u-box-shadow u-clearfix u-header u-header" id="sec-2e51">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <a th:href="@{/home}" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
-            <img src="/images/1uzbgsbe.png" class="u-logo-image u-logo-image-1">
-        </a>
-        <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
-            <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
-                <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-                   href="#">
-                    <svg class="u-svg-link" viewBox="0 0 24 24">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
-                    </svg>
-                    <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px"
-                         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-                        <g>
-                            <rect y="1" width="16" height="2"></rect>
-                            <rect y="7" width="16" height="2"></rect>
-                            <rect y="13" width="16" height="2"></rect>
-                        </g>
-                    </svg>
-                </a>
-            </div>
-            <div class="u-custom-menu u-nav-container">
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/allTests}">Barcha
-                        testlar</a>
-                    </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link"
-                                              th:href="@{/admin/results}">Natijalar</a>
-                    </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/groups}">Guruhlar</a>
-                    </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
-                    </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
-                    </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
-                    </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logout}">Akkountdan
-                        chiqish</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="u-custom-menu u-nav-container-collapse">
-                <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-                    <div class="u-inner-container-layout u-sidenav-overflow">
-                        <div class="u-menu-close"></div>
-                        <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/allTests}">Barcha
-                                testlar</a>
-                            </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/results}">Natijalar</a>
-                            </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/teachers}">O'qituvchilar</a>
-                            </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/groups}">Guruhlar</a>
-                            </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/admin/students}">Tinglovchilar</a>
-                            </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
-                            </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/logout}">Akkountdan
-                                chiqish</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
-            </div>
-        </nav>
-        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-1">Biznes tadbirkorlik oliy maktabining
-            test tizimi </p>
-        <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
-    </div>
-</header>
-<section class="u-clearfix u-section-1" id="sec-e243">
-    <div class="u-clearfix u-sheet u-sheet-1">
-        <br>
-        <br>
-        <br>
-        <h5 class="u-text u-text-default u-text-1">O'qituvchilar</h5>
-        <br>
-        <a class="btn btn-outline-primary btn-sm" role="button" aria-disabled="true" th:href="@{/admin/addTeacher}" > + O'qituvchi qo`shish</a>
-        <div class="u-expanded-width u-table u-table-responsive u-table-1">
-            <table class="u-table-entity">
-                <colgroup>
-                    <col width="6.5%">
-                    <col width="37.1%">
-                    <col width="32.7%">
-                    <col width="11.5%">
-                    <col width="6.4%">
-                    <col width="5.7%">
-                </colgroup>
-                <tbody class="u-align-left u-custom-font u-font-ubuntu u-table-alt-palette-1-light-3 u-table-body u-table-valign-middle">
-                <tr style="height: 39px;">
-                    <td class="u-border-1 u-border-grey-30 u-table-cell">№</td>
-                    <td class="u-align-left u-border-1 u-border-grey-30 u-table-cell">F.I.O</td>
-                    <td class="u-border-1 u-border-grey-30 u-table-cell">Username</td>
-                    <td class="u-border-1 u-border-grey-30 u-table-cell">Boshqarish</td>
-                    <td class="u-border-1 u-border-grey-30 u-table-cell">O'chirish</td>
-                    <td class="u-border-1 u-border-grey-30 u-table-cell">Tahrirlash</td>
-                </tr>
-                <tr style="height: 41px;" th:each="teacher, iter : ${teachers}">
-                    <td class="u-border-1 u-border-grey-30 u-table-cell" th:text="${iter.count}"></td>
-                    <td class="u-align-left u-border-1 u-border-grey-30 u-table-cell"
-                        th:text="${teacher.getFullName()}">Description
-                    </td>
-                    <td class="u-border-1 u-border-grey-30 u-table-cell" th:text="${teacher.getUsername()}"></td>
-                    <td class="u-border-1 u-border-grey-30 u-table-cell u-align-center">
-                        <label class="switch"><a th:href="@{/admin/doActionTeacher/{id}(id=${teacher.getId()})}">
-                            <input type="checkbox" th:checked="${teacher.isActive()}">
-                            <span class="slider round"></span></a>
-                        </label>
-                    </td>
-                    <td class="u-border-1 u-border-grey-30 u-table-cell u-align-center">
-                        <a th:href="@{/admin/deleteTeacher/{id}(id=${teacher.getId()})}">
-                            <button type="button" class="btn btn-outline-info">
-                                <img src="/images/delete.png" class="rounded mx-auto d-block" alt="..." width="15px"
-                                     height="15px">
-                            </button>
-                        </a>
-                    </td>
-                    <td class="u-border-1 u-border-grey-30 u-table-cell u-align-center">
-                        <a th:href="@{/admin/editTeacher/{id}(id=${teacher.getId()})}">
-                            <button type="button" class="btn btn-outline-info">
-                                <img src="/images/edit.png" class="rounded mx-auto d-block" alt="..." width="15px"
-                                     height="15px">
-                            </button>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
 
+<body id="page-top">
+<div id="wrapper">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0"
+         style="color: rgb(133, 135, 150);background: #506ab5;width: 307px;text-align: center;">
+        <div class="container-fluid d-flex flex-column p-0">
+            <hr class="sidebar-divider my-0">
+            <a href="#"><img style="height: 87px;margin: 0 0 0 -2%;" src="/assets/img/Last%20UZ%20White.png"></a>
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <li class="nav-item"><a class="nav-link" th:href="@{/admin/allTests}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"
+                         fill="currentColor" class="bi bi-list-nested" style="margin: 0 8% 0 0;">
+                        <path fill-rule="evenodd"
+                              d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z"></path>
+                    </svg>
+                    <span>Barcha testlar</span></a></li>
+                <li class="nav-item"></li>
+                <li class="nav-item"><a class="nav-link " th:href="@{/admin/results}"><i
+                        class="fas fa-table"
+                        style="margin: 0 8% 0 0;"></i><span>Natijalar</span></a><a
+                        class="nav-link" th:href="@{/admin/groups}"><i class="fa fa-group"
+                                                                       style="margin: 0 8% 0 0;"></i><span>Guruhlar</span></a><a
+                        class="nav-link active" th:href="@{/admin/teachers}"><i class="fas fa-chalkboard-teacher"
+                                                                                style="margin: 0 8% 0 0;"></i><span>O'qituvchilar</span></a><a
+                        class="nav-link" th:href="@{/admin/students}"><i class="fas fa-user-graduate"
+                                                                         style="margin: 0 8% 0 0;"></i><span>Tinglovchilar</span></a><a
+                        class="nav-link" th:href="@{/admin/profile}"><i class="material-icons"
+                                                                        style="margin: 0 8% 0 0;">account_circle</i><span>Profile</span></a>
+                </li>
+                <li class="nav-item"></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/auth/logout}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
+                         style="margin: 0 8% 0 0;">
+                        <path d="M17 16L21 12M21 12L17 8M21 12L7 12M13 16V17C13 18.6569 11.6569 20 10 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H10C11.6569 4 13 5.34315 13 7V8"
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                    <span>Akkountdan chiqish</span></a></li>
+            </ul>
+            <div class="text-center d-none d-md-inline">
+                <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"
+                        style="background: rgb(156,192,248);color: rgb(0,0,0);"></button>
+            </div>
+        </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content"
+             style="background: #ffffff;padding: 0px;text-align: left;border-color: #eaf8ff;border-right-color: rgb(40,183,255);">
+            <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top"
+                 style="background: #506ab5;color: #971837;">
+                <div class="container-fluid">
+                    <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i
+                            class="fas fa-bars"></i></button>
+                    <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search" th:action="@{/search/admin/teachers/}" method="get">
+                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" name="text"
+                                                        placeholder="Qidirish">
+                            <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
+                    <ul class="navbar-nav flex-nowrap ms-auto">
+                        <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link"
+                                                                            aria-expanded="false"
+                                                                            data-bs-toggle="dropdown" href="#"><i
+                                class="fas fa-search"></i></a>
+                            <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in"
+                                 aria-labelledby="searchDropdown">
+                                <form class="me-auto navbar-search w-100" method="get" th:action="@{/search/admin/teachers/}">
+                                    <div class="input-group"><input name="text" class="bg-light form-control border-0 small"
+                                                                    type="text" placeholder="Search for ...">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary py-0" type="button"><i
+                                                    class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="row" style="width: 96%;margin-left: 2%;">
+                <div class="col" style="padding: 0;">
+                    <p style="text-align: left;margin: 0;">O`qituvchilar</p>
+                </div>
+                <div class="col" style="text-align: right;padding: 0;"><a class="border rounded"
+                                                                          th:href="@{/admin/addTeacher}"
+                                                                          style="margin-left: 2%;margin-bottom: 1%;text-decoration: none;background: #506ab5;padding: 4px;color: rgb(255,255,255);"><i
+                        class="fa fa-plus"></i>&nbsp;Qo`shish</a></div>
+            </div>
+            <div class="table-responsive" style="width: 96%;margin-top: 2%;text-align: left;margin-left: 2%;">
+                <div th:if="${error != null}">
+                    <h1 style="width: 96%;margin: auto;margin-left: 2%;font-size: 23px;" th:text="${error}" >Korporativ
+                        moliya va menejment</h1><br>
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th style="width: 5%;">#</th>
+                        <th style="width: 36%;">F.I.O.</th>
+                        <th style="width: 27%;">Username</th>
+                        <th style="width: 10%;text-align: center;">Status</th>
+                        <th style="width: 10%;text-align: center;">O'chirish</th>
+                        <th style="width: 10%;text-align: center;">Tahrirlash</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="teacher, iter : ${teachers}">
+                        <td th:text="${iter.count}">1</td>
+                        <td th:text="${teacher.getFullName()}">Alimov Baxodir</td>
+                        <td th:text="${teacher.getUsername()}">t.alimov</td>
+                        <td style="text-align: center;"><label class="switch">
+                            <input th:id="'checkbox' + ${iter.current}"
+                                   th:name="${teacher.getId()}" th:checked="${teacher.isActive()}" type="checkbox">
+                            <span class="slider round"></span>
+                        </label></td>
+                        <td style="text-align: center;"><a th:href="@{/admin/deleteTeacher/{id}(id=${teacher.getId()})}"><i class="fa fa-trash-o"></i></a></td>
+                        <td style="text-align: center;"><a th:href="@{/admin/editTeacher/{id}(id=${teacher.getId()})}"><i class="fa fa-edit"></i></a></td>
+                    </tr>
+                    <tr></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>SU Testing System © 2023</span></div>
+            </div>
+        </footer>
+    </div>
+    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/js/theme.js"></script>
+<script>
+    // Checkboxlarni tanlash
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    // Har bir checkbox uchun hodisani eslash
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            doAction(this.name);
+        });
+    });
+
+    // doAction() funksiyasi
+    function doAction(name) {
+        var xhr = new XMLHttpRequest();
+        var url = '/admin/doActionTeacher/' + name;
+
+        xhr.open('GET', url, true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = xhr.responseText;
+                console.log(response);
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Checkbox o'zgarishlarini qabul qilish
+    function handleCheckboxChange(checkbox) {
+        doAction(checkbox.name);
+    }
+</script>
 </body>
+
 </html>

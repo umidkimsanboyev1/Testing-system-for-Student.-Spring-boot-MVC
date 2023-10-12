@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Excel file ni yuklash</title>
+    <title>Test yuzasidan umumiy natijalar</title>
     <link rel="stylesheet" href="/css/nicepage.css" media="screen">
-    <link rel="stylesheet" href="/css/SU-test-tizimi.css" media="screen">
+    <link rel="stylesheet" href="/css/results.css" media="screen">
     <script class="u-script" type="text/javascript" src="/js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="/js/nicepage.js" defer=""></script>
     <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css} "/>
-
 </head>
-<body data-home-page="SU-test-tizimi.html" data-home-page-title="SU test tizimi" class="u-body u-xl-mode"
-      data-lang="ru">
+<body class="u-body u-xl-mode" data-lang="ru">
 <header class="u-box-shadow u-clearfix u-header u-header" id="sec-2e51">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <a th:href="@{/home}" class="u-image u-logo u-image-1" data-image-width="621" data-image-height="621">
@@ -37,13 +35,17 @@
             </div>
             <div class="u-custom-menu u-nav-container">
                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
-                        testlarim</a>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/admin0/allTests}">Barcha
+                        testlar</a>
                     </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/createTest}">Test
-                        yaratish</a>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link"
+                                              th:href="@{/templates/admin0/results}">Natijalar</a>
                     </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/results}">Natijalar</a>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/admin0/groups}">Guruhlar</a>
+                    </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/admin0/teachers}">O'qituvchilar</a>
+                    </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/admin0/students}">Tinglovchilar</a>
                     </li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
                     </li>
@@ -57,13 +59,16 @@
                     <div class="u-inner-container-layout u-sidenav-overflow">
                         <div class="u-menu-close"></div>
                         <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/myTests}">Mening
-                                testlarim</a>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/admin0/allTests}">Barcha
+                                testlar</a>
                             </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/createTest}">Test
-                                yaratish</a>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/admin0/results}">Natijalar</a>
                             </li>
-                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/teacher/results}">Natijalar</a>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/admin0/groups}">Guruhlar</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/admin0/teachers}">O'qituvchilar</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/templates/admin0/students}">Tinglovchilar</a>
                             </li>
                             <li class="u-nav-item"><a class="u-button-style u-nav-link" th:href="@{/auth/resetPassword}">Parolni o'zgartirish</a>
                             </li>
@@ -81,25 +86,43 @@
         <p class="u-custom-font u-font-ubuntu u-text u-text-default u-text-2" th:text="${user}">Anvarov Anvar</p>
     </div>
 </header>
-<br>
-<br>
-<section class="u-align-center u-clearfix u-section-1" id="sec-8981">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <div class="u-container-style u-group u-group-1">
-            <div class="u-container-layout u-container-layout-1">
-                <div class="shadow p-3 mb-5 bg-body-tertiary rounde">
-                    <p>ESLATMA! <br>
-                    Yuklayotgan faylingiz excel fayl bo'lishi hamda shablonga mos bo'lishi zarur. Aks holda, test yuklanmaydi. Shablon faylini <a href="#">Ushbu</a> joydan yuklab oling! </p>
-                    <p>Yuklangan fayl 5 minut ichida ko'rinadi! </p>
-                </div>
-                <form th:action="@{/teacher/uploadExcelFile/{id}(id=${id})}" method="POST" enctype="multipart/form-data">
-                    <div class="input-group shadow p-3 mb-5 bg-body-tertiary rounde">
-                        <input type="file" name="file" class="form-control" id="inputGroupFile04"
-                               aria-describedby="inputGroupFileAddon04" aria-label="Upload" value="Fayli tanlang" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                        <button type="submit" class="btn btn-outline-secondary"  id="inputGroupFileAddon04">Yuklash</button>
-                    </div>
-                </form>
-            </div>
+<section class="u-align-center u-clearfix u-section-1" id="sec-7ac4">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-table u-table-responsive u-table-1" style="width: 96% !important; margin: auto !important;margin-top: 2% !important;">
+        <br>
+        <br>
+            <table  class="u-table-entity">
+                <colgroup>
+                    <col width="5%">
+                    <col width="35%">
+                    <col width="23%">
+                    <col width="23%">
+                    <col width="14%">
+                </colgroup>
+                <tbody class="u-align-center u-custom-font u-font-ubuntu u-table-alt-palette-1-light-3 u-table-body u-table-valign-middle">
+                <tr style="height: 95px;">
+                    <td class="u-border-1 u-table-cell">№</td>
+                    <td class="u-border-1 u-table-cell">Test nomi</td>
+                    <td class="u-border-1 u-table-cell">Tuzuvchi</td>
+                    <td class="u-border-1 u-table-cell" style="text-align: center">Yaratilgan vaqt</td>
+                    <td class="u-border-1 u-table-cell" style="text-align: center">Ko'rish</td>
+                </tr>
+                <tr style="height: 52px;" th:each="test, iter :${tests}">
+                    <td class="u-border-1 u-table-cell" th:text="${iter.count}"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${test.getName()}"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${test.getOwnerName()}"></td>
+                    <td class="u-border-1 u-table-cell"
+                        th:text="${test.getCreatedTime()}" style="text-align: center"></td>
+                    <td class="u-border-1 u-table-cell" style="text-align: center">
+                        <a th:href="@{/templates/admin0/result/{id}(id = ${test.getId()})}" style="text-decoration: none; color: #000">
+                       Natijalar
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

@@ -42,7 +42,7 @@ public class SpringConfigs extends WebSecurityConfigurerAdapter {
              "/auth/login","/auth/forgot","/auth/reset/**", "/index/index"
     };
     public static final String[] WHITE_LIST_RESOURCES = {
-            "/css/**", "/webjars/**", "/js/**","/error", "/images/**"
+            "/css/**", "/webjars/**", "/js/**","/error", "/images/**", "/assets/**"
     };
 
     @Override

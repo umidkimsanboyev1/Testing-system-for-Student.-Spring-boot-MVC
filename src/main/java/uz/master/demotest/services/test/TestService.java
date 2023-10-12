@@ -17,7 +17,9 @@ import uz.master.demotest.utils.SessionUser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TestService {
@@ -45,16 +47,9 @@ public class TestService {
         this.sessionUser = sessionUser;
     }
 
-    public List<TestDto> getAllTests() {
-        List<Test> allTests = testRepository.findAllByDeletedFalseOrderByIdDesc();
-        List<TestDto> testDtos = new ArrayList<>();
-        for (Test test : allTests) {
-            TestDto testDto = testMapper.toDto(test);
-            testDto.setAllQuestion(test.getAllQuestion());
-            testDto.setOwner(userRepository.findById(test.getOwnerId()).get().getFullName());
-            testDtos.add(testDto);
-        }
-        return testDtos;
+    public List<Test> getAllTests(int page, boolean archived, boolean allOrSession) {
+        List<Test> allTest = getAllTest(page, archived, allOrSession);
+        return allTest;
     }
 
     public void doAction(Long id) {
@@ -76,18 +71,20 @@ public class TestService {
 
     public Long createTest(TestCreateDto dto) {
         AuthUser authUser = userRepository.findById(sessionUser.getId()).get();
-        if(testRepository.existsTestByNameAndDeletedFalse(dto.getName())){
+        if (testRepository.existsTestByNameAndDeletedFalse(dto.getName())) {
             throw new RuntimeException();
         }
         String patternForDateTime = "dd.MM.yyyy HH:mm:ss";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(patternForDateTime);
         Test test = testMapper.toEntity(dto);
         test.setTimeForAllQues(dto.getTimeForOneQues());
+        test.setTimeForOneQues(dto.getTimeForOneQues());
         test.setOwnerId(sessionUser.getId());
         test.setCreatedTime(LocalDateTime.now().format(formatter));
         test.setActive(false);
         test.setArchived(false);
         test.setOwnerName(authUser.getFullName());
+        test.setSubjectId(1L);
         Test save = testRepository.save(test);
         System.out.println(save.getId());
         return save.getId();
@@ -193,7 +190,7 @@ public class TestService {
             dto.setTest(test);
             List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdOrderByTakerUser(id);
             for (OverAllResult overAllResult : overAllResultsByTestId) {
-                overAllResult.setEfficiency( Math.ceil(overAllResult.getEfficiency()));
+                overAllResult.setEfficiency(Math.ceil(overAllResult.getEfficiency()));
             }
             dto.setResults(overAllResultsByTestId);
             results.add(dto);
@@ -208,7 +205,7 @@ public class TestService {
             Long id = test.getId();
             OverAllResultDTO dto = new OverAllResultDTO();
             AuthUser authUser = userRepository.findById(sessionUser.getId()).get();
-            if(overAllResultRepository.existsByTakerUserAndTestId(authUser.getFullName(), id)){
+            if (overAllResultRepository.existsByTakerUserAndTestId(authUser.getFullName(), id)) {
                 dto.setTest(test);
                 List<OverAllResult> overAllResultsByTestId = overAllResultRepository.findOverAllResultsByTestIdAndTakerUserIdOrderByPassedTime(id, takerId);
                 dto.setResults(overAllResultsByTestId);
@@ -230,10 +227,10 @@ public class TestService {
     public List<OverAllResultDTO> getAllResultsByGroup(Long id, String groupName) {
         AuthUser authUser = userRepository.findById(id).get();
         List<Test> testByOwner;
-        if(Role.TEACHER.equals(authUser.getRole())){
+        if (Role.TEACHER.equals(authUser.getRole())) {
             testByOwner = testRepository.findTestsByDeletedFalseAndOwnerId(id);
         } else {
-            testByOwner = testRepository.findTestsByDeletedFalse();
+            testByOwner = testRepository.findTestsByDeletedFalseOrderByIdDesc();
         }
         List<OverAllResultDTO> results = new ArrayList<>();
         for (Test test : testByOwner) {
@@ -258,7 +255,7 @@ public class TestService {
         if (byName.isPresent() && !byName.get().getId().equals(test.getId())) {
             throw new RuntimeException();
         }
-        if(test.getAllQuestion() != null && test.getAllQuestion() < test.getNumberOfQuestion()){
+        if (test.getAllQuestion() != null && test.getAllQuestion() < test.getNumberOfQuestion()) {
             throw new RuntimeException();
         }
         test.setName(dto.getName());
@@ -270,7 +267,7 @@ public class TestService {
     public List<OverAllResult> getOverAllResultByTestId(Long testId) {
         List<OverAllResult> overAllResultsByTestIdOrderByTakerUser = overAllResultRepository.findOverAllResultsByTestIdOrderByTakerUser(testId);
         for (OverAllResult overAllResult : overAllResultsByTestIdOrderByTakerUser) {
-            overAllResult.setEfficiency( Math.ceil(overAllResult.getEfficiency()));
+            overAllResult.setEfficiency(Math.ceil(overAllResult.getEfficiency()));
         }
         return overAllResultsByTestIdOrderByTakerUser;
     }
@@ -280,12 +277,59 @@ public class TestService {
         return results;
     }
 
-    public List<Test> getAllTest() {
-        return testRepository.findAllByDeletedFalse();
+    public List<Test> getAllTest(int page, boolean archived, boolean allOrSession) {
+        List<Test> testsByDeletedFalse = new ArrayList<>();
+        if(allOrSession){
+            testsByDeletedFalse = testRepository.findTestsByDeletedFalseAndArchivedOrderByIdDesc(archived);
+        } else {
+            testsByDeletedFalse = testRepository.findTestsByDeletedFalseAndArchivedAndOwnerIdOrderByIdDesc(archived, sessionUser.getId());
+        }
+        int i = testsByDeletedFalse.size() - (page - 1) * 10;
+        int min = Math.min(10, i);
+        List<Test> tests;
+        try {
+            tests = testsByDeletedFalse.subList((page - 1) * 10, (page - 1) * 10 + min);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+        return tests;
+    }
+
+    public List<Test> getAllTestForResult(int page) {
+        List<Test> testsByDeletedFalse = testRepository.findTestsByDeletedFalseOrderByIdDesc();
+        int i = testsByDeletedFalse.size() - (page - 1) * 10;
+        int min = Math.min(10, i);
+        List<Test> tests = testsByDeletedFalse.subList((page - 1) * 10, (page - 1) * 10 + min);
+        return tests;
+    }
+
+    public List<Integer> getAllTestPageNumber(boolean archived, boolean allOrSession) {
+        int count = 0;
+        if(allOrSession){
+            count = testRepository.countAllByDeletedFalseAndArchivedOrderById(archived);
+        } else{
+            count = testRepository.countAllByDeletedFalseAndArchivedAndOwnerIdOrderById(archived, sessionUser.getId());
+        }
+        return getIntegers(count);
+    }
+
+    public List<Integer> getAllTestPageNumberForResult() {
+        int count = testRepository.countAllByDeletedFalseOrderById();
+        return getIntegers(count);
+    }
+
+    @NotNull
+    private List<Integer> getIntegers(double count) {
+        int result = (int) Math.ceil(count / 10);
+        List<Integer> list = new ArrayList<>(result);
+        for (int i = 0; i < result; i++) {
+            list.add(i + 1);
+        }
+        return list;
     }
 
     public List<OverAllResult> getOverAllResultByTestIdAndGroupNameForTeacher(Long testId, String groupName) {
-        if(!testRepository.findById(testId).get().getOwnerId().equals(sessionUser.getId())){
+        if (!testRepository.findById(testId).get().getOwnerId().equals(sessionUser.getId())) {
             throw new RuntimeException("Test egasi bo'lmagan odamdan murojaat");
         }
         List<OverAllResult> results = overAllResultRepository.findOverAllResultsByTestIdAndGroupNameOrderByTakerUser(testId, groupName);
@@ -293,11 +337,36 @@ public class TestService {
     }
 
     public boolean haveTestForStudent(AuthUser authUser) {
-        if(authUser.getTestId() != null && authUser.getTime().isBefore(LocalDateTime.now())){
-            if(overAllResultRepository.existsByTakerUserAndTestId(authUser.getFullName(), authUser.getTestId())){
+        if (authUser.getTestId() != null && authUser.getTime().isBefore(LocalDateTime.now())) {
+            if (overAllResultRepository.existsByTakerUserAndTestId(authUser.getFullName(), authUser.getTestId())) {
                 return true;
             }
         }
         return false;
+    }
+
+    public void doAction(TestActionDTO dto) {
+
+    }
+
+    public void archiveTest(Long id, boolean action) {
+        Test test = testRepository.findById(id).get();
+        test.setArchived(action);
+        testRepository.save(test);
+    }
+
+    public List<Test> getTestBySearch(String text) {
+        text = text.toLowerCase();
+        List<Test> tests = testRepository.findTestsByDeletedFalseAndArchivedOrderByIdDesc(false);
+        List<Test> results = new ArrayList<>();
+        for (Test test : tests) {
+            String ownerName = test.getOwnerName().toLowerCase();
+            String name = test.getName().toLowerCase();
+            Integer numberOfQuestion = test.getNumberOfQuestion();
+            if (ownerName.contains(text) || name.contains(text) || String.valueOf(numberOfQuestion).contains(text)) {
+                results.add(test);
+            }
+        }
+        return results;
     }
 }

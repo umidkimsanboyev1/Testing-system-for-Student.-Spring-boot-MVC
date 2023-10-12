@@ -110,11 +110,11 @@
                                 Guruh
                             </button>
                             <ul class="dropdown-menu">
-                                <li class="fs-6"><a class="dropdown-item" th:href="@{/teacher/results/}">Barchasi</a>
+                                <li class="fs-6"><a class="dropdown-item" th:href="@{/templates/teacher0/results/}">Barchasi</a>
                                 </li>
                                 <span th:each="group : ${groups}">
                                     <li class="fs-6"><a th:text="${group.getName()}" class="dropdown-item"
-                                                        th:href="@{/teacher/results/{groupName}(groupName=${group.getName()})}">Action</a></li>
+                                                        th:href="@{/templates/teacher0/results/{groupName}(groupName=${group.getName()})}">Action</a></li>
                                 </span>
                             </ul>
                         </div>

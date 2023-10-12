@@ -36,14 +36,27 @@ public class TeacherController {
         this.groupService = groupService;
     }
 
-    @GetMapping(value = "myTests")
-    public String myTests(Model model) {
+    @GetMapping(value = "/myTests")
+    public String getFirstPage(){
+        return "redirect:/teacher/myTests/1";
+    }
+
+    @GetMapping(value = "myTests/{currentPage}")
+    public String myTests(Model model, @PathVariable int currentPage) {
         if(!authUserService.checkToRole(Role.TEACHER)){
             return "redirect:/home";
         }
-        model.addAttribute("user", sessionUser.getFullName());
-        model.addAttribute("tests", testService.getMyOwnerTests());
+        model.addAttribute("tests", testService.getAllTests(currentPage, false, false));
+        model.addAttribute("archivedTests", testService.getAllTests(currentPage, true, false));
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("page", testService.getAllTestPageNumber(false, false));
+        model.addAttribute("archivedPage", testService.getAllTestPageNumber(true, false));
         return "teacher/myTests";
+    }
+
+    @GetMapping(value = "/profile")
+    public String getProfilePage(){
+        return "/teacher/profile";
     }
 
     @GetMapping(value = "/createTest")
@@ -70,10 +83,14 @@ public class TeacherController {
         if(!authUserService.checkToRole(Role.TEACHER)){
             return "redirect:/home";
         }
-        Test testById = testService.getTest(id);
+        Test testById;
+        try{
+            testById = testService.getTest(id);
+        } catch(Exception ex){
+            model.addAttribute("error", ex.getMessage());
+            return "/error/error";
+        }
         model.addAttribute("test", testById);
-        List<Subject> subjects = subjectService.getAllSubjects();
-        model.addAttribute("subjects", subjects);
         model.addAttribute("user", sessionUser.getFullName());
         return "/teacher/editTest";
     }
@@ -149,6 +166,9 @@ public class TeacherController {
         try {
             List<Test> tests = testService.getAllResultsForTeacher();
             model.addAttribute("tests", tests);
+            model.addAttribute("currentPage", 1);
+            model.addAttribute("page", testService.getAllTestPageNumber(false, true));
+            model.addAttribute("archivedPage", testService.getAllTestPageNumber(true, true));
         } catch (Exception ex) {
             model.addAttribute("error", "Ma'lumotlar topilmadi!");
             return "/error/error";
@@ -162,6 +182,8 @@ public class TeacherController {
             return "redirect:/home";
         }
         Long userId = authUserService.setAuthUserSelectedGroup(null);
+        Test test = testService.getTest(id);
+        model.addAttribute("test", test);
         List<OverAllResult> allResult = testService.getOverAllResultByTestId(id);
         model.addAttribute("id", id);
         model.addAttribute("groups", groupService.getAllGroupsByTest(id));
@@ -169,25 +191,24 @@ public class TeacherController {
         model.addAttribute("allResults", allResult);
         return "/teacher/result";
     }
-
     @GetMapping(value = "/result/{testId}/{groupName}")
-    public String getAllStudentsByGroup(Model model, @PathVariable String groupName, @PathVariable Long testId) {
+    public String getResultByTestIdAndGroupName(Model model, @PathVariable String groupName, @PathVariable Long testId) {
         if(!authUserService.checkToRole(Role.TEACHER)){
             return "redirect:/home";
         }
-        try{
-            Long userId = authUserService.setAuthUserSelectedGroup(groupName);
-            List<OverAllResult> allResult = testService.getOverAllResultByTestIdAndGroupNameForTeacher(testId, groupName);
-            model.addAttribute("id", testId);
-            model.addAttribute("groups", groupService.getAllGroupsByTest(testId));
-            model.addAttribute("user", sessionUser.getFullName());
-            model.addAttribute("allResults", allResult);
-        } catch(Exception e){
-            model.addAttribute("error", "Bu sizning testingiz emas yoki bunday testmavjud emas!!!");
-            return "/error/error";
-        }
+        authUserService.setAuthUserSelectedGroup(groupName);
+        authUserService.setAuthUserViewedTestId(testId);
+        Test test = testService.getTest(testId);
+        List<OverAllResult> allResult = testService.getOverAllResultByTestIdAndGroupName(testId, groupName);
+        model.addAttribute("id", testId);
+        model.addAttribute("test", test);
+        model.addAttribute("groups", groupService.getAllGroupsByTest(testId));
+        model.addAttribute("user", sessionUser.getFullName());
+        model.addAttribute("allResults", allResult);
         return "/teacher/result";
     }
+
+
 
 
     @GetMapping(value = "/checkDeleteTest/{id}")

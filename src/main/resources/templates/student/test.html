@@ -195,7 +195,13 @@
 </section>
 
 <script>
-
+    function functionPost() {
+        var ajax = new XMLHttpRequest();
+        var data = document.getElementById("dataform");
+        var formdata = new FormData(data);
+        ajax.open("POST", "/student/question/", true);
+        ajax.send(formdata);
+    }
 </script>
 </body>
 </html>
